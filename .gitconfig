@@ -1,3 +1,4 @@
 [user]
 	email = wony9324@naver.com
-	name = wony
+	name = younwony
+	autocrlf = true
