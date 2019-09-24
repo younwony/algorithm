@@ -1,14 +1,28 @@
+/**
+ * @작성자 wony
+ * @작성일 2019. 9. 24.
+ * @사용처
+ * TODO
+ */
 package Java;
 
 import java.util.Scanner;
 
-public class Main {
+/**
+ * @작성자 wony
+ * @작성일 2019. 9. 24.
+ * @사용처
+ * TODO
+ */
+public class a1004 {
 
 	/**
-	 * @사용처 제출용 Class
-	 * @Todo
+	 * @작성자 wony
+	 * @작성일 2019. 9. 24.
+	 * @사용처 원 내부에 속해있는지 확인
+	 * @Todo 1. 두원내에 같은점이 있는경우를 생각못함.
 	 * @param args
-	 * TODO 1. 두원내에 같은점이 있는경우를 생각못함.
+	 * TODO
 	 */
 	static int startX = 0;
 	static int startY = 0;
@@ -47,22 +61,21 @@ public class Main {
 			passCount = 0;
 		}
 		
-		
 		for(int i =0; i < testCaseCount; i++){
 			System.out.println(answer[i]);
 		}
 	}
 	
 	public static boolean circlePassCheck(int x, int y, int r){
-		
 		//1
-		if((Math.pow(startX-x,2) + Math.pow(startY, 2)) <= Math.pow(r, 2) && (Math.pow(stopX-x,2) + Math.pow(stopY, 2)) <= Math.pow(r, 2))
+		if((Math.pow(startX-x,2) + Math.pow(startY, 2)) < Math.pow(r, 2) && (Math.pow(stopX-x,2) + Math.pow(stopY, 2)) < Math.pow(r, 2))
 			return false;
-		if((Math.pow(startX-x,2) + Math.pow(startY, 2)) <= Math.pow(r, 2)) 
+		if((Math.pow(startX-x,2) + Math.pow(startY, 2)) < Math.pow(r, 2)) 
 			return true;
-		if((Math.pow(stopX-x,2) + Math.pow(stopY, 2)) <= Math.pow(r, 2)) 
+		if((Math.pow(stopX-x,2) + Math.pow(stopY, 2)) < Math.pow(r, 2)) 
 			return true;
 		
 		return false;
 	}
+
 }
