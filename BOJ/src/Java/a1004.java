@@ -20,7 +20,8 @@ public class a1004 {
 	 * @작성자 wony
 	 * @작성일 2019. 9. 24.
 	 * @사용처 원 내부에 속해있는지 확인
-	 * @Todo 1. 두원내에 같은점이 있는경우를 생각못함.
+	 * @Todo 1. 두원내에 같은점이 있는경우를 생각못함. 
+	 * 2. Math.pow(StartY - y,2)를 해야하는데 Math.pow(StartY,2)로 작성하여 계산실수가 남. 
 	 * @param args
 	 * TODO
 	 */
@@ -68,13 +69,12 @@ public class a1004 {
 	
 	public static boolean circlePassCheck(int x, int y, int r){
 		//1
-		if((Math.pow(startX-x,2) + Math.pow(startY, 2)) < Math.pow(r, 2) && (Math.pow(stopX-x,2) + Math.pow(stopY, 2)) < Math.pow(r, 2))
+		if((Math.pow(startX-x,2) + Math.pow(startY-y, 2)) < Math.pow(r, 2) && (Math.pow(stopX-x,2) + Math.pow(stopY-y, 2)) < Math.pow(r, 2))
 			return false;
-		if((Math.pow(startX-x,2) + Math.pow(startY, 2)) < Math.pow(r, 2)) 
+		else if((Math.pow(startX-x,2) + Math.pow(startY-y, 2)) < Math.pow(r, 2)) 
 			return true;
-		if((Math.pow(stopX-x,2) + Math.pow(stopY, 2)) < Math.pow(r, 2)) 
+		else if((Math.pow(stopX-x,2) + Math.pow(stopY-y, 2)) < Math.pow(r, 2)) 
 			return true;
-		
 		return false;
 	}
 
