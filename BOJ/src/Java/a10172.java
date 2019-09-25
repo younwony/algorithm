@@ -1,11 +1,23 @@
+/**
+ * @작성자 wony
+ * @작성일 2019. 9. 25.
+ * @사용처
+ * TODO
+ */
 package Java;
 
-import java.util.Scanner;
-
-public class Main {
+/**
+ * @작성자 wony
+ * @작성일 2019. 9. 25.
+ * @사용처
+ * TODO
+ */
+public class a10172 {
 
 	/**
-	 * @사용처 제출용 Class
+	 * @작성자 wony
+	 * @작성일 2019. 9. 25.
+	 * @사용처
 	 * @Todo
 	 * @param args
 	 * TODO
@@ -18,4 +30,5 @@ public class Main {
 		System.out.println("|\"^\"`    |");
 		System.out.println("||_/=\\\\__|");
 	}
+
 }
