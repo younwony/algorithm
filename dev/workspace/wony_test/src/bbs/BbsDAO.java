@@ -20,8 +20,6 @@ public class BbsDAO {
 			
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
-			
-			
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -82,7 +80,7 @@ public class BbsDAO {
 	}
 	
 	public ArrayList<Bbs> getList(int pageNumber){
-		String SQL = "SELECT * FROM BBS WHERE BBSID < ? AND bbsAvliable = 1 ORDER BY BBSID DESC LIMIT 10";
+		String SQL = "SELECT * FROM BBS WHERE BBSID < ? AND bbsAvaliable = 1 ORDER BY BBSID DESC LIMIT 10";
 		ArrayList<Bbs> list = new ArrayList<Bbs>();
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
@@ -95,7 +93,7 @@ public class BbsDAO {
 				bbs.setUserID(rs.getString(3));
 				bbs.setBbsDate(rs.getString(4));
 				bbs.setBbsContent(rs.getString(5));
-				bbs.setBbsAvliable(rs.getInt(6));
+				bbs.setBbsAvaliable(rs.getInt(6));
 				list.add(bbs);
 			}
 		} catch (Exception e) {
@@ -107,7 +105,7 @@ public class BbsDAO {
 	}
 	
 	public boolean nextPage(int pageNumber) {
-		String SQL = "SELECT * FROM BBS WHERE BBSID < ? AND bbsAvliable = 1";
+		String SQL = "SELECT * FROM BBS WHERE BBSID < ? AND bbsAvaliable = 1";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, getNext() - (pageNumber - 1) * 10);
@@ -136,7 +134,7 @@ public class BbsDAO {
 				bbs.setUserID(rs.getString(3));
 				bbs.setBbsDate(rs.getString(4));
 				bbs.setBbsContent(rs.getString(5));
-				bbs.setBbsAvliable(rs.getInt(6));
+				bbs.setBbsAvaliable(rs.getInt(6));
 				
 				return bbs;
 			}
@@ -146,5 +144,37 @@ public class BbsDAO {
 		}
 		
 		return null; //DB 오류
+	}
+	
+	public int update(int bbsID, String bbsTitle, String bbsContent) {
+		String SQL = "UPDATE BBS SET bbsTitle = ?, bbsContent = ? WHERE bbsID = ?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, bbsTitle);
+			pstmt.setString(2, bbsContent);
+			pstmt.setInt(3, bbsID);
+			
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		return -1; //DB 오류
+	}
+	
+	public int delete(int bbsID) {
+		String SQL = "UPDATE BBS SET bbsAvaliable = 0 WHERE bbsID = ?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, bbsID);
+			
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		return -1; //DB 오류
 	}
 }

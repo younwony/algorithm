@@ -424,3 +424,56 @@ Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.e
 
 !ENTRY org.eclipse.jdt.debug 2 0 2019-09-15 19:13:28.465
 !MESSAGE Unable to find location of java.lang.Thread.setName() in debuggee JVM, for type java.lang.Thread
+!SESSION 2019-09-22 20:54:04.190 -----------------------------------------------
+eclipse.buildId=4.11.0.I20190307-0500
+java.version=1.8.0_201
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=ko_KR
+Framework arguments:  -product org.eclipse.epp.package.jee.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.jee.product
+
+!ENTRY org.eclipse.egit.core 1 0 2019-09-22 20:56:50.746
+!MESSAGE Using Apache MINA sshd as ssh client.
+
+!ENTRY org.eclipse.jface.text 2 0 2019-09-22 20:57:07.145
+!MESSAGE Duplicate template id: 'org.eclipse.wst.xslt.templates.xpath.boolean'
+
+!ENTRY org.eclipse.jdt.debug 2 0 2019-09-22 20:58:27.408
+!MESSAGE Unable to find location of java.lang.Thread.setName() in debuggee JVM, for type java.lang.Thread
+
+!ENTRY org.eclipse.jface.text 2 0 2019-09-22 21:01:24.870
+!MESSAGE Duplicate template id: 'org.eclipse.wst.xslt.templates.xpath.boolean'
+
+!ENTRY org.eclipse.jface.text 2 0 2019-09-22 21:04:30.093
+!MESSAGE Duplicate template id: 'org.eclipse.wst.xslt.templates.xpath.boolean'
+
+!ENTRY org.eclipse.jface.text 2 0 2019-09-22 21:04:30.120
+!MESSAGE Duplicate template id: 'org.eclipse.wst.xslt.templates.xpath.boolean'
+
+!ENTRY org.eclipse.jface.text 2 0 2019-09-22 21:48:01.194
+!MESSAGE Duplicate template id: 'org.eclipse.wst.xslt.templates.xpath.boolean'
+
+!ENTRY org.eclipse.jdt.debug 2 0 2019-09-22 21:49:26.828
+!MESSAGE Unable to find location of java.lang.Thread.setName() in debuggee JVM, for type java.lang.Thread
+
+!ENTRY org.eclipse.jdt.debug 2 0 2019-09-22 21:51:41.695
+!MESSAGE Unable to find location of java.lang.Thread.setName() in debuggee JVM, for type java.lang.Thread
+
+!ENTRY org.eclipse.jdt.debug 2 0 2019-09-22 21:52:13.586
+!MESSAGE Unable to find location of java.lang.Thread.setName() in debuggee JVM, for type java.lang.Thread
+
+!ENTRY org.eclipse.jdt.debug 2 0 2019-09-22 21:55:15.272
+!MESSAGE Unable to find location of java.lang.Thread.setName() in debuggee JVM, for type java.lang.Thread
+!SESSION 2019-09-28 14:31:23.087 -----------------------------------------------
+eclipse.buildId=4.11.0.I20190307-0500
+java.version=1.8.0_201
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=ko_KR
+Framework arguments:  -product org.eclipse.epp.package.jee.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.jee.product
+
+!ENTRY org.eclipse.egit.core 1 0 2019-09-28 14:35:01.573
+!MESSAGE Using Apache MINA sshd as ssh client.
+
+!ENTRY org.eclipse.jface.text 2 0 2019-09-28 14:35:18.689
+!MESSAGE Duplicate template id: 'org.eclipse.wst.xslt.templates.xpath.boolean'
