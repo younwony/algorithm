@@ -12,10 +12,18 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		System.out.println("|\\_/|");
-		System.out.println("|q p|   /}");
-		System.out.println("( 0 )\"\"\"\\");
-		System.out.println("|\"^\"`    |");
-		System.out.println("||_/=\\\\__|");
+		Scanner scanner = new Scanner(System.in);
+		
+		int a,b = 0;
+		a = scanner.nextInt();
+		b = scanner.nextInt();
+		
+		String[] c = String.valueOf(b).split(""); 
+		
+		for(int i = c.length-1; i >= 0; i--) {
+			System.out.println(a*Integer.parseInt(c[i]));
+		}
+		
+		System.out.println(a*b);
 	}
 }

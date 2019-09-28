@@ -1,7 +1,7 @@
 /**
- * @작성자 wony
- * @작성일 2019. 9. 18.
- * @사용처
+ * @�옉�꽦�옄 wony
+ * @�옉�꽦�씪 2019. 9. 18.
+ * @�궗�슜泥�
  * TODO
  */
 package Java;
@@ -9,17 +9,17 @@ package Java;
 import java.util.Scanner;
 
 /**
- * @작성자 wony
- * @작성일 2019. 9. 18.
- * @사용처
+ * @�옉�꽦�옄 wony
+ * @�옉�꽦�씪 2019. 9. 18.
+ * @�궗�슜泥�
  * TODO
  */
 public class a1000 {
 
 	/**
-	 * @작성자 wony
-	 * @작성일 2019. 9. 18.
-	 * @사용처 입력 a,b 출력  a+b
+	 * @�옉�꽦�옄 wony
+	 * @�옉�꽦�씪 2019. 9. 18.
+	 * @�궗�슜泥� �엯�젰 a,b 異쒕젰  a+b
 	 * @Todo
 	 * @param args
 	 * TODO
@@ -29,7 +29,7 @@ public class a1000 {
 		
 		int a,b = 0;
 		
-		Scanner scanner = new Scanner(System.in); //문자 입력을 인자로 Scanner 생성한다
+		Scanner scanner = new Scanner(System.in); //臾몄옄 �엯�젰�쓣 �씤�옄濡� Scanner �깮�꽦�븳�떎
 		
 		a = scanner.nextInt();
 		
