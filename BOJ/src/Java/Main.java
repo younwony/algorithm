@@ -1,6 +1,11 @@
 package Java;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main {
 
@@ -11,26 +16,21 @@ public class Main {
 	 * TODO
 	 */
 	public static void main(String[] args) {
+		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
 		
-		int[] abc = new int[3];
-		int max;
+		int n,x;
+		n = scanner.nextInt();
+		x = scanner.nextInt();
 		
-		abc[0] = scanner.nextInt();
-		abc[1] = scanner.nextInt();
-		abc[2] = scanner.nextInt();
+		int[] inputData = new int[n];
 		
-		max = Math.max(abc[0], Math.max(abc[1], abc[2]));
+		for(int i = 0; i < inputData.length; i++)
+			inputData[i] = scanner.nextInt();
 		
-		for(int a = 0; a < abc.length; a++) {
-			if(abc[a] == max) {
-				abc[a] = -1;
-				break;
-			}
+		for(int j : inputData){
+			if(j < x)
+				System.out.print(j + " ");
 		}
-		
-		max = Math.max(abc[0], Math.max(abc[1], abc[2]));
-		
-		System.out.println(max);
 	}
 }
