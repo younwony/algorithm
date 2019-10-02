@@ -1,13 +1,26 @@
+/**
+ * @작성자 wony
+ * @작성일 2019. 10. 2.
+ * @사용처
+ * TODO
+ */
 package Java;
 
-import java.io.*;
-import java.util.*;
+import java.util.Scanner;
 
-public class Main {
+/**
+ * @작성자 wony
+ * @작성일 2019. 10. 2.
+ * @사용처
+ * TODO
+ */
+public class a2562 {
 
 	/**
-	 * @사용처 제출용 Class
-	 * @Todo 
+	 * @작성자 wony
+	 * @작성일 2019. 10. 2.
+	 * @사용처 최댓값, 최댓값 수의 인덱스
+	 * @Todo
 	 * @param args
 	 * TODO
 	 */
@@ -30,4 +43,5 @@ public class Main {
 		System.out.println(max);
 		System.out.println(maxIndex);
 	}
+
 }
