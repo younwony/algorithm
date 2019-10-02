@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -17,20 +19,15 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Scanner scanner = new Scanner(System.in);
-		
-		int n,x;
-		n = scanner.nextInt();
-		x = scanner.nextInt();
-		
-		int[] inputData = new int[n];
-		
-		for(int i = 0; i < inputData.length; i++)
-			inputData[i] = scanner.nextInt();
-		
-		for(int j : inputData){
-			if(j < x)
-				System.out.print(j + " ");
-		}
+				Scanner scanner = new Scanner(System.in);
+				
+				int n = scanner.nextInt();
+				int result = n;
+				int count = 0;
+				do{	
+					result = (result%10 * 10) + ((result/10 + result%10)%10); 
+					count++;
+				}while(result != n);
+				System.out.println(count);
 	}
 }
