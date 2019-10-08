@@ -28,7 +28,7 @@ public class a4344_test {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
 		
-		int testCaseCount = Integer.parseInt(scanner.nextLine());
+		int testCaseCount = Integer.parseInt(scanner.nextLine()); 
 		int sum,count,inputCaseCount;
 		double avg;
 		int[] inputCaseArrays = null;
