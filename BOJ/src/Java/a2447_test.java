@@ -30,7 +30,7 @@ public class a2447_test {
 	 * @param args
 	 * 
 	 */
-	
+	 
 	static String[][] star;
 	
 	public static void main(String[] args) {
