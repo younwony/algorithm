@@ -12,47 +12,44 @@ public class Main {
 	 * TODO
 	 */
 
-	 static char a[][];
-	
+	static int count = 0;
+	static int stopX;
+	static int stopY;
 	public static void main(String[] args) {
-		 Scanner sc = new Scanner(System.in);
-	        
-	        int n = sc.nextInt();
-	        
-	        a = new char[n][n];
-	        for(int i=0; i<n; i++) {
-	            for(int j=0; j<n; j++) {
-	                a[i][j] = '*';
-	            }
-	        }
-	        
-	        recursive(0, 0, n);
-	        StringBuilder sb = new StringBuilder();
-	        for(int i=0; i<n; i++) {
-	            for(int j=0; j<n; j++) {
-	                sb.append(a[i][j]);
-	            }
-	            sb.append("\n");
-	        }
-	        System.out.println(sb.toString());
-	    }
-	    
-	    public static void recursive(int s, int e, int len) {
-	        if(len < 3) return;
-	        int m = len/3;
-	        for(int i=0; i<3; i++) {
-	            for(int j=0; j<3; j++) {
-	                if(i == 1 && j == 1) fillBlank(s + m, e + m, m);
-	                else recursive(s + m*i, e + m*j, m);
-	            }
-	        }
-	    }
-	    
-	    public static void fillBlank(int s, int e, int len) {
-	        for(int i=s; i<s+len; i++) {
-	            for(int j=e; j<e+len; j++) {
-	                a[i][j] = ' ';
-	            }
-	        }
-	    }
+		// TODO Auto-generated method stub
+		Scanner scanner = new Scanner(System.in);
+		
+		int testCount = scanner.nextInt();
+		
+		int testCountSquared = 1;
+		
+		stopX = scanner.nextInt();
+		stopY = scanner.nextInt();
+		
+		for(int i = 0; i < testCount; i++)
+			testCountSquared *= 2;
+		
+		zCount(testCountSquared, 0, 0);
+		
+	}
+	
+	public static void zCount(int testCountSquared, int x, int y) {
+		
+		if(x == stopX && y == stopY) {
+			System.out.println(count);
+			testCountSquared = 0;
+			return ;
+		}
+		
+		if(testCountSquared == 1) {
+			count++;
+			return ;
+		}
+		
+		for(int i = 0; i < 2; i++) {
+			for(int j=0; j< 2; j++) {
+				zCount(testCountSquared/2, x+i*testCountSquared/2, y+j*testCountSquared/2);
+			}
+		}
+	}
 }
