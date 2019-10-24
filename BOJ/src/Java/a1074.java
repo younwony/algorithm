@@ -24,10 +24,8 @@ public class a1074 {
 	 * @사용처 Z (재귀)
 	 * @param args
 	 * @Todo 
-	 * 1. 60라인의 x+i*testcountsquared/2 부분을 i+x*testcountsquared 와 헷갈림
-	 * 2. 프랙탈 구조형식의 분할구조 알고리즘 풀이시 각 n,x,y에 나누어주는 수는 반복되는 도형의 각 길이와 같다. 
-	 * -> 다음은 2x2배열의 구조이기에 2로나누엇다.
-	 * 3. 재귀 도중에 나오기 위해 outCK로 true
+	 * 1. 구역을 나누어 해당 구역이 아닐경우 구역의 사이즈만큼 카운트
+	 * 2. 재귀 도중에 나오기 위해 System.exit(0);
 	 */
 
 	static int count = 0;
