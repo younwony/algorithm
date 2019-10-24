@@ -31,10 +31,8 @@ public class a1074 {
 	 */
 
 	static int count = 0;
-	static int countCK = 0;
-	static int stopX,stopY;
-	static int stopR,stopC;
-	static boolean outCK = false;
+	static int stopR = 0;
+	static int stopC = 0;
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -42,63 +40,14 @@ public class a1074 {
 		
 		int testCount = scanner.nextInt();
 		
-		stopX = scanner.nextInt();
-		stopY = scanner.nextInt();
+		stopR = scanner.nextInt();
+		stopC = scanner.nextInt();
 		
-		int testCountSquared = 1;
 		
-		for(int i = 0; i < testCount; i++)
-			testCountSquared *= 2;
-		zCountCK(testCountSquared, 0, 0);
-		
-		zCount(testCountSquared, stopX, stopY);
-		
-	}
-	
-	public static void zCountCK(int testCountSquared, int x, int y) {
-		if(outCK)
-			return ;
-		
-		if(x == stopX && y== stopY){
-			System.out.print("a=" + countCK);
-			outCK = true;
-			return ;
-		}
-		
-		if(testCountSquared == 1) {
-			countCK++;
-			return ;
-		}
-		
-		for(int i = 0; i < 2; i++) {
-			for(int j=0; j< 2; j++) {
-				zCountCK(testCountSquared/2, x+i*testCountSquared/2, y+j*testCountSquared/2);
-			}
-		}
-	}
+		zCount((int)Math.pow(2,testCount), 0, 0);
+	} 
 	
 	public static void zCount(int testCountSquared, int r, int c) {
-
-		if(testCountSquared == 2){
-			System.out.print(" b=");
-			System.out.println(count+r*2+c);
-			return ;
-		}
-		if(r < testCountSquared/2 && c < testCountSquared/2){
-			zCount(testCountSquared/2, r, c);
-		}else if(r < testCountSquared/2 && c >= testCountSquared/2){
-			count += (testCountSquared*testCountSquared)/4;
-			zCount(testCountSquared/2, r , c - testCountSquared/2);
-		}else if(r >= testCountSquared/2 && c < testCountSquared/2){
-			count += (testCountSquared*testCountSquared*2)/4;
-			zCount(testCountSquared/2, r - testCountSquared/2, c);
-		}else if(r >= testCountSquared/2 && c >= testCountSquared/2){
-			count += (testCountSquared*testCountSquared*3)/4;
-			zCount(testCountSquared/2, r-testCountSquared/2, c-testCountSquared/2);
-		}
-	}
-	
-	public static void yCount(int testCountSquared, int r, int c) {
 
 		if(r == stopR && c == stopC){
 			System.out.println(count);
@@ -116,10 +65,10 @@ public class a1074 {
 			return ;
 		}
 		
-		yCount(testCountSquared/2, r, c);
-		yCount(testCountSquared/2, r, c + testCountSquared/2);
-		yCount(testCountSquared/2, r + testCountSquared/2, c);
-		yCount(testCountSquared/2, r + testCountSquared/2, c + testCountSquared/2);
+		zCount(testCountSquared/2, r, c);
+		zCount(testCountSquared/2, r, c + testCountSquared/2);
+		zCount(testCountSquared/2, r + testCountSquared/2, c);
+		zCount(testCountSquared/2, r + testCountSquared/2, c + testCountSquared/2);
 		
 	}
 
