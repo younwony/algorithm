@@ -13,43 +13,44 @@ public class Main {
 	 */
 
 	static int count = 0;
-	static int stopX;
-	static int stopY;
+	static int stopR = 0;
+	static int stopC = 0;
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
 		
 		int testCount = scanner.nextInt();
 		
-		int testCountSquared = 1;
+		stopR = scanner.nextInt();
+		stopC = scanner.nextInt();
 		
-		stopX = scanner.nextInt();
-		stopY = scanner.nextInt();
 		
-		for(int i = 0; i < testCount; i++)
-			testCountSquared *= 2;
-		
-		zCount(testCountSquared, 0, 0);
-		
+		zCount((int)Math.pow(2,testCount), 0, 0);
 	}
 	
-	public static void zCount(int testCountSquared, int x, int y) {
-		
-		if(x == stopX && y == stopY) {
+	public static void zCount(int testCountSquared, int r, int c) {
+
+		if(r == stopR && c == stopC){
 			System.out.println(count);
-			testCountSquared = 0;
-			return ;
+			System.exit(0);
 		}
 		
-		if(testCountSquared == 1) {
+		
+		if(!(r <= stopR && stopR < r + testCountSquared && c <= stopC && stopC < c + testCountSquared)){
+			count += testCountSquared*testCountSquared;
+			return;
+		}
+		
+		if(testCountSquared == 1){
 			count++;
 			return ;
 		}
 		
-		for(int i = 0; i < 2; i++) {
-			for(int j=0; j< 2; j++) {
-				zCount(testCountSquared/2, x+i*testCountSquared/2, y+j*testCountSquared/2);
-			}
-		}
+		zCount(testCountSquared/2, r, c);
+		zCount(testCountSquared/2, r, c + testCountSquared/2);
+		zCount(testCountSquared/2, r + testCountSquared/2, c);
+		zCount(testCountSquared/2, r + testCountSquared/2, c + testCountSquared/2);
+		
 	}
 }
