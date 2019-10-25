@@ -7,6 +7,7 @@
 
 package Java;
 
+import java.math.BigInteger;
 import java.util.Scanner;
 
 /**
@@ -27,6 +28,8 @@ public class a1914 {
 	 * 1. n-1 개의 탑을 middle에 옮긴다.
 	 * 2. 1개의 탑을 종료지점에 옮긴다.
 	 * 3. middle에 있는 n-1개의 탑을 end에 옮긴다.
+	 * 중요 
+	 * 4. 횟수를 출력하기 위해서는 큰수 출력 로직이 필요한데 Java내 BigInteger 함수가 있기에 해당 함수를 사용 -> BigInteger에대해 더 자세히 알아보는 공부하기!. and 큰수출력 로직 짜보기
 	 */
 
 	public static void main(String[] args) {
@@ -34,8 +37,11 @@ public class a1914 {
 		Scanner scanner = new Scanner(System.in);
 
 		int hanoiCount = scanner.nextInt();
-		System.out.println((int)Math.pow(2, hanoiCount) - 1);
-		hanoi(hanoiCount, 1, 2, 3);
+		BigInteger hanoiReslutCount = new BigInteger("2");
+		System.out.println(hanoiReslutCount.pow(hanoiCount).subtract(BigInteger.ONE));
+		if(hanoiCount <= 20){
+			hanoi(hanoiCount, 1, 2, 3);
+		}
 	}
 
 	public static void hanoi(int n, int start, int middle, int end) {

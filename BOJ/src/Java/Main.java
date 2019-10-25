@@ -1,6 +1,7 @@
 package Java;
 
 import java.io.*;
+import java.math.BigInteger;
 import java.util.*;
 
 /**
@@ -25,8 +26,12 @@ public class Main {
 		Scanner scanner = new Scanner(System.in);
 
 		int hanoiCount = scanner.nextInt();
-		System.out.println((int)Math.pow(2, hanoiCount) - 1);
-		hanoi(hanoiCount, 1, 2, 3);
+		
+		BigInteger hanoiReslutCount = new BigInteger("2");
+		System.out.println(hanoiReslutCount.pow(hanoiCount).subtract(BigInteger.ONE));
+		if(hanoiCount <= 20){
+			hanoi(hanoiCount, 1, 2, 3);
+		}
 	}
 
 	public static void hanoi(int n, int start, int middle, int end) {
