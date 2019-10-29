@@ -20,31 +20,24 @@ public class Main {
 	 * @param args 
 	 * @Todo
 	 */
-
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
-
-		int hanoiCount = scanner.nextInt();
 		
-		BigInteger hanoiReslutCount = new BigInteger("2");
-		System.out.println(hanoiReslutCount.pow(hanoiCount).subtract(BigInteger.ONE));
-		if(hanoiCount <= 20){
-			hanoi(hanoiCount, 1, 2, 3);
-		}
-	}
-
-	public static void hanoi(int n, int start, int middle, int end) {
-
-		if(n==1) {
-			System.out.println(start + " " + end);
-		}else {
-			hanoi(n-1, start, end, middle); // n-1 개를 middle로 옮긴다.
-			System.out.println(start + " " + end); // 맨 밑의 판을 종료지점으로 옮긴다.
-			hanoi(n-1, middle, start, end);// middle의 n-1개의 탑을 종료지점으로 옮긴다.
+		String inputData = scanner.nextLine();
+		scanner.close();
+		int[] outputData = new int[26];
+		
+		for(int i = 0; i < outputData.length; i++)
+			outputData[i] = -1;
+		
+		for(int i = 0; i < inputData.length(); i++){
+			if(outputData[(int)inputData.charAt(i)%97] == -1)
+				outputData[(int)inputData.charAt(i)%97] = i;
 		}
 		
-
+		for(int i = 0; i < outputData.length; i++)
+			System.out.print(outputData[i] + " ");
 	}
-
 }
