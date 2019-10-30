@@ -1,10 +1,3 @@
-/**
- * @작성자 wony
- * @작성일 2019. 10. 26.
- * @사용처
- * @Todo
- */
-
 package Java;
 
 import java.util.Scanner;
