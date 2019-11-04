@@ -23,21 +23,63 @@ public class Main {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Scanner scanner = new Scanner(System.in);
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+		int n,m;
+		String[] nInput,mOutput;
 		
-		String inputData = scanner.nextLine();
-		scanner.close();
-		int[] outputData = new int[26];
+		try {
+			n = Integer.parseInt(bufferedReader.readLine());
+			nInput = bufferedReader.readLine().split(" ");
+			m = Integer.parseInt(bufferedReader.readLine());
+			mOutput = bufferedReader.readLine().split(" ");
+			
+			Arrays.sort(nInput);
+			
+			
+			int[] in = new int[n];
+			int[] out = new int[m];
+			
+			for(int i = 0; i< n; i++)
+				in[i] = Integer.parseInt(nInput[i]);
+			
+			for(int i = 0; i< m; i++)
+				out[i] = Integer.parseInt(mOutput[i]);
+			
+			for(int data : out){
+				BinarySearch(in, data, 0, n-1);
+			}
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			try {
+				if(bufferedReader != null) bufferedReader.close();
+			} catch (Exception e2) {
+				// TODO: handle exception
+				e2.printStackTrace();
+			}
+		}
+	}
+	
+	public static void BinarySearch(int[] array, int data, int left, int right){
 		
-		for(int i = 0; i < outputData.length; i++)
-			outputData[i] = -1;
+		int middle;
 		
-		for(int i = 0; i < inputData.length(); i++){
-			if(outputData[(int)inputData.charAt(i)%97] == -1)
-				outputData[(int)inputData.charAt(i)%97] = i;
+		while(right >= left){
+			middle  = (left+right)/2;
+			if(data == array[middle]){
+				System.out.println(1);
+				return;
+			}
+			else if(data > array[middle])
+				left = middle + 1;
+			else
+				right = middle -1;
 		}
 		
-		for(int i = 0; i < outputData.length; i++)
-			System.out.print(outputData[i] + " ");
+		System.out.println(0);
+		return;
 	}
 }
