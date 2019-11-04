@@ -1,31 +1,33 @@
 /**
  * @작성자 wony
- * @작성일 2019. 10. 31.
+ * @작성일 2019. 11. 2.
  * @사용처
- *
+ * @Todo
  */
+
 package Sort;
 
 import java.util.Scanner;
 
 /**
  * @작성자 wony
- * @작성일 2019. 10. 31.
- * @사용처 삽입 정렬
- * 
+ * @작성일 2019. 11. 2.
+ * @사용처 버블 정렬
+ * @Todo
  */
-public class InsertSort {
+
+public class BubbleSort {
 
 	/**
 	 * @작성자 wony
-	 * @작성일 2019. 10. 31.
+	 * @작성일 2019. 11. 2.
 	 * @사용처
-	 * @Todo
 	 * @param args
+	 * @Todo
 	 * 
-	 * 1. 배열의 두번째 인덱스 위치에서부터 시작한다.
-	 * 2. 시작점을 Key 값으로 가지며 시작점보다 앞의 아이템들을 비교한다.
-	 * 3. Key 값보다 작은 값이 나올 때까지 비교아이템과 위치를 비교하며 한칸씩 앞으로 이동한다.
+	 * 1. 두번째 인덱스 부터 시작한다.
+	 * 2. 시작 인덱스의 바로 앞의 아이템과 비교하여 교환한다.
+	 * 3. 비교후 인덱스 위치를 늘려가며 바로 직전의 아이템과 비교하며 진행한다.
 	 * 
 	 * 시간복잡도 - (n-1), (n-2), .... 2, 1 의 개수를 비교한다.
 	 * -> (n-1)*(n-2)/2 -> O(n^2)
@@ -33,6 +35,7 @@ public class InsertSort {
 	 * 공간복잡도 - 하나의 배열에서 진행된다.
 	 * -> O(n)
 	 */
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
@@ -47,19 +50,14 @@ public class InsertSort {
 			testCase[i] = Integer.parseInt(testCaseString[i]);
 		
 		int temp;
-		int tempI;
-		for(int i =1; i< testCase.length; i++){
-			temp = testCase[i];
-			tempI = i;
-			for(int j=1; j<= i; j++){
-				if(temp<testCase[i-j]){
-					testCase[i-j+1] = testCase[i-j];
-					tempI = i-j;
-				}else {
-					break;
+		for(int j = 0; j < testCase.length; j++) {
+			for(int i = 1; i < testCase.length-j; i++) {
+				if(testCase[i-1] > testCase[i]) {
+					temp = testCase[i];
+					testCase[i] = testCase[i-1];
+					testCase[i-1] = temp;
 				}
 			}
-			testCase[tempI] = temp;
 		}
 		
 		for(int data : testCase)

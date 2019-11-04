@@ -23,21 +23,44 @@ public class Main {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Scanner scanner = new Scanner(System.in);
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(System.out));
+		int n,m;
+		String[] nInput,mOutput;
+		long[] resultData;
 		
-		String inputData = scanner.nextLine();
-		scanner.close();
-		int[] outputData = new int[26];
-		
-		for(int i = 0; i < outputData.length; i++)
-			outputData[i] = -1;
-		
-		for(int i = 0; i < inputData.length(); i++){
-			if(outputData[(int)inputData.charAt(i)%97] == -1)
-				outputData[(int)inputData.charAt(i)%97] = i;
+		try {
+			n = Integer.parseInt(bufferedReader.readLine());
+			nInput = bufferedReader.readLine().split(" ");
+			m = Integer.parseInt(bufferedReader.readLine());
+			mOutput = bufferedReader.readLine().split(" ");
+			
+			resultData = new long[Integer.SIZE+1];
+			
+			for(int i = 0; i < resultData.length; i++)
+				resultData[i] = 0;
+			
+			
+			for(int i = 0; i < n; i++) 
+				resultData[Integer.parseInt(nInput[i])-1] = 1;
+			
+			for(int i = 0; i < n; i++) 
+				bufferedWriter.write(resultData[Integer.parseInt(mOutput[i])-1] + "\n");
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			try {
+				if(bufferedReader != null) bufferedReader.close();
+				if(bufferedWriter != null) {
+					bufferedWriter.flush(); 
+					bufferedReader.close();
+				}
+			} catch (Exception e2) {
+				// TODO: handle exception
+				e2.printStackTrace();
+			}
 		}
-		
-		for(int i = 0; i < outputData.length; i++)
-			System.out.print(outputData[i] + " ");
 	}
 }
