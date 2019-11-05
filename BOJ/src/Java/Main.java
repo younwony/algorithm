@@ -68,7 +68,7 @@ public class Main {
 		int middle;
 		
 		while(right >= left){
-			middle  = (left+right)/2;
+			middle = (left+right)/2;
 			if(data == array[middle]){
 				System.out.println(1);
 				return;
@@ -80,6 +80,5 @@ public class Main {
 		}
 		
 		System.out.println(0);
-		return;
 	}
 }
