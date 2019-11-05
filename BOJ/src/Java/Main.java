@@ -24,46 +24,36 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		Scanner scanner = new Scanner(System.in);
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(System.out));
 		
-		int inputCount = scanner.nextInt();
-		
-		int[] inputArray = new int[inputCount];
-		
-		for(int i = 0; i < inputCount; i++)
-			inputArray[i] = scanner.nextInt();
-		
-		int checkNumCount = scanner.nextInt();
-		
-		
-		Arrays.sort(inputArray);
-		
-		int left, right, middle;
-		
-		int data, searchData;
-		
-		for(int i = 0; i < checkNumCount; i++){
-			left = 0;
-			right = inputCount - 1 ;
-			searchData = 0;
+		try {
+			int testCount = Integer.parseInt(bufferedReader.readLine());
 			
-			data = scanner.nextInt();
-			
-			while(right >= left){
-				middle = (left + right)/2;
-				if(data == inputArray[middle]){
-					searchData = 1;
-					break;
-				}else if(data > inputArray[middle]){
-					left = middle + 1;
-				}else
-					right = middle - 1;
+			List<Integer> testList = new ArrayList<Integer>();
+			for(int i = 0; i < testCount; i++){
+				testList.add(Integer.parseInt(bufferedReader.readLine()));
 			}
-			System.out.println(searchData);
+			
+			testList.sort(null);
+			
+			for(int data : testList)
+				bufferedWriter.write(data + "\n");
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally{
+			try {
+				if(bufferedReader != null) bufferedReader.close();
+				if(bufferedWriter != null) {
+					bufferedWriter.flush();
+					bufferedWriter.close();
+				}
+			} catch (Exception e2) {
+				// TODO: handle exception
+				e2.printStackTrace();
+			}
 		}
-		
-		scanner.close();
-		
-		
 	}
 }

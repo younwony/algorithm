@@ -79,6 +79,31 @@ public class Sort{
 		}
 	};
 	
+	public void MergeSort(){
+		
+		RecursionMerge(Array, 0, Array.length-1);
+	}
+	
+	public void RecursionMerge(int[] array, int left, int right){
+		
+		if(array.length < 2)
+			return; 
+		middle = left+right/2;
+		int[] arrayL = new int[middle];
+		for(int i = 0; i < array.length; i++){
+			if(i <= middle)
+				arrayL[i] = array[i];
+			else
+				array[i-middle] = array[i];
+		}
+		RecursionMerge(arrayL, 0, middle);
+		RecursionMerge(array, middle + 1, right);
+		SumArray(array, arrayL, left, right);
+	}
+	
+	public void SumArray(int[] array, int[] arrayL, int left, int right){
+			
+	}
 	/**
 	 * @작성자 wony
 	 * @작성일 2019. 11. 4.
