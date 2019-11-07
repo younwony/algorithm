@@ -36,7 +36,9 @@ public class Main {
 		
 		Sort sort = new Sort(Array);
 		
-		System.out.println(sort.BinarySearch(1));
+		sort.MergeSort();
+		
+		sort.Print();
 	}
 
 }

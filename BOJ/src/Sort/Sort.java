@@ -81,28 +81,83 @@ public class Sort{
 	
 	public void MergeSort(){
 		
-		RecursionMerge(Array, 0, Array.length-1);
+		// 분할되어 정렬된 데이터를 저장할 Array 생성
+		int[] array = new int[Array.length];
+		
+		for(int i = 0; i < array.length; i++)
+			array[i] = Array[i];
+		
+		RecursionMerge(array, 0, array.length-1);
 	}
 	
+	/**
+	 * @작성자 wony
+	 * @작성일 2019. 11. 7.
+	 * @사용처 Merge - 분할
+	 * @Todo
+	 * @param array
+	 * @param left
+	 * @param right
+	 * 
+	 */
 	public void RecursionMerge(int[] array, int left, int right){
 		
-		if(array.length < 2)
-			return; 
-		middle = left+right/2;
-		int[] arrayL = new int[middle];
-		for(int i = 0; i < array.length; i++){
-			if(i <= middle)
-				arrayL[i] = array[i];
-			else
-				array[i-middle] = array[i];
+		// 2분할 지점
+		int middle = (left+right)/2;
+		// Array가 데이털르 하나가질때까지 쪼갠다.
+		if(left < right){
+			RecursionMerge(array, left, middle); // 좌측
+			RecursionMerge(array, middle + 1, right); // 우측
+			CompareArray(array, left, middle, right); // 결합부분
 		}
-		RecursionMerge(arrayL, 0, middle);
-		RecursionMerge(array, middle + 1, right);
-		SumArray(array, arrayL, left, right);
 	}
 	
-	public void SumArray(int[] array, int[] arrayL, int left, int right){
-			
+	/**
+	 * @작성자 wony
+	 * @작성일 2019. 11. 7.
+	 * @사용처 Merge - 정복, 결합
+	 * @Todo
+	 * @param array
+	 * @param left
+	 * @param middle
+	 * @param right
+	 * 
+	 */
+	public void CompareArray(int[] array, int left, int middle, int right){
+		
+		int i = left; // 좌측 아이템 시작점
+		int j = middle + 1; // 우측 아이템 시작점
+		int k = left; // 아이템 넣을 index
+		// 좌측 배열이 끝나거나 우측배열이 끝나기전 까지
+		while(i <= middle && j <= right){
+			if(Array[i] < Array[j]){
+				array[k] = Array[i];
+				i++;
+			}
+			else if(Array[j] <= Array[i]){
+				array[k] = Array[j];
+				j++;
+			}
+			k++;
+		}
+		
+		// 우측배열이 먼저 끝낫을 경우 좌측 배열 남은 데이터 삽입
+		while(i <= middle){
+			array[k] = Array[i];
+			k++;
+			i++;
+		}
+		
+		// 좌측배열이 먼저 끝낫을 경우 우측배열 남은 데이터 삽입
+		while(j <= right){
+			array[k] = Array[j];
+			k++;
+			j++;
+		}
+		
+		// 정렬된 데이터 실제 배열에 삽입
+		for(; left<=right; left++)
+			Array[left] = array[left];
 	}
 	/**
 	 * @작성자 wony
@@ -142,7 +197,7 @@ public class Sort{
 	 * @param Array
 	 * 
 	 */
-	public void Print(int[] Array){
+	public void Print(){
 		for(int data : Array)
 			System.out.print(data + " ");
 	}
