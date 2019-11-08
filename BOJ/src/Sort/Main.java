@@ -36,7 +36,7 @@ public class Main {
 		
 		Sort sort = new Sort(Array);
 		
-		sort.BubbleSort();
+		sort.QuickSort();
 		
 		sort.Print();
 	}

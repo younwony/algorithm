@@ -44,14 +44,16 @@ public class a2751 {
 		try {
 			int testCount = Integer.parseInt(bufferedReader.readLine());
 			
-			List<Integer> testList = new ArrayList<Integer>();
+			int[] testArray = new int[testCount];
+			int[] saveArray = new int[testCount];
 			for(int i = 0; i < testCount; i++){
-				testList.add(Integer.parseInt(bufferedReader.readLine()));
+				testArray[i] = Integer.parseInt(bufferedReader.readLine());
+				saveArray[i] = testArray[i]; 
 			}
 			
-			testList.sort(null);
+			mergeSort(saveArray, testArray, 0, testArray.length-1);
 			
-			for(int data : testList)
+			for(int data : testArray)
 				bufferedWriter.write(data + "\n");
 			
 		} catch (Exception e) {
@@ -68,6 +70,50 @@ public class a2751 {
 				// TODO: handle exception
 				e2.printStackTrace();
 			}
+		}
+	}
+	
+	public static void mergeSort(int[] saveArray, int[] array, int left ,int right){
+		if(right <= left)
+			return ;
+		
+		int middle = (right+left)/2;
+		
+		mergeSort(saveArray, array, left, middle);
+		mergeSort(saveArray, array, middle+1, right);
+		mergeSortSum(saveArray, array, left, middle, right);
+	}
+	public static void mergeSortSum(int[] saveArray, int[] array, int left ,int middle, int right){
+		
+		int i = left;
+		int j = middle +1;
+		int k = left;
+		
+		while(i <= middle && j <=right){
+			if(saveArray[i] >= saveArray[j]){
+				array[k] = saveArray[j];
+				j++;
+			}else{
+				array[k] = saveArray[i];
+				i++;
+			}
+			k++;
+		}
+		
+		while(i <= middle){
+			array[k] = saveArray[i];
+			k++;
+			i++;
+		}
+		
+		while(j <= right){
+			array[k] = saveArray[j];
+			k++;
+			j++;
+		}
+		
+		for(; left<=right; left++){
+			saveArray[left] = array[left];
 		}
 	}
 
