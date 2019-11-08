@@ -18,17 +18,9 @@ public class Sort{
 
 	int[] Array;
 	int temp;
-	int left;
-	int right;
-	int middle;
-	
-	boolean searchCK;
 	
 	public Sort(int[] Array){
 		this.Array = Array;
-		this.left = 0;
-		this.right = Array.length;
-		this.middle = (this.left + this.right)/2;
 	}
 	
 	/**
@@ -79,6 +71,32 @@ public class Sort{
 		}
 	};
 	
+	/**
+	 * @작성자 wony
+	 * @작성일 2019. 11. 8.
+	 * @사용처 버블정렬
+	 * @Todo
+	 * 
+	 */
+	public void BubbleSort(){
+		for(int j = Array.length-1; j > 0; j--){
+			for(int i = 0; i < j; i++){
+				if(Array[i] > Array[i+1]){
+					temp = Array[i];
+					Array[i] = Array[i+1];
+					Array[i+1] = temp;
+				}
+			}
+		}
+	}
+	
+	/**
+	 * @작성자 wony
+	 * @작성일 2019. 11. 8.
+	 * @사용처 병합정렬
+	 * @Todo
+	 * 
+	 */
 	public void MergeSort(){
 		
 		// 분할되어 정렬된 데이터를 저장할 Array 생성
@@ -159,34 +177,63 @@ public class Sort{
 		for(; left<=right; left++)
 			Array[left] = array[left];
 	}
+	
 	/**
 	 * @작성자 wony
-	 * @작성일 2019. 11. 4.
-	 * @사용처 이진탐색
+	 * @작성일 2019. 11. 8.
+	 * @사용처 퀵 정렬
 	 * @Todo
 	 * 
 	 */
-	public boolean BinarySearch(int data){
+	public void QuickSort(){
+		RecursionQuick(Array, 0, Array.length-1);
+	}
+	
+	/**
+	 * @작성자 wony
+	 * @작성일 2019. 11. 8.
+	 * @사용처 퀵정렬 - 실행부분
+	 * @Todo
+	 * 
+	 *  1. 현재 는 피봇값을 맨 처음의 인덱스로 설정하였다.
+	 *  2. 좀더 좋은 효율을 갖기위해 랜덤 피봇을 설정해 보자!(또는 우측 피봇, 중간 피봇으로 구형해보기)
+	 * 
+	 * @param array
+	 * @param left
+	 * @param right
+	 * 
+	 */
+	public void RecursionQuick(int[] array, int left, int right){
 		
-		if(right - left < 0){
-			searchCK =  false;
-			return searchCK;
+		if(left >= right)		// 정렬할 배열이 하나일경우 리턴
+			return;
+		
+		int pivot = left; 		// 피봇값지정 맨앞 의 인덱스로 설정
+		int start = left+1;		// 시작점 지정 피봇값 + 1(큰값 찾기)
+		int end = right;		// 끝점 지정(작은값 찾기)
+		
+		while(start <= end){										// 시작점이 끝점보다 작거나 같을 경우 진행
+			while(Array[start] <= Array[pivot] && start < right){ //큰값을 찾기위해 start 인덱스가 가르키는 데이터가  pivot 데이터 보다 작을경우 계속 이동, 배열의 범위를 넘어가지않기위해 끝지점까지  조건 지정
+				start++;
+			}
+			while(Array[end] >= Array[pivot] && end > left){ // 작은 값을 찾기위해 end 인덱스가 가르키는 데이터가 pivot 데이터 보다 클 경우 계속 이동, 배열의 범위를 넘어가지 않기 위해 시작 지점까지 조건 지정
+				end--;
+			}
+			if(start < end){				//작은 값과 큰값을 찾은 경우 스왑
+				temp = Array[start];
+				Array[start] = Array[end];
+				Array[end] = temp;
+			}else{							//찾지못하고 시작점과 끝점이 교차된경우 끝점과 피봇값 스왑
+				temp = Array[end];
+				Array[end] = Array[pivot];
+				Array[pivot] = temp;
+				break;
+			}
 		}
 		
-		middle = (left+right)/2;
+		RecursionQuick(array, left, end-1);		//정렬 완료후 남은 왼쪽 배열 재귀 진행
+		RecursionQuick(array, end+1, right);	//정렬 완료후 남은 오른쪽 배열 재귀 진행
 		
-		if(data == Array[middle])
-			searchCK =  true;
-		else if(data > Array[middle]){
-			left = middle+1;
-			BinarySearch(data);
-		}
-		else if(data < Array[middle]){
-			right = middle-1;
-			BinarySearch(data);
-		}
-		
-		return searchCK;
 	}
 	
 	/**
