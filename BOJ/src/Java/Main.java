@@ -4,55 +4,50 @@ import java.io.*;
 import java.math.BigInteger;
 import java.util.*;
 
-/**
- * @작성자 wony
- * @작성일 2019. 10. 24.
- * @사용처
- * @Todo
- */
-
 public class Main {
-
-	/**
-	 * @작성자 wony
-	 * @작성일 2019. 10. 24.
-	 * @사용처
-	 * @param args 
-	 * @Todo
-	 */
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(System.out));
-		StringTokenizer stringTokenizer = null;
+		
 		try {
-			int inputCount = Integer.parseInt(bufferedReader.readLine());
-			stringTokenizer = new StringTokenizer(bufferedReader.readLine(), " ");
-			int[] inputArray = new int[inputCount];
-			int[] inputSaveArray = new int[inputCount];
-			int i = 0; 
-			while(stringTokenizer.hasMoreTokens()){
-				inputArray[i] = Integer.parseInt(stringTokenizer.nextToken());
-				inputSaveArray[i] = inputArray[i];
-				i++;
+			int testCount = Integer.parseInt(bufferedReader.readLine());
+			
+			int[] deque = new int[testCount];
+			
+			for(int i = 0; i < testCount; i++)
+				deque[i] = 0;
+			
+			String[] order;
+			
+			for(int i = 0; i < testCount; i++){
+				order = bufferedReader.readLine().split(" ");
+				if("push_front".equals(order[0]))
+					dequePush_Front(deque, Integer.parseInt(order[1]));
+				if("push_back".equals(order[0]))
+					dequePush_Back(deque, Integer.parseInt(order[1]));
+				if("pop_front".equals(order[0]))
+					bufferedWriter.write(dequePop_Front(deque) + "\n");
+				if("pop_back".equals(order[0]))
+					bufferedWriter.write(dequePop_Back(deque) + "\n");
+				if("size".equals(order[0]))
+					bufferedWriter.write(dequeSize(deque) + "\n");
+				if("empty".equals(order[0]))
+					bufferedWriter.write(dequeEmpty(deque) + "\n");
+				if("front".equals(order[0]))
+					bufferedWriter.write(dequeFront(deque) + "\n");
+				if("back".equals(order[0]))
+					bufferedWriter.write(dequeBack(deque) + "\n");
 			}
 			
-			mergeSort(inputSaveArray, inputArray, 0, inputSaveArray.length-1);
-			
-			int outputCount = Integer.parseInt(bufferedReader.readLine());
-			stringTokenizer = new StringTokenizer(bufferedReader.readLine(), " ");
-			
-			while(stringTokenizer.hasMoreTokens()){
-				bufferedWriter.write(binarySearch(inputSaveArray, Integer.parseInt(stringTokenizer.nextToken())) + "\n");
-			}
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 		}finally{
 			try {
 				if(bufferedReader != null) bufferedReader.close();
 				if(bufferedWriter != null) bufferedWriter.flush(); bufferedWriter.close();
-				if(stringTokenizer != null) stringTokenizer = null; 
 			} catch (Exception e2) {
 				// TODO: handle exception
 				e2.printStackTrace();
@@ -60,70 +55,72 @@ public class Main {
 		}
 	}
 	
-	public static void mergeSort(int[] saveArray, int[] array, int left ,int right){
-		if(right <= left)
-			return ;
-		
-		int middle = (right+left)/2;
-		
-		mergeSort(saveArray, array, left, middle);
-		mergeSort(saveArray, array, middle+1, right);
-		mergeSortSum(saveArray, array, left, middle, right);
+	public static void dequePush_Front(int[] deque, int data){
+		for(int i = deque.length -1; i > 0; i--){
+			deque[i] = deque[i-1];
+		}
+		deque[0] = data;
 	}
-	public static void mergeSortSum(int[] saveArray, int[] array, int left ,int middle, int right){
-		
-		int i = left;
-		int j = middle +1;
-		int k = left;
-		
-		while(i <= middle && j <=right){
-			if(saveArray[i] >= saveArray[j]){
-				array[k] = saveArray[j];
-				j++;
-			}else{
-				array[k] = saveArray[i];
-				i++;
+	
+	public static void dequePush_Back(int[] deque, int data){
+		for(int i = 0; i < deque.length; i++){
+			if(deque[i] == 0){
+				deque[i] = data;
+				break;
 			}
-			k++;
-		}
-		
-		while(i <= middle){
-			array[k] = saveArray[i];
-			k++;
-			i++;
-		}
-		
-		while(j <= right){
-			array[k] = saveArray[j];
-			k++;
-			j++;
-		}
-		
-		for(; left<=right; left++){
-			saveArray[left] = array[left];
 		}
 	}
 	
-	public static int binarySearch(int[] array, int data){
-		int left = 0;
-		int right = array.length -1;
-		int middle = (left + right)/2;
+	public static int dequePop_Front(int[] deque){
+		int data = deque[0] == 0 ? -1 : deque[0];
 		
-		int result = 0;
+		for(int i = 0; i < deque.length - 1; i++)
+			deque[i] = deque[i+1];
+			
+		return data;
+	}
+	
+	public static int dequePop_Back(int[] deque){
 		
-		while(right >= left){
-			if(array[middle] == data){
-				result = 1;
+		int data = -1;
+		
+		for(int i = deque.length-1; i>= 0; i--){
+			if(deque[i] != 0){
+				data = deque[i];
+				deque[i] = 0;
 				break;
-			}else if(array[middle] < data){
-				left = middle +1;
-				middle = (left + right)/2;
-			}else{
-				right = middle-1;
-				middle = (left + right)/2;
+			}
+		}
+		return data;
+	}
+	
+	public static int dequeSize(int[] deque){
+		int dequeSizeCount = 0;
+		for(int i = 0; i < deque.length; i++){
+			if(deque[i] != 0)
+				dequeSizeCount++;
+		}
+		return dequeSizeCount;
+	}	
+	
+	public static int dequeEmpty(int[] deque){
+		return deque[0] == 0 ? (deque[deque.length-1] == 0 ? 1 : 0) : 0;
+	}
+	
+	public static int dequeFront(int[] deque){
+		return deque[0] == 0 ? -1 : deque[0];
+	}
+	
+	public static int dequeBack(int[] deque){
+		int data = -1;
+		
+		for(int i = deque.length-1; i >=0; i--){
+			if(deque[i] != 0){
+				data = deque[i];
+				break;
 			}
 		}
 		
-		return result;
+		return data;
 	}
 }
