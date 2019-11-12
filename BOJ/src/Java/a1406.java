@@ -55,9 +55,14 @@ public class a1406 {
 				order = bufferedReader.readLine().split(" ");
 				if("L".equals(order[0])) point = editorLeftMove(str, point);
 				if("D".equals(order[0])) point = editorRightMove(str, point);
-				if("B".equals(order[0])) editorBackSpace(str, point);
-				if("P".equals(order[0])) editorPlus(str, order[1], point);
+				if("B".equals(order[0])) point = editorBackSpace(str, point);
+				if("P".equals(order[0])) point = editorPlus(str, order[1], point);
 			}
+			
+			for(String result : str)
+				builder.append(result);
+			
+			bufferedWriter.write(builder.toString());
 			
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -74,21 +79,43 @@ public class a1406 {
 	}
 	
 	static int editorLeftMove(String[] str, int point){
-		if(point == 0)
-			return 0;
-		else
-			return point-1;
-		
+		return point == 0 ? 0 : point-1;
 	}
 	
 	static int editorRightMove(String[] str, int point){
-		return point;
-	}
-	static void editorBackSpace(String[] str, int point){
+		int rightMaxPoint = str.length;
+		
+		for(int i = 0; i < str.length; i++){
+			if("".equals(str[i])){
+				rightMaxPoint = i;
+				break;
+			}
+		}
+		
+		return point == rightMaxPoint ? point : point+1;
 		
 	}
-	static void editorPlus(String[] str, String data, int point){
+	static int editorBackSpace(String[] str, int point){
+		if(point == 0)
+			return point;
 		
+		str[point-1] = "";
+		
+		for(int i = point-1; i < str.length-1; i++){
+			str[i] = str[i+1];
+		}
+		
+		return point-1;
+		
+	}
+	static int editorPlus(String[] str, String data, int point){
+		for(int i = str.length-1; i > point; i--){
+			str[i] = str[i-1];
+		}
+		
+		str[point] = data;
+		
+		return point + 1;
 	}
 
 }
