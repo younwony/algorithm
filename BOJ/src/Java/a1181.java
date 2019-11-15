@@ -12,7 +12,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 
 
 /**
@@ -26,7 +29,10 @@ public class a1181 {
 	/**
 	 * @작성자 wony
 	 * @작성일 2019. 11. 12.
-	 * @사용처
+	 * @사용처 ArrayList Compareto 사용법
+	 * 
+	 * 1. 이중 정렬 재연습
+	 * 
 	 * @Todo
 	 * @param args
 	 * 
@@ -40,22 +46,20 @@ public class a1181 {
 			
 			int testCount = Integer.parseInt(bufferedReader.readLine());
 			
-			String[] inputArray = new String[testCount];
+			ArrayList<WordSort> strList = new ArrayList<WordSort>();
 			
 			String inputData;
 			for(int i = 0; i< testCount; i++){
 				inputData = bufferedReader.readLine();
-				if(Arrays.asList(inputArray).indexOf(inputData) == -1)
-					inputArray[i] = inputData;
-				else
-					inputArray[i] = "";
+				if(strList.indexOf(inputData) == -1)
+					strList.add(new WordSort(inputData));
 			}
 			
-			Arrays.sort(inputArray);
+			Collections.sort(strList);
 			
-			for(String data : inputArray){
-				if(!"".equals(data))
-					bufferedWriter.write(data + "\n");
+			for(WordSort data : strList){
+				if(!"".equals(data.getName()))
+					bufferedWriter.write(data.getName() + "\n");
 			}
 			
 		} catch (Exception e) {
@@ -72,4 +76,33 @@ public class a1181 {
 		
 	}
 
+}
+
+class WordSort implements Comparable<WordSort>{
+	String name;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public WordSort(String name){
+		this.name = name;
+	}
+
+	@Override
+	public int compareTo(WordSort o) {
+		// TODO Auto-generated method stub
+		if(this.name.length() < o.getName().length()) //작은 값을 앞으로
+			return -1;
+		else if(this.name.length() > o.getName().length()) // 큰값을 뒤로
+			return 1;
+		else{
+			return this.name.compareTo(o.getName()); //길이가 동일할 때 string 비교
+		}
+	}
+	
 }
