@@ -9,32 +9,52 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
+		 
+		int testCount = scanner.nextInt();
 		
-		int N = scanner.nextInt(); // 인원
+		int documentSize, count, resultLocation;
 		
-		int K = scanner.nextInt(); // K순서
-		
+		for(int i = 0; i< testCount; i++){
+			Queue<Integer> queue = new LinkedList<Integer>();
+			documentSize = scanner.nextInt();
+			resultLocation = scanner.nextInt();
+			for(int j = 0; j < documentSize; j++)
+				queue.offer(scanner.nextInt());
+			
+			count = 0;
+			
+			while(resultLocation != -1){
+				if(queueGreateThenData(queue)){
+					if(resultLocation == 0) resultLocation += queue.size();
+					else{
+						queue.offer(queue.poll());
+						resultLocation--;
+					}
+				}else{
+					count++;
+					if(resultLocation == 0){
+						System.out.println(count);
+					}else{
+						queue.poll();
+					}
+					resultLocation--;
+				}
+			}
+			
+		}
 		scanner.close();
+	}
+	
+	public static boolean queueGreateThenData(Queue<Integer> queue){
 		
-		Deque<Integer> deque = new ArrayDeque<Integer>(); 
+		int data = queue.peek();
 		
-		for(int i = 1; i <= N; i++)
-			deque.offer(i);
-		
-		StringBuilder builder = new StringBuilder();
-		
-		builder.append("<");
-		
-		while(deque.size() != 0) {
-			for(int i = 1; i < K; i++) 
-				deque.offer(deque.poll());
-			builder.append(deque.poll() + ", ");
+		while(data != 9){
+			data++;
+			if(queue.contains(data))
+				return true;
 		}
 		
-		builder.replace(builder.length()-2, builder.length(),"");
-		
-		builder.append(">");
-		
-		System.out.println(builder.toString());
+		return false;
 	}
 }
