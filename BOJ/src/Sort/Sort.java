@@ -238,6 +238,53 @@ public class Sort{
 	
 	/**
 	 * @작성자 wony
+	 * @작성일 2019. 12. 1.
+	 * @사용처 힙정렬
+	 * @Todo
+	 * 
+	 * 1. 최대힙을 만든후 첫인덱스를 마지막으로 보내면서 오름차순 정렬생성
+	 *  
+	 */
+	public void HeapSort() {
+		
+		Heapify(Array, 0);
+		
+		int lastIndex;
+		for(int i = 0; i < Array.length; i++) {
+			lastIndex = Array.length - 1 - i;
+			temp = Array[lastIndex];
+			Array[lastIndex] = Array[0];
+			Array[0] = temp;
+			Heapify(Array, i+1);
+		}
+	}
+	
+	/**
+	 * @작성자 wony
+	 * @작성일 2019. 12. 1.
+	 * @사용처 힙정렬 - 최대힙만들기
+	 * @param array
+	 * @param lastIndex
+	 * @Todo
+	 */
+	public void Heapify(int[] array, int lastIndex) {
+		int node;
+		int pNode;
+		int temp;
+		
+		for(int i = array.length - 1 - lastIndex; i >= 0; i--) {
+			node = i;
+			pNode = (i-1)/2; //부모노드
+			if(pNode >= 0 && array[node] > array[pNode]) {
+				temp = array[node];
+				array[node] = array[pNode];
+				array[pNode] = temp;
+			}
+		}
+	}
+	
+	/**
+	 * @작성자 wony
 	 * @작성일 2019. 11. 4.
 	 * @사용처 int Array 출력
 	 * @Todo

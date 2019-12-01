@@ -36,7 +36,8 @@ public class Main {
 		
 		Sort sort = new Sort(Array);
 		
-		sort.QuickSort();
+//		sort.QuickSort();
+		sort.HeapSort();
 		
 		sort.Print();
 	}
