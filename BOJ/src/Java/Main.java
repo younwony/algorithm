@@ -8,25 +8,23 @@ public class Main {
 	
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
-		int n = scanner.nextInt();
-		int m = scanner.nextInt();
-		scanner.close();
-		int count = 0;
-		if(n == 1)
-			count = 1;
-		else if(n == 2){
-			if(m <= 6){
-				count = (m+1)/2;
-			}else
-				count = 4;
-		}else{
-			if(m <= 4){
-				count = m;
-			}else if(m <= 6){
-				count = 4;
-			}else
-				count = m-2;
+		
+		String[] result = {"black","brown","red","orange","yellow","green","blue","violet","grey","white"};
+		
+		int x = 0;
+		int y = 0;
+		long z = 0;
+		String a,b,c;
+		a = scanner.nextLine();
+		b = scanner.nextLine();
+		c = scanner.nextLine();
+		for(int i = 0; i < result.length; i++) {
+			if(a.equals(result[i])) x = 10*i;
+			if(b.equals(result[i])) y = i;
+			if(c.equals(result[i])) z = (long)Math.pow(10, i);
 		}
-		System.out.println(count);
+		
+		scanner.close();
+		System.out.println((long)(x+y)*z);
 	}
 }
