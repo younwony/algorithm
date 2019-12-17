@@ -8,6 +8,9 @@ public class Main {
 	
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
-		System.out.println(scanner.nextBigInteger().add(scanner.nextBigInteger()));
+		BigInteger a = scanner.nextBigInteger();
+		BigInteger b = scanner.nextBigInteger();
+		scanner.close();
+		System.out.println(a.multiply(b));
 	}
 }
