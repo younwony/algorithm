@@ -7,25 +7,25 @@ import java.util.*;
 public class Main {
 	
 	public static void main(String[] args) {
+		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
 		
-		String[] croatiaLang = {"c=","c-","dz=","d-","lj","nj","s=","z="};
-		String inputData = scanner.nextLine();
-		
+		int n = scanner.nextInt();
 		scanner.close();
-		int count = 0;
-		while(!"".equals(inputData)){
-			for(int i = 0; i < croatiaLang.length; i++){
-				while(inputData.indexOf(croatiaLang[i]) >= 0){
-					inputData = inputData.replaceFirst(croatiaLang[i], ",");
-					count++;
-				}
-			}
-			inputData = inputData.replace(",","");
-			count += inputData.length();
-			break;
+		int x = 0;
+		while(x < n){
+			if(n == ConsturctNum(x)){System.out.println(x); break;}
+			else x++;
 		}
-		System.out.println(count);
+		if(x == n) System.out.println(0);
 	}
 	
+	public static int ConsturctNum(int n){
+		int x = n;
+		while(n != 0){
+			x += n%10;
+			n /= 10;
+		}
+		return x;
+	}
 }

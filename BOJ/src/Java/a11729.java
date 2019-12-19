@@ -27,8 +27,21 @@ public class a11729 {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
+		int n = scanner.nextInt();
+		scanner.close();
 		
-		int testCount = scanner.nextInt();
+		System.out.println((int)Math.pow(2, n)-1); //개수
+		hanoi(n, 1, 2, 3);
+	}
+	
+	public static void hanoi(int n, int start, int middle, int end){
+		if(n==1) {
+			System.out.println(start + " " + end);
+			return ;
+		}
+		hanoi(n-1, start, end, middle);// 가장 아래판을 제외한 나머지판을 중앙으로 옮기기
+		System.out.println(start + " " + end); //가장 아래판을 종료지점으로 옮기기
+		hanoi(n-1, middle, start, end);// 중앙의 판을 종료지점으로 옮기기
 	}
 
 }
