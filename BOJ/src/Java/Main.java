@@ -9,47 +9,32 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
-		String[][] filed = new String[scanner.nextInt()][scanner.nextInt()];
-		scanner.nextLine();
-		for(int i = 0; i < filed.length; i++)
-			filed[i] = scanner.nextLine().split("");
+		
+		int n = scanner.nextInt();
+		
 		scanner.close();
-		int countMin = 0;
 		
-		for(int i = 0; i < filed.length-7; i++){
-			for(int j = 0; j < filed[0].length -7; j++){
-				if(i ==0 && j ==0) countMin = filedCount(filed, i, j);
-				else{
-					countMin = countMin > filedCount(filed, i, j) ? filedCount(filed, i, j) : countMin;
-				}
-			}
-		}
+		int[] memN = new int[10001];
 		
-		System.out.println(countMin);
+		memN[0] = 666;
 		
+		for(int i = 0; i < n; i++) 
+			memN[i+1] = SyomNumber(memN[i]);
+		
+		System.out.println(memN[n-1]);
 	}
-	public static int filedCount(String[][] filed, int startX, int startY){
-		int countOne = 0;
-		for(int i = startX; i < startX+8; i++){
-			for(int j = startY; j < startY+8; j++){
-				if((i+j) % 2 == 0){
-					if("B".equals(filed[i][j])) countOne++;
-				}else{
-					if("W".equals(filed[i][j])) countOne++;
-				}
-			}
-		}
-		int countTwo = 0;
-		for(int i = startX; i < startX+8; i++){
-			for(int j = startY; j < startY+8; j++){
-				if((i+j) % 2 != 0){
-					if("B".equals(filed[i][j])) countTwo++;
-				}else{
-					if("W".equals(filed[i][j])) countTwo++;
-				}
-			}
-		}
+	
+	public static int SyomNumber(int n) {
 		
-		return countOne > countTwo ? countTwo : countOne;
+		String startN;
+		boolean syomN = true;
+		while(syomN) {
+			n++;
+			startN = String.valueOf(n);
+			for(int i = 0; i < startN.length()-2; i++) 
+				if(startN.charAt(i) == '6' && startN.charAt(i+1) == '6' && startN.charAt(i+2) == '6') {syomN = false;}
+		}
+		return n;
 	}
+	
 }
