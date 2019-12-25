@@ -34,23 +34,26 @@ public class a1011_FlyMeToTheAlphaCentauri {
 		for(int i = 0; i < testCount; i++) {
 			x = scanner.nextInt();
 			y = scanner.nextInt();
-			System.out.println(SpaceMove(y - x));
+			SpaceMove(y - x);
 		}
 	}
 	
-	public static int SpaceMove(int length) {
-		if(length <= 2) return length;
-		
-		int startX = 1;
-		int count = 2;
-		length -= 2;
-		while(length != 0) {
-			if(length > startX) { length -= (startX+1); startX++; count++;}
-			else if(length == startX) {length -= startX; count++;}
-			else { length -= startX-1; startX--; count++;}
+	public static void SpaceMove(int n) {
+		for(int i = 1; ; i++) {
+			if(i > Math.sqrt(n)) {
+				if(n <= (Math.pow(i-1,2) + i-1)) {
+					System.out.println(2*(i-1));
+				}else {
+					System.out.println(2*i - 1);
+				}
+				break;
+			}else if(i == Math.sqrt(n)) {
+				System.out.println((int)(2*Math.sqrt(n) - 1));
+				break;
+			}
 		}
-		
-		return count;
-		
 	}
+	
+	
+	
 }
