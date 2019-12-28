@@ -1,9 +1,10 @@
 /**
  * @작성자 wony
- * @작성일 2019. 12. 27.
+ * @작성일 2019. 12. 28.
  * @사용처
- *
+ * @Todo
  */
+
 package Silver;
 
 import java.util.Scanner;
@@ -11,20 +12,21 @@ import java.util.Stack;
 
 /**
  * @작성자 wony
- * @작성일 2019. 12. 27.
+ * @작성일 2019. 12. 28.
  * @사용처
- * 
+ * @Todo
  */
-public class a15649_N과M_1 {
+
+public class a15651_N과M_3 {
 
 	/**
 	 * @작성자 wony
-	 * @작성일 2019. 12. 27.
+	 * @작성일 2019. 12. 28.
 	 * @사용처
-	 * @Todo
 	 * @param args
-	 * 
+	 * @Todo
 	 */
+
 	static Stack<Integer> stack = new Stack<Integer>();
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -35,15 +37,13 @@ public class a15649_N과M_1 {
 		
 		backTracking(n, m);
 	}
-	
 	/**
 	 * @작성자 wony
-	 * @작성일 2019. 12. 27.
-	 * @사용처 Permutation(순열)
-	 * @Todo
+	 * @작성일 2019. 12. 28.
+	 * @사용처 Multiset Permutation(중복순열)
 	 * @param n
 	 * @param m
-	 * 
+	 * @Todo
 	 */
 	public static void backTracking(int n, int m){
 		if(m == 0){
@@ -57,11 +57,11 @@ public class a15649_N과M_1 {
 			System.out.println();
 		}else{
 			for(int i = 1; i <= n; i++){
-				if(stack.contains(i)){continue;}
 				stack.push(i);
 				backTracking(n, m-1);
 				stack.pop();
 			}
 		}
 	}
+
 }
