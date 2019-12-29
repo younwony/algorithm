@@ -6,28 +6,54 @@ import java.util.*;
 
 public class Main {
 	
-	static int[] resultArray;
+	static Stack<Integer> stack = new Stack<Integer>();
+	static BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(System.out));
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Scanner scanner = new Scanner(System.in);
-		int n = scanner.nextInt();
-		int m = scanner.nextInt();
-		resultArray = new int[n];
-		scanner.close();
-		BackTraking(n,m);
-	}
-	
-	public static void BackTraking(int n , int m) {
-		if(m == 0) {
-			for(int i = resultArray.length-1; i > 0; i--) {
-				if(resultArray[i] != 0) {System.out.print(i + " ");}
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+		
+		try {
+			String[] inputData =bufferedReader.readLine().split(" ");
+			backTracking(Integer.parseInt(inputData[0]), Integer.parseInt(inputData[1]));
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			try {
+				if(bufferedReader != null) bufferedReader.close();
+				if(bufferedWriter != null) {bufferedWriter.flush(); bufferedWriter.close();}
+			} catch (Exception e2) {
+				// TODO: handle exception
+				e2.printStackTrace();
 			}
-			System.out.println();
-		}else {
-			for(int i = 1; i <= n; i++) {
-				resultArray[m] = i;
-				BackTraking(n, m-1);
-				resultArray[m] = 0;
+		}
+		
+	}
+	/**
+	 * @작성자 wony
+	 * @작성일 2019. 12. 28.
+	 * @사용처 Multiset Permutation(중복순열)
+	 * @param n
+	 * @param m
+	 * @Todo
+	 */
+	public static void backTracking(int n, int m){
+		if(m == 0){
+			try {
+				for(int i = 0; i < stack.size(); i++) {
+					bufferedWriter.write(stack.get(i) + " ");
+				}
+				bufferedWriter.flush();
+				bufferedWriter.newLine();
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+		}else{
+			for(int i = 1; i <= n; i++){
+				stack.push(i);
+				backTracking(n, m-1);
+				stack.pop();
 			}
 		}
 	}

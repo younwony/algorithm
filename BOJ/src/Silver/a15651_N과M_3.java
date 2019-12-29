@@ -7,6 +7,10 @@
 
 package Silver;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -28,14 +32,27 @@ public class a15651_N과M_3 {
 	 */
 
 	static Stack<Integer> stack = new Stack<Integer>();
+	static BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(System.out));
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Scanner scanner = new Scanner(System.in);
-		int n = scanner.nextInt();
-		int m = scanner.nextInt();
-		scanner.close();
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 		
-		backTracking(n, m);
+		try {
+			String[] inputData =bufferedReader.readLine().split(" ");
+			backTracking(Integer.parseInt(inputData[0]), Integer.parseInt(inputData[1]));
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			try {
+				if(bufferedReader != null) bufferedReader.close();
+				if(bufferedWriter != null) {bufferedWriter.flush(); bufferedWriter.close();}
+			} catch (Exception e2) {
+				// TODO: handle exception
+				e2.printStackTrace();
+			}
+		}
+		
 	}
 	/**
 	 * @작성자 wony
@@ -48,13 +65,15 @@ public class a15651_N과M_3 {
 	public static void backTracking(int n, int m){
 		if(m == 0){
 			try {
-				for(int i = 0; i < stack.size(); i++)
-					System.out.print(stack.get(i) + " ");
+				for(int i = 0; i < stack.size(); i++) {
+					bufferedWriter.write(stack.get(i) + " ");
+				}
+				bufferedWriter.flush();
+				bufferedWriter.newLine();
 			} catch (Exception e) {
 				// TODO: handle exception
 				e.printStackTrace();
 			}
-			System.out.println();
 		}else{
 			for(int i = 1; i <= n; i++){
 				stack.push(i);
