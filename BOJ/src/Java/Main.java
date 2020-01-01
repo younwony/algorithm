@@ -6,54 +6,36 @@ import java.util.*;
 
 public class Main {
 	
-	static Stack<Integer> stack = new Stack<Integer>();
-	static BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(System.out));
+	static int count = 0;
+	static int n;
+	static int[] col;
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-		
-		try {
-			String[] inputData =bufferedReader.readLine().split(" ");
-			backTracking(Integer.parseInt(inputData[0]), Integer.parseInt(inputData[1]));
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}finally {
-			try {
-				if(bufferedReader != null) bufferedReader.close();
-				if(bufferedWriter != null) {bufferedWriter.flush(); bufferedWriter.close();}
-			} catch (Exception e2) {
-				// TODO: handle exception
-				e2.printStackTrace();
-			}
-		}
+		Scanner scanner = new Scanner(System.in);
+		n = scanner.nextInt();
+		col = new int[n];
+		NQueen(0, 0);
+		scanner.close();
+		System.out.println(count);
 		
 	}
-	/**
-	 * @작성자 wony
-	 * @작성일 2019. 12. 28.
-	 * @사용처 Multiset Permutation(중복순열)
-	 * @param n
-	 * @param m
-	 * @Todo
-	 */
-	public static void backTracking(int n, int m){
-		if(m == 0){
-			try {
-				for(int i = 0; i < stack.size(); i++) {
-					bufferedWriter.write(stack.get(i) + " ");
-				}
-				bufferedWriter.flush();
-				bufferedWriter.newLine();
-			} catch (Exception e) {
-				// TODO: handle exception
-				e.printStackTrace();
-			}
+	
+	public static void NQueen(int rowNum, int queenCount){
+		if(queenCount == n){
+			count++;
 		}else{
-			for(int i = 1; i <= n; i++){
-				stack.push(i);
-				backTracking(n, m-1);
-				stack.pop();
+			boolean[] check = new boolean[n]; // 형재 row의 위치값들 체크할 Boolean
+			for(int i = 0; i < rowNum; i++){ //이전  Queen들의 위치
+				check[col[i]] = true; // 이전 Queen의 위치 col값 제외
+				if(col[i] - (rowNum - i) >= 0){check[col[i]-(rowNum - i)] = true;} //이전 Queen과 현재 row의 row차이만큼 이전Queen 위치의 col에서 뺀값 제외 ,즉 거리의 차이만큼 뺀값 제외
+				if(col[i] + (rowNum - i) < n){check[col[i]+(rowNum - i)] = true;} //이전 Queen과 현재 row의 row차이만큼 이전Queen 위치의 col에서 더한값 제외,즉 거리의 차이만큼 더한값 제외
+			}
+			
+			for(int i = 0; i < n; i++){
+				if(check[i] != true){ //제외되지 않은 값들이 현재 row에서 Queen을 놓을 수 있는 위치이다.
+					col[rowNum] = i; //현재 row에  Queen 위치 저장
+					NQueen(rowNum+1, queenCount+1);
+				}
 			}
 		}
 	}
