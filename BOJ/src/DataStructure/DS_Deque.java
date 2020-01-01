@@ -42,12 +42,10 @@ public class DS_Deque {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
-		
 		int testCount = scanner.nextInt();
 		scanner.nextLine();
 		
 		Deque<Integer> deque = new ArrayDeque<Integer>();
-		
 		String[] order;
 		
 		for(int i = 0; i < testCount; i++){

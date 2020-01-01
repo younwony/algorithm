@@ -44,7 +44,6 @@ public class DS_Queue {
 		int testCount = Integer.parseInt(scanner.nextLine());
 		
 		Queue<Integer> queue = new LinkedList<Integer>();
-		
 		String[] order;
 		
 		int lastData = -1;
