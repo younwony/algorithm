@@ -6,29 +6,30 @@ import java.util.*;
 
 public class Main {
 	
-	static int count = 0;
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
+		int testCount = scanner.nextInt();
+		HashMap<Integer, Integer> map = new LinkedHashMap<Integer, Integer>();
 		
-		int testCase = scanner.nextInt();
-
-		for(int i = 0 ; i < testCase; i++) {
-			BackTracking(scanner.nextInt());
-			System.out.println(count);
-			count=0;
+		int start, end, nowTime;
+		int count = 0;
+		for(int i = 0; i < testCount; i++){
+			start = scanner.nextInt();
+			end = scanner.nextInt();
+			map.put(end, start);
 		}
 		scanner.close();
-	}
-	
-	
-	public static void BackTracking(int n) {
-		if(n == 0) {
-			count++;
-		}else if(n > 0){
-			BackTracking(n-1);
-			BackTracking(n-2);
-			BackTracking(n-3);
+		
+		ArrayList<Integer> endTime = new ArrayList<Integer>(map.keySet());
+		endTime.sort(null);
+		nowTime = 0;
+		for(int i = 0; i < endTime.size(); i++){
+			if(nowTime <= map.get(endTime.get(i))){
+				nowTime = endTime.get(i);
+				count++;
+			}
 		}
+		System.out.println(count);
 	}
 }
