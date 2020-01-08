@@ -7,69 +7,47 @@ import java.util.*;
 
 public class Main {
 	
-	static ArrayList<int[]> arrayList  = new ArrayList<int[]>();
-	static ArrayList<int[]> filedList = new ArrayList<int[]>();
-	static int[][] filed;
-	static boolean[] visitied;
-	static int m = 0;
-	static int chickenlength = 2500;
+	static int n;
+	static StringBuilder builder = new StringBuilder();
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
-		
-		int n = scanner.nextInt();
-		m = scanner.nextInt();
-		filed = new int[n][n];
-		for(int i = 0; i < n; i++){
-			for(int j = 0; j < n; j++){
-				filed[i][j] = scanner.nextInt();
-				if(filed[i][j] == 2){arrayList.add(new int[]{i,j});}
-			}
-		}
+		n = scanner.nextInt();
 		scanner.close();
-		visitied = new boolean[arrayList.size()];
-		
-		dfs(0, 0);
-		
-		System.out.println(chickenlength);
-		
+		dfs(0);
 	}
 	
-	public static void dfs(int depth, int index){
-		if(depth == m){
-			filedList.clear();
-			for(int i = 0; i < visitied.length; i++){
-				if(visitied[i]){filedList.add(arrayList.get(i));}
-			}
-			solvedChickenLength();
+	public static void dfs(int depth){
+		if(depth == n){
+			System.out.println(builder.toString());
+			System.exit(0);
 		}else{
-			for(int i = index; i < arrayList.size(); i++){
-				if(visitied[i]){continue;}
-				else{
-					visitied[i] = true;
-					dfs(depth+1, i+1);
-					visitied[i] = false;
+			for(int i =1; i <= 3; i++){
+				builder.append(i);
+				if(isRight(builder.toString())){
+					dfs(depth+1);
 				}
+				builder.delete(builder.length()-1, builder.length());
+				
 			}
 		}
 	}
 	
-	public static void solvedChickenLength(){
-		int totalLength = 0;
-		int length;
-		for (int i = 0; i < filed.length; i++) {
-			for (int j = 0; j < filed.length; j++) {
-				if(filed[i][j] == 1){
-					length = (int)Math.pow(filed.length, 2);
-					for (int j2 = 0; j2 < filedList.size(); j2++) {
-						length = Math.min(length, (Math.abs(i-filedList.get(j2)[0]) + Math.abs(j-filedList.get(j2)[1])));
-					}
-					totalLength += length;
+	public static boolean isRight(String str){
+		
+		boolean result = true;
+		
+		for(int i = 1; i <= str.length()/2; i++){
+			for(int j = 0; j <= str.length()-2*i; j++){
+				if(str.substring(j,j+i).equals(str.substring(j+i, j+2*i))){
+					result = false;
 				}
 			}
+			
 		}
 		
-		chickenlength = Math.min(chickenlength, totalLength);
+		return result;
+		
 	}
 }
 
