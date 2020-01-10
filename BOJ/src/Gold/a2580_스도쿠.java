@@ -31,7 +31,7 @@ public class a2580_스도쿠 {
 	
 	static ArrayList<int[]> arrayList = new ArrayList<int[]>();
 	static int[][] sudokuFiled = new int[9][9];
-	public static void main(String[] args) {
+	public static void main(String[] args) { 
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
 		for(int i = 0; i < 9; i++){
