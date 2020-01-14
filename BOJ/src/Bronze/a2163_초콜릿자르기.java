@@ -14,7 +14,7 @@ import java.util.Scanner;
  * @사용처
  * 
  */
-public class a2136_초콜릿자르기 {
+public class a2163_초콜릿자르기 {
 
 	/**
 	 * @작성자 wony
