@@ -7,24 +7,45 @@ import java.util.*;
 
 public class Main {
 	
+	static int[] mem = new int[40000001];
+	static int[] inputArray;
+	static boolean[] visited;
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
-		String str = scanner.nextLine();
-		String[] firstArray = {"0","1","10","11","100","101","110","111"};
-		String[] afterArray = {"000","001","010","011","100","101","110","111"};
+		int testCount = scanner.nextInt();
+		inputArray = new int[testCount];
+		visited = new boolean[testCount];
+		int resultSum = scanner.nextInt();
+		for(int i = 0; i < testCount; i++)
+			inputArray[i] = scanner.nextInt();
+		scanner.close();
 		
-		StringBuilder builder = new StringBuilder();
-		for(int i = 0; i < str.length(); i++){
-			if(i == 0){
-				builder.append(firstArray[str.charAt(i)-'0']);
-			}else{
-				builder.append(afterArray[str.charAt(i)-'0']);
+		dfs(0);
+		
+		if(mem[0]>0){mem[0]--;}
+		
+		if(resultSum > 0){System.out.println(mem[resultSum+20000000]);}
+		else{System.out.println(mem[Math.abs(resultSum)]);}
+		
+	}
+	
+	public static void dfs(int index){
+		int sum = 0;
+		for(int i = 0; i < inputArray.length; i++){
+			if(visited[i]){
+				sum += inputArray[i];
 			}
 		}
-		System.out.println(builder.toString());
 		
-		scanner.close();
+		if(sum > 0){mem[sum+20000000]++;}
+		else{mem[Math.abs(sum)]++;}
+		
+		for(int i = index; i < inputArray.length; i++){
+			visited[i] = true;
+			dfs(i+1);
+			visited[i] = false;
+		}
 	}
 }
 
