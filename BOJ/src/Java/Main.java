@@ -7,44 +7,25 @@ import java.util.*;
 
 public class Main {
 	
-	static int[] mem = new int[40000001];
-	static int[] inputArray;
-	static boolean[] visited;
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
-		int testCount = scanner.nextInt();
-		inputArray = new int[testCount];
-		visited = new boolean[testCount];
-		int resultSum = scanner.nextInt();
-		for(int i = 0; i < testCount; i++)
-			inputArray[i] = scanner.nextInt();
+		int n = scanner.nextInt();
 		scanner.close();
 		
-		dfs(0);
-		
-		if(mem[0]>0){mem[0]--;}
-		
-		if(resultSum > 0){System.out.println(mem[resultSum+20000000]);}
-		else{System.out.println(mem[Math.abs(resultSum)]);}
-		
-	}
-	
-	public static void dfs(int index){
-		int sum = 0;
-		for(int i = 0; i < inputArray.length; i++){
-			if(visited[i]){
-				sum += inputArray[i];
+		for(int i = 1; i <= 2*n -1; i++){
+			if(i <= n){
+				for(int j = 1; j <= n-i + (2*i-1); j++){
+					if(j <= n-i){System.out.print(" ");}
+					else{System.out.print("*");}
+				}
+			}else{
+				for(int j = 1; j <= 2*n-1-(i-n); j++){
+					if(j <= i-n){System.out.print(" ");}
+					else{System.out.print("*");}
+				}
 			}
-		}
-		
-		if(sum > 0){mem[sum+20000000]++;}
-		else{mem[Math.abs(sum)]++;}
-		
-		for(int i = index; i < inputArray.length; i++){
-			visited[i] = true;
-			dfs(i+1);
-			visited[i] = false;
+			System.out.println();
 		}
 	}
 }
