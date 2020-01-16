@@ -10,23 +10,26 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
-		int n = scanner.nextInt();
-		scanner.close();
-		
-		for(int i = 1; i <= 2*n -1; i++){
-			if(i <= n){
-				for(int j = 1; j <= n-i + (2*i-1); j++){
-					if(j <= n-i){System.out.print(" ");}
-					else{System.out.print("*");}
-				}
-			}else{
-				for(int j = 1; j <= 2*n-1-(i-n); j++){
-					if(j <= i-n){System.out.print(" ");}
-					else{System.out.print("*");}
-				}
+		int zeroCount;
+		for(int i = 0; i < 3; i++){
+			zeroCount = 0;
+			for(int j = 0; j < 4; j++){
+				if(scanner.nextInt() == 0){zeroCount++;}
 			}
-			System.out.println();
+			switch (zeroCount) {
+			case 0:System.out.println("E");
+				break;
+			case 1:System.out.println("A");
+			break;
+			case 2:System.out.println("B");
+			break;
+			case 3:System.out.println("C");
+			break;
+			case 4:System.out.println("D");
+			break;
+			}
 		}
+		scanner.close();
 	}
 }
 
