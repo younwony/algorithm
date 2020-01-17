@@ -11,35 +11,21 @@ public class Main {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
 		int testCount = scanner.nextInt();
-		scanner.nextLine();
-		String[][] inputData = new String[testCount][50];
-		String equalStr;
-		boolean eqaulResult;
-		StringBuilder resultStr = new StringBuilder();
-
+		int a, b;
 		for(int i = 0; i < testCount; i++){
-			inputData[i] = scanner.nextLine().split("");
+			a = scanner.nextInt();
+			b = scanner.nextInt();
+			System.out.println(a*b/gcd(a, b));
 		}
-
 		scanner.close();
-		
-		for(int i = 0; i < inputData[0].length; i++){
-			equalStr = inputData[0][i];
-			eqaulResult = true;
-			for(int j = 1; j < testCount; j++){
-				if(!equalStr.equals(inputData[j][i])){
-					eqaulResult = false;
-					break;
-				}
-			}
-			if(eqaulResult){
-				resultStr.append(equalStr);
-			}else{
-				resultStr.append("?");
-			}
+	}
+	
+	public static int gcd(int a, int b){
+		if(b == 0){
+			return a;
+		}else{
+			return gcd(b, a%b);
 		}
-		
-		System.out.println(resultStr.toString());
 	}
 }
 
