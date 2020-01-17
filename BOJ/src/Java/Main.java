@@ -10,26 +10,36 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
-		int zeroCount;
-		for(int i = 0; i < 3; i++){
-			zeroCount = 0;
-			for(int j = 0; j < 4; j++){
-				if(scanner.nextInt() == 0){zeroCount++;}
+		int testCount = scanner.nextInt();
+		scanner.nextLine();
+		String[][] inputData = new String[testCount][50];
+		String equalStr;
+		boolean eqaulResult;
+		StringBuilder resultStr = new StringBuilder();
+
+		for(int i = 0; i < testCount; i++){
+			inputData[i] = scanner.nextLine().split("");
+		}
+
+		scanner.close();
+		
+		for(int i = 0; i < inputData[0].length; i++){
+			equalStr = inputData[0][i];
+			eqaulResult = true;
+			for(int j = 1; j < testCount; j++){
+				if(!equalStr.equals(inputData[j][i])){
+					eqaulResult = false;
+					break;
+				}
 			}
-			switch (zeroCount) {
-			case 0:System.out.println("E");
-				break;
-			case 1:System.out.println("A");
-			break;
-			case 2:System.out.println("B");
-			break;
-			case 3:System.out.println("C");
-			break;
-			case 4:System.out.println("D");
-			break;
+			if(eqaulResult){
+				resultStr.append(equalStr);
+			}else{
+				resultStr.append("?");
 			}
 		}
-		scanner.close();
+		
+		System.out.println(resultStr.toString());
 	}
 }
 
