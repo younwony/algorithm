@@ -10,22 +10,18 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
-		int testCount = scanner.nextInt();
-		int a, b;
-		for(int i = 0; i < testCount; i++){
-			a = scanner.nextInt();
-			b = scanner.nextInt();
-			System.out.println(a*b/gcd(a, b));
-		}
+		String data = scanner.nextLine();
 		scanner.close();
+		int count = 0;
+		for(int i = 0; i < data.length(); i++) {
+			if(momo(String.valueOf(data.charAt(i)))) {count++;}
+		}
+		System.out.println(count);
 	}
 	
-	public static int gcd(int a, int b){
-		if(b == 0){
-			return a;
-		}else{
-			return gcd(b, a%b);
-		}
+	public static boolean momo(String str) {
+		if("a".equals(str) || "e".equals(str) || "i".equals(str) || "o".equals(str) || "u".equals(str)) {return true;}
+		else {return false;}
 	}
 }
 
