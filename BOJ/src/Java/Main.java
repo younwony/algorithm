@@ -10,18 +10,24 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
-		String data = scanner.nextLine();
+		int n = scanner.nextInt();
 		scanner.close();
-		int count = 0;
-		for(int i = 0; i < data.length(); i++) {
-			if(momo(String.valueOf(data.charAt(i)))) {count++;}
+		Queue<Integer> queue = new LinkedList<Integer>();
+		boolean nextCheck = true;
+		
+		for(int i = 1; i <= n; i++) {
+			queue.offer(i);
 		}
-		System.out.println(count);
-	}
-	
-	public static boolean momo(String str) {
-		if("a".equals(str) || "e".equals(str) || "i".equals(str) || "o".equals(str) || "u".equals(str)) {return true;}
-		else {return false;}
+		
+		while(!queue.isEmpty()) {
+			if(nextCheck) {
+				System.out.print(queue.poll() + " ");
+			}else {
+				queue.offer(queue.poll());
+			}
+			nextCheck = !nextCheck;
+		}
+		
 	}
 }
 
