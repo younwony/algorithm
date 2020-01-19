@@ -10,24 +10,13 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
-		int n = scanner.nextInt();
+		String n = Integer.toBinaryString(scanner.nextInt());
 		scanner.close();
-		Queue<Integer> queue = new LinkedList<Integer>();
-		boolean nextCheck = true;
-		
-		for(int i = 1; i <= n; i++) {
-			queue.offer(i);
+		int count = 0;
+		for(int i = 0; i< n.length(); i++) {
+			if(n.charAt(i) == '1') {count++;}
 		}
-		
-		while(!queue.isEmpty()) {
-			if(nextCheck) {
-				System.out.print(queue.poll() + " ");
-			}else {
-				queue.offer(queue.poll());
-			}
-			nextCheck = !nextCheck;
-		}
-		
+		System.out.println(count);
 	}
 }
 
