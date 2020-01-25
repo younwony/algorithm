@@ -11,16 +11,17 @@ public class Main {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
 		
-		long s = scanner.nextLong();
+		int testCase = scanner.nextInt();
+		int[] inputData = new int[10];
 		
-		scanner.close();
-		long sum = 1;
-		long count = 1;
-		while(sum <= s) {
-			sum += ++count;
+		for(int i = 0; i < testCase; i++) {
+			for(int j = 0; j < 10; j++) {
+				inputData[j] = scanner.nextInt();
+			}
+			Arrays.sort(inputData);
+			System.out.println(inputData[7]);
 		}
-		count--;
-		System.out.println(count);
+		scanner.close();
 	}
 }
 
