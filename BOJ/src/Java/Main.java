@@ -10,9 +10,17 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
-		int n = scanner.nextInt();
-		int k = scanner.nextInt();
-		int count = 1;
+		
+		long s = scanner.nextLong();
+		
+		scanner.close();
+		long sum = 1;
+		long count = 1;
+		while(sum <= s) {
+			sum += ++count;
+		}
+		count--;
+		System.out.println(count);
 	}
 }
 
