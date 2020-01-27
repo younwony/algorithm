@@ -21,9 +21,9 @@ public class a10972_다음순열 {
 	/**
 	 * @작성자 wony
 	 * @작성일 2020. 1. 26.
-	 * @사용처
+	 * @사용처 
 	 * @param args
-	 * @Todo
+	 * @Todo C++ Stl 구현해보기,  대부분이 STL의 next_permutation을 구현해서 풀이
 	 */
 
 	static boolean[] visited;
