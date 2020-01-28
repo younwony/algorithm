@@ -10,23 +10,26 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
-		
-		int testCase = scanner.nextInt();
-		
-		for(int i = 0; i < testCase; i++) {
-			GCDandLCM(scanner.nextInt(), scanner.nextInt());
-		}
+		String n = scanner.nextLine();
 		scanner.close();
-	}
-	
-	public static void GCDandLCM(int a, int b) {
-		int gcd = GCD(a, b);
-		int lcm = (a * b) / gcd;
-		System.out.println(lcm + " " + gcd);
-	}
-	
-	public static int GCD(int a, int b) {
-		return a == 0 ? b : GCD(b%a, a);
+		double[] numArray = new double[10];
+		int inputData;
+		for(int i = 0; i<n.length(); i++) {
+			inputData = Character.getNumericValue(n.charAt(i));
+			if (inputData == 6 || inputData == 9) {
+				numArray[6] += 0.5;
+			} else {
+				numArray[inputData] += 1;
+			}
+
+		}
+		
+		int max = 0;
+		for(double num : numArray) {
+			max = (int)Math.max(max, Math.round(num));
+		}
+		
+		System.out.println(max);
 	}
 }
 
