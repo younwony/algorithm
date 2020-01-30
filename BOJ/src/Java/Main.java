@@ -7,28 +7,37 @@ import java.util.*;
 
 public class Main {
 	
-	static int[] dp;
-	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
 		
-		int n = scanner.nextInt();
+		int[] inputArray = new int[scanner.nextInt()];
 		
-		dp = new int[n+1];
-		dp[0] = 1;
-		dp[1] = 1;
+		for(int i = 0; i < inputArray.length; i++){
+			inputArray[i] = scanner.nextInt();
+		}
 		
-		dp(n);
-		
-		System.out.println(dp[n]);
 		scanner.close();
+		
+		System.out.println(dp(inputArray));
 	}
 	
-	public static void dp(int n) {
-		for(int i = 2; i <= n; i++) {
-			dp[i] = (dp[i-1] + dp[i-2])%10007;
+	public static int dp(int[] inputArray){
+		int[] dp = new int[inputArray.length];
+		dp[0] = inputArray[0];
+		for(int i = 1; i < inputArray.length; i++){
+			dp[i] = Math.max(inputArray[i], dp[i-1] + inputArray[i]);
 		}
+		
+		int max = dp[0];
+		
+		for(int num : dp){
+			max = Math.max(num, max);
+		}
+		
+		return max;
+		
+		
 	}
 }
 
