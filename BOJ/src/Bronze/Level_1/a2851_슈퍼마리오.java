@@ -29,12 +29,16 @@ public class a2851_슈퍼마리오 {
 		Scanner scanner = new Scanner(System.in);
 		int sum = 0;
 		int n;
-		while(scanner.hasNextInt()){
+		for(int i = 0; i < 10; i++){
 			n = scanner.nextInt();
-			if((int)Math.abs(sum-100) < (int)Math.abs(sum+n-100)){
+			if((int)Math.abs(sum-100) >= (int)Math.abs(sum+n-100)){
 				sum+=n;
+			}else{
+				break;
 			}
 		}
+		scanner.close();
+		
+		System.out.println(sum);
 	}
-
 }
