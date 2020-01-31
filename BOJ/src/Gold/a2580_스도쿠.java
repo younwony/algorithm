@@ -14,7 +14,7 @@ import java.util.Scanner;
 
 /**
  * @작성자 wony
- * @작성일 2019. 12. 31.
+ * @작성일 2020. 1. 31.
  * @사용처
  * 
  */
@@ -22,108 +22,126 @@ public class a2580_스도쿠 {
 
 	/**
 	 * @작성자 wony
-	 * @작성일 2019. 12. 31.
-	 * @사용처
+	 * @작성일 2020. 1. 31.
+	 * @사용처 스도쿠 (백트래킹)
 	 * @Todo
 	 * @param args
 	 * 
 	 */
 	
+	static int zeroCount = 0;
+	static int[][] sudoku = new int[9][9];
 	static ArrayList<int[]> arrayList = new ArrayList<int[]>();
-	static int[][] sudokuFiled = new int[9][9];
-	public static void main(String[] args) { 
+	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
+		
+		/* 
+		 * 1. inputData 초기화 
+		 * 2. 0 개수(입력해야할 개수) 카운트
+		 * */
 		for(int i = 0; i < 9; i++){
 			for(int j = 0; j < 9; j++){
-				sudokuFiled[i][j] = scanner.nextInt();
-				if(sudokuFiled[i][j] == 0){arrayList.add(new int[]{i,j});}
+				sudoku[i][j] = scanner.nextInt();
+				if(sudoku[i][j] == 0){
+					arrayList.add(new int[]{i,j});
+					zeroCount++;
+				}
 			}
-		}
-		while(arrayList.size() != 0){
-			dfs();
 		}
 		scanner.close();
 		
-		for(int i = 0; i < 9; i++){
-			for(int j = 0; j < 9; j++){
-				System.out.print(sudokuFiled[i][j]+ " ");
-			}
-			System.out.println();
-		}
-	}
-	
-	public static void dfs(){
-		for(int i = 0; i < arrayList.size(); i++){
-			XYLineCheck(arrayList.get(i)[0],arrayList.get(i)[1]);
-			NineFiled(arrayList.get(i)[0], arrayList.get(i)[1]);
-			if(sudokuFiled[arrayList.get(i)[0]][arrayList.get(i)[1]] != 0){arrayList.remove(i);}
-		}
+		solvedBackTraking(0);
+		
 	}
 	
 	/**
 	 * @작성자 wony
-	 * @작성일 2019. 12. 31.
-	 * @사용처 X축, Y축 확인
+	 * @작성일 2020. 1. 31.
+	 * @사용처 백트래킹으로 찾기
 	 * @Todo
+	 * @param index
 	 * 
 	 */
-	public static void XYLineCheck(int x, int y){
-		if(sudokuFiled[x][y] != 0) return;
-		boolean[] xChecked = new boolean[9];
-		boolean[] yChecked = new boolean[9];
-		
-		int xCount = 0;
-		int yCount = 0;
-		for(int i = 0; i < 9; i++){
-			if(i == y){continue;}
-			if(sudokuFiled[x][i] == 0){xCount++;continue;}
-			else{xChecked[sudokuFiled[x][i]-1] = true;}
-		}
-		for(int i = 0; i < 9; i++){
-			if(i == x){continue;}
-			if(sudokuFiled[i][y] == 0){yCount++;continue;}
-			else{yChecked[sudokuFiled[i][y]-1] = true;}
-		}
-		
-		if(xCount == 0){
+	public static void solvedBackTraking(int index){
+		if(zeroCount == index){
 			for(int i = 0; i < 9; i++){
-				if(!xChecked[i]){sudokuFiled[x][y] = i+1; return ;}
+				for(int j = 0; j < 9; j++){
+					System.out.print(sudoku[i][j] + " ");
+				}
+				System.out.println();
 			}
-		}else if(yCount == 0){
-			for(int i = 0; i < 9; i++){
-				if(!yChecked[i]){sudokuFiled[x][y] = i+1; return ;}
+			/* 답이 여러개 일 경우가 있기에 하나의 답만 출력 후 종료 */
+			System.exit(0);
+		}else{
+			int[] zeroFiled = arrayList.get(index); // 0의 위치 필드 가져오기
+			
+			/* 1~10 까지 대입하면서 찾기 */
+			for(int i = 1; i <10; i++){
+				sudoku[zeroFiled[0]][zeroFiled[1]] = i;
+				
+				/* 0위치의 9칸, 행, 열 체크 후 i가 중복값이 아닐 경우 진행 */
+				if(LineCheck(zeroFiled[0],zeroFiled[1]) && NineCheck(zeroFiled[0],zeroFiled[1])){
+					solvedBackTraking(index+1);
+				}
+				
+				/* i값이 9까지 진행 후 값을 못찾을 경우 다시 0 으로 초기화 시켜줘야 LineCheck, NineCheck 에서 제대로 체크 가능(9값이 지워지지 않은상태로 체크하는 경우 발생하기 때문)*/
+				sudoku[zeroFiled[0]][zeroFiled[1]] = 0; // 
 			}
 		}
 	}
 	
 	/**
 	 * @작성자 wony
-	 * @작성일 2019. 12. 31.
-	 * @사용처 해당 점의 9칸확인
+	 * @작성일 2020. 1. 31.
+	 * @사용처 행,열 체크
 	 * @Todo
+	 * @param x
+	 * @param y
+	 * @return
 	 * 
 	 */
-	public static void NineFiled(int x, int y){
-		if(sudokuFiled[x][y] != 0) return;
-		int xQuotient = x/3;
-		int yQuotient = y/3;
-		boolean[] checked = new boolean[9];
-		int xLocation;
-		int yLocation;
-		for(int i = 0; i < 3; i++){
-			for(int j = 0; j < 3; j++){
-				xLocation = (xQuotient*3)+i;
-				yLocation = (yQuotient*3)+j;
-				if(xLocation == x && yLocation == y){continue;}
-				if(sudokuFiled[xLocation][yLocation] == 0){return;}
-				else{checked[sudokuFiled[xLocation][yLocation]-1] = true;}
+	public static boolean LineCheck(int x, int y){
+		
+		int checkNum = sudoku[x][y]; // 체크할 값 가져오기
+		
+		for(int i = 0; i < 9; i++){
+			/* x행, y열  체크*/
+			if((checkNum == sudoku[x][i] && i != y)|| (checkNum == sudoku[i][y] && i != x)){
+				return false;
 			}
 		}
 		
-		for(int i = 0; i < 9; i++){
-			if(!checked[i]){sudokuFiled[x][y] = i+1; return;}
-		}
+		return true;
 	}
-
+	
+	/**
+	 * @작성자 wony
+	 * @작성일 2020. 1. 31.
+	 * @사용처 9칸 체크
+	 * @Todo
+	 * @param x
+	 * @param y
+	 * @return
+	 * 
+	 */
+	public static boolean NineCheck(int x, int y){
+		
+		int checkNum = sudoku[x][y]; // 체크할 값 가져오기
+		
+		/* 입력값이 존재하는 9칸의 첫지점 구하기 */
+		int nX = x/3;
+		int nY = y/3;
+		
+		for(int i = nX*3; i < nX*3 + 3; i++){
+			for(int j = nY*3; j < nY*3 + 3; j++){
+				/* 칸 체크 */
+				if(checkNum == sudoku[i][j] && i != x && j != y){
+					return false;
+				}
+			}
+		}
+		
+		return true;
+	}
 }
