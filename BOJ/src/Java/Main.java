@@ -7,96 +7,58 @@ import java.util.*;
 
 public class Main {
 	
-	static int[] decimal;
-	static int n;
+	static boolean[] isDecimal = new boolean[1000001];
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
 		
-		n= scanner.nextInt();
+		Eratos();
+		
+		int n;
+		
+		BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(System.out));
+		
+		try {
+			while((n = scanner.nextInt()) != 0){
+				bufferedWriter.write(GoldBach(n) + "\n");
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally{
+			try {
+				if(bufferedWriter != null){bufferedWriter.flush(); bufferedWriter.close();}
+			} catch (Exception e2) {
+				// TODO: handle exception
+				e2.printStackTrace();
+			}
+		}
 		
 		scanner.close();
-		
-		decimal = new int[n+1];
-		
-		Eratosthenes();
-		
-		System.out.println(decimalIsCheck(decimalArrayCreate()));
-		
 	}
 	
-	/**
-	 * @작성자 wony
-	 * @작성일 2020. 2. 2.
-	 * @사용처 에라토스테네스의 체 알고리즘
-	 * @Todo
-	 */
-	public static void Eratosthenes() {
-
-		decimal[0] = 1;
-		decimal[1] = 1;
+	public static void Eratos(){
 		
-		for(int i = 2; i < decimal.length; i++) {
-			for(int j = 2; i*j < decimal.length; j++) {
-				decimal[i*j] = 1;
+		for (int i = 2; i < isDecimal.length; i++) {
+			isDecimal[i] = true;
+		}
+		
+		for(int i = 2; i*i < isDecimal.length; i++){
+			for(int j = i*i; j < isDecimal.length; j += i){
+				isDecimal[j] = false;
 			}
 		}
 	}
 	
-	/**
-	 * @작성자 wony
-	 * @작성일 2020. 2. 2.
-	 * @사용처 소수 Array 생성
-	 * @return
-	 * @Todo
-	 */
-	public static int[] decimalArrayCreate() {
+	public static String GoldBach(int n){
 		
-		int decimalCount = 0;
-		for(int i = 0 ; i < decimal.length; i++) {
-			if(decimal[i] == 0) {
-				decimalCount++;
+		for(int i = 2; i < isDecimal.length/2; i++){
+			if(isDecimal[i] && isDecimal[n-i]){
+				return  n + " = " + i + " + " + (n-i);
 			}
 		}
 		
-		int[] dp = new int[decimalCount];
+		return "Goldbach's conjecture is wrong."; 
 		
-		int index = 0;
-		for(int i = 0 ; i < decimal.length; i++) {
-			if(decimal[i] == 0) {
-				dp[index] = i;
-				index++;
-			}
-		}
-		
-		return dp;
-	}
-	
-	/**
-	 * @작성자 wony
-	 * @작성일 2020. 2. 2.
-	 * @사용처 연속합 Count 함수
-	 * @Todo
-	 */
-	public static int decimalIsCheck(int[] decimalArray) {
-		
-		int count = 0;
-		
-		int sum;
-		
-		for(int i = 0; i < decimalArray.length; i++) {
-			sum = 0;
-			for(int j = i; j < decimalArray.length; j++) {
-				sum += decimalArray[j];
-				if(sum == n) {
-					count++;
-					break;
-				}else if(sum > n) {
-					break;
-				}
-			}
-		}
-		
-		return count;
 	}
 }

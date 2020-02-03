@@ -27,7 +27,7 @@ public class a9020_골드바흐의추측 {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-Scanner scanner = new Scanner(System.in);
+		Scanner scanner = new Scanner(System.in);
 		
 		int testCount = scanner.nextInt();
 		
