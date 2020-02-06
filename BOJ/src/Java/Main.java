@@ -7,19 +7,49 @@ import java.util.*;
 
 public class Main {
 	
+	static int testCase;
+	static boolean[] virus;
+	static boolean[][] inputLink;
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
 		
-		int n = scanner.nextInt();
-		int nO = scanner.nextInt();
-		int nX = n-nO;
-		int cO = scanner.nextInt();
-		int cX = n-cO;
+		testCase = scanner.nextInt();
+		virus = new boolean[testCase+1];
+		inputLink = new boolean[testCase+1][testCase+1];
 		
-		int o = nO > cO ? cO : nO;
-		int x = nX > cX ? cX : nX;
+		int linkCount = scanner.nextInt();
 		
-		System.out.println(o+x);
+		int a,b;
+		
+		for(int i = 0; i < linkCount; i++) {
+			a = scanner.nextInt();
+			b = scanner.nextInt();
+			inputLink[a][b] = true;
+			inputLink[b][a] = true;
+		}
+		
+		scanner.close();
+		
+		dfs(1);
+		
+		int count = -1;
+		
+		for(boolean check : virus) {
+			if(check) {
+				count++;
+			}
+		}
+		
+		System.out.println(count);
+	}
+	
+	public static void dfs(int n) {
+		for(int i = 1; i < testCase+1; i++) {
+			if(inputLink[n][i] && !virus[i]) {
+				virus[i] = true;
+				dfs(i);
+			}
+		}
 	}
 }
