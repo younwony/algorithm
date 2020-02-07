@@ -4,52 +4,120 @@ import java.io.*;
 import java.math.BigInteger;
 import java.util.*;
 
-
 public class Main {
 	
-	static int testCase;
-	static boolean[] virus;
-	static boolean[][] inputLink;
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Scanner scanner = new Scanner(System.in);
+		public static void main(String[] args) {
+			// TODO Auto-generated method stub
+			Scanner scanner = new Scanner(System.in);
+			
+			int testCase = scanner.nextInt();
+			
+			ArrayList<Student> arrayList = new ArrayList<Student>();
+			
+			for(int i = 0; i < testCase; i++) {
+				arrayList.add(new Student(scanner.next(), scanner.nextInt(), scanner.nextInt(), scanner.nextInt()));
+			}
+			
+			scanner.close();
+			
+			Collections.sort(arrayList, new Student());
+			
+			for(Student student : arrayList) {
+				System.out.println(student.getName());
+			}
+
+		}
+
+	}
+
+	class Student implements Comparator<Student>{
 		
-		testCase = scanner.nextInt();
-		virus = new boolean[testCase+1];
-		inputLink = new boolean[testCase+1][testCase+1];
+		private String Name;
+		private int korean;
+		private int english;
+		private int math;
 		
-		int linkCount = scanner.nextInt();
 		
-		int a,b;
-		
-		for(int i = 0; i < linkCount; i++) {
-			a = scanner.nextInt();
-			b = scanner.nextInt();
-			inputLink[a][b] = true;
-			inputLink[b][a] = true;
+		public Student() {
+			super();
+		}
+
+		public Student(String name, int korean, int english, int math) {
+			super();
+			Name = name;
+			this.korean = korean;
+			this.english = english;
+			this.math = math;
 		}
 		
-		scanner.close();
-		
-		dfs(1);
-		
-		int count = -1;
-		
-		for(boolean check : virus) {
-			if(check) {
-				count++;
+		@Override
+		public int compare(Student o1, Student o2) {
+			// TODO Auto-generated method stub
+			if(o1.getKorean() == o2.getKorean()) {
+				if(o1.getEnglish() == o2.getEnglish()) {
+					if(o1.getMath() == o2.getMath()) {
+						return o1.getName().compareTo(o2.getName());
+					}else {
+						return o2.getMath() - o1.getMath();
+					}
+				}else{
+					return o1.getEnglish() - o2.getEnglish();
+				}
+			}else {
+				return o2.getKorean() - o1.getKorean();
 			}
 		}
-		
-		System.out.println(count);
-	}
-	
-	public static void dfs(int n) {
-		for(int i = 1; i < testCase+1; i++) {
-			if(inputLink[n][i] && !virus[i]) {
-				virus[i] = true;
-				dfs(i);
-			}
+
+		public String getName() {
+			return Name;
+		}
+
+
+
+
+		public void setName(String name) {
+			Name = name;
+		}
+
+
+
+
+		public int getKorean() {
+			return korean;
+		}
+
+
+
+
+		public void setKorean(int korean) {
+			this.korean = korean;
+		}
+
+
+
+
+		public int getEnglish() {
+			return english;
+		}
+
+
+
+
+		public void setEnglish(int english) {
+			this.english = english;
+		}
+
+
+
+
+		public int getMath() {
+			return math;
+		}
+
+
+
+
+		public void setMath(int math) {
+			this.math = math;
 		}
 	}
-}
