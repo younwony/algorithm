@@ -9,27 +9,36 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
-		int testCase = Integer.parseInt(scanner.next());
 		
-		HashMap<String, String> hashMap = new HashMap<String, String>();
-		
-		
-		for(int i = 0; i < testCase; i++) {
-			hashMap.put(scanner.next(), scanner.next());
-		}
+		char[] str = scanner.next().toCharArray();
 		
 		scanner.close();
 		
-		ArrayList<String> keySet = new ArrayList<String>(hashMap.keySet());
+		int sum = 0;
 		
-		keySet.sort(null);
-		Collections.reverse(keySet);
+		boolean isZero = false;
 		
 		
-		for(String key : keySet) {
-			if("enter".equals(hashMap.get(key))){
-				System.out.println(key);
+		int num;
+		for(int i = 0; i < str.length; i++) {
+			num = str[i] - '0';
+			
+			if(num == 0) {
+				isZero = true;
 			}
+			
+			sum += num;
 		}
+		
+		Arrays.sort(str);
+		
+		StringBuilder builder = new StringBuilder(new String(str));
+		
+		if(!isZero || sum % 3 != 0) {
+			System.out.println(-1);
+		}else {
+			System.out.println(builder.reverse().toString());
+		}
+		
 	}
 }
