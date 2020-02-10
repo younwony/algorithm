@@ -8,37 +8,79 @@ public class Main {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Scanner scanner = new Scanner(System.in);
-		
-		char[] str = scanner.next().toCharArray();
-		
-		scanner.close();
-		
-		int sum = 0;
-		
-		boolean isZero = false;
-		
-		
-		int num;
-		for(int i = 0; i < str.length; i++) {
-			num = str[i] - '0';
-			
-			if(num == 0) {
-				isZero = true;
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st;
+		try {
+			st = new StringTokenizer(bufferedReader.readLine());
+			int n = Integer.parseInt(st.nextToken());
+	        int k = Integer.parseInt(st.nextToken());
+	        
+	        int[] num = new int[n];
+	        int[] num2 = new int[n];
+	        
+	        st = new StringTokenizer(bufferedReader.readLine());
+	        for (int i = 0; i < n; i++){
+	        	num[i] = Integer.parseInt(st.nextToken());
+	        	num2[i] = num[i];
+	        }
+	        
+	        mergeSort(num, num2, 0, num2.length-1);
+	        
+	        System.out.print(num[k - 1]);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			try {
+				if(bufferedReader != null) {bufferedReader.close();}
+			} catch (Exception e2) {
+				// TODO: handle exception
+				e2.printStackTrace();
 			}
-			
-			sum += num;
+		}
+	}
+	
+	public static void mergeSort(int[] saveArray, int[] array, int left ,int right){
+		if(right <= left)
+			return ;
+		
+		int middle = (right+left)/2;
+		
+		mergeSort(saveArray, array, left, middle);
+		mergeSort(saveArray, array, middle+1, right);
+		mergeSortSum(saveArray, array, left, middle, right);
+	}
+	public static void mergeSortSum(int[] saveArray, int[] array, int left ,int middle, int right){
+		
+		int i = left;
+		int j = middle +1;
+		int k = left;
+		
+		while(i <= middle && j <=right){
+			if(saveArray[i] >= saveArray[j]){
+				array[k] = saveArray[j];
+				j++;
+			}else{
+				array[k] = saveArray[i];
+				i++;
+			}
+			k++;
 		}
 		
-		Arrays.sort(str);
-		
-		StringBuilder builder = new StringBuilder(new String(str));
-		
-		if(!isZero || sum % 3 != 0) {
-			System.out.println(-1);
-		}else {
-			System.out.println(builder.reverse().toString());
+		while(i <= middle){
+			array[k] = saveArray[i];
+			k++;
+			i++;
 		}
 		
+		while(j <= right){
+			array[k] = saveArray[j];
+			k++;
+			j++;
+		}
+		
+		for(; left<=right; left++){
+			saveArray[left] = array[left];
+		}
 	}
 }
