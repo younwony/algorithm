@@ -10,15 +10,28 @@ public class Main {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
 		
-		int n = scanner.nextInt();
+		int testCase = scanner.nextInt();
 		
-		int m;
-		while((m = scanner.nextInt()) != 0) {
-			if(m%n == 0) {
-				System.out.println(m + " is a multiple of " + n + ".");
-			}else {
-				System.out.println(m + " is NOT a multiple of " + n + ".");
+		for(int i = 0; i < testCase; i++) {
+			Combination(scanner.nextInt(), scanner.nextInt());
+		}
+		
+		scanner.close();
+	}
+	
+	public static void Combination(int n, int m) {
+		
+		long top = 1;
+		long bottom = 1;
+		for(int i = 0; i < n; i++) {
+			top *= m-i;
+			bottom *= i+1;
+			if(top % bottom == 0) {
+				top /= bottom;
+				bottom = 1;
 			}
 		}
+		
+		System.out.println(top/bottom);
 	}
 }
