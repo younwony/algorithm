@@ -8,6 +8,19 @@ public class Main {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		System.out.println(new Scanner(System.in).nextLine().length());
+		Scanner scanner = new Scanner(System.in);
+		String str = scanner.nextLine();
+		scanner.close();
+		int strC;
+		
+		for(int i = 0; i < str.length(); i++) {
+			strC = (int)str.charAt(i);
+			if(65 <= strC && strC <= 90) {
+				strC = (strC-65+13)%26 + 65;
+			}else if(97 <=strC && strC <=122) {
+				strC = (strC-97+13)%26 + 97;
+			}
+			System.out.print((char)strC);
+		}
 	}
 }
