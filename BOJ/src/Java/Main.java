@@ -9,18 +9,36 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
-		String str = scanner.nextLine();
-		scanner.close();
-		int strC;
 		
-		for(int i = 0; i < str.length(); i++) {
-			strC = (int)str.charAt(i);
-			if(65 <= strC && strC <= 90) {
-				strC = (strC-65+13)%26 + 65;
-			}else if(97 <=strC && strC <=122) {
-				strC = (strC-97+13)%26 + 97;
-			}
-			System.out.print((char)strC);
+		TreeMap<Integer, Integer> map = new TreeMap<Integer, Integer>();
+		
+		for(int i = 0; i < 8; i++){
+			map.put(scanner.nextInt(), i);
 		}
+		
+		scanner.close();
+		
+		Iterator<Integer> iterator = map.descendingKeySet().iterator();
+		
+		StringBuilder builder = new StringBuilder();
+		
+		int sum =0;
+		int score;
+		int[] scoreArray = new int[5];
+		
+		for(int i = 0; i< 5; i++){
+			score = iterator.next();
+			sum += score;
+			scoreArray[i] = map.get(score);
+		}
+		
+		Arrays.sort(scoreArray);
+		
+		for(int i : scoreArray){
+			builder.append(i+1 + " ");
+		}
+		
+		System.out.println(sum);
+		System.out.println(builder.toString());
 	}
 }
