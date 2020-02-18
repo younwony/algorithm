@@ -8,37 +8,63 @@ public class Main {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Scanner scanner = new Scanner(System.in);
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(System.out));
 		
-		TreeMap<Integer, Integer> map = new TreeMap<Integer, Integer>();
-		
-		for(int i = 0; i < 8; i++){
-			map.put(scanner.nextInt(), i);
+		try {
+			String nm = bufferedReader.readLine();
+			int n = nm.charAt(0) - '0';
+			int m = nm.charAt(2) - '0';
+			
+			String[] nData = bufferedReader.readLine().split(" ");
+			String[] mData = bufferedReader.readLine().split(" ");
+			
+			bufferedWriter.write(mergeSort(nData, mData));
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally{
+			try {
+				if(bufferedReader != null){bufferedReader.close();}
+				if(bufferedWriter != null){bufferedWriter.flush(); bufferedWriter.close();}
+			} catch (Exception e2) {
+				// TODO: handle exception
+				e2.printStackTrace();
+			}
 		}
-		
-		scanner.close();
-		
-		Iterator<Integer> iterator = map.descendingKeySet().iterator();
+	}
+	
+	public static String mergeSort(String[] n, String[] m){
+
+		int ni = 0;
+		int mi = 0;
+		int di = 0;
 		
 		StringBuilder builder = new StringBuilder();
 		
-		int sum =0;
-		int score;
-		int[] scoreArray = new int[5];
-		
-		for(int i = 0; i< 5; i++){
-			score = iterator.next();
-			sum += score;
-			scoreArray[i] = map.get(score);
+		for(;di< n.length + m.length; di++){
+			if(Integer.parseInt(n[ni]) > Integer.parseInt(m[mi])){
+				builder.append(m[mi++] + " ");
+			}else{
+				builder.append(n[ni++] + " ");
+			}
+			if(mi == m.length || ni == n.length){
+				di++;
+				break;
+			}
 		}
 		
-		Arrays.sort(scoreArray);
-		
-		for(int i : scoreArray){
-			builder.append(i+1 + " ");
+		if(ni < n.length){
+			for(; di < n.length + m.length; di++){
+				builder.append(n[ni++] + " ");
+			}
+		}else if(mi < m.length){
+			for(; di < n.length + m.length; di++){
+				builder.append(m[mi++] + " ");
+			}
 		}
 		
-		System.out.println(sum);
-		System.out.println(builder.toString());
+		return builder.toString();
 	}
 }
