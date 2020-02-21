@@ -23,46 +23,30 @@ public class a1_TwoSum {
 	 * 
 	 */
 	
-	static boolean[] visited;
-	static boolean result = false;
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
 		int[] nums = {3,2,4}; 
 		int target = 6;
-		visited = new boolean[nums.length];
-		combination(0, 0, nums, target);
-		
-		int[] result = new int[2];
-		int count = 0;
-		for(int i = 0 ; i < visited.length; i++){
-			if(visited[i]){
-				result[count++] = i;
-				System.out.print(i + " ");
-			}
-		}
+		Solution(nums, target);
 	}
 	
-	public static void combination(int index, int count, int[] nums, int target){
-		if(count == 2){
-			int sum = 0;
-			for(int i = 0 ; i < visited.length; i++){
-				if(visited[i]){
-					sum += nums[i];
+	public static int[] Solution(int[] nums, int target){
+		int[] result = new int[2];
+		
+		for(int i = 0 ; i < nums.length; i++){
+			result[0] = i;
+			for(int j = i+1; j < nums.length; j++){
+				if(nums[j] == target - nums[i]){
+					result[1] =j;
+					break;
 				}
 			}
-			if(sum == target){
-				result = true;
-			}
-		}else{
-			for(int i = index; i < nums.length; i++){
-				visited[i] = true;
-				combination(index+1, count+1, nums, target);
-				if(result){break;}
-				visited[i] = false;
+			if(result[1] != 0){
+				break;
 			}
 		}
-			
+        return result;
 	}
 
 }
