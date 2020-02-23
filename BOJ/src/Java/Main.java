@@ -10,17 +10,30 @@ public class Main {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
 		
-		int L,P,V;
+		int testCase = scanner.nextInt();
 		
-		int a,b;
+		int[] dataArray = new int[testCase];
+		int count = 0;
 		
-		int count = 1;
-		while((L=scanner.nextInt()) != 0 && (P=scanner.nextInt()) != 0 && (V=scanner.nextInt()) != 0){
-			a = V/P *L;
-			b = L > V%P ? V%P : L;
-			System.out.println("Case " + count++ + ": " + (a+b));
+		for(int i = 0; i < testCase; i++) {
+			dataArray[i] = scanner.nextInt();
 		}
 		
 		scanner.close();
+		
+		boolean result = true;
+		
+		while(result) {
+			result = false;
+			for(int i = 1; i < testCase; i++) {
+				if(dataArray[i-1] >= dataArray[i]) {
+					count += dataArray[i-1] - dataArray[i] + 1;
+					dataArray[i-1] -= dataArray[i-1] - dataArray[i] + 1;
+					result = true;
+				}
+			}
+		}
+		
+		System.out.println(count);
 	}
 }
