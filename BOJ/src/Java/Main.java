@@ -6,29 +6,34 @@ import java.util.*;
 
 public class Main {
 	
-	static long[][] zeroOne = new long[91][2];
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
-		int n = scanner.nextInt();
-		scanner.close();
-
-		zeroOne[1][0] = 1;
-		zeroOne[1][1] = 0;
-		zeroOne[2][0] = 0;
-		zeroOne[2][1] = 1;
 		
-		dp();
+		int testCase = scanner.nextInt();
 		
-		System.out.println(zeroOne[n][0] + zeroOne[n][1]);
+		int[] dataArray = new int[testCase];
+		int count = 0;
 		
-	}
-	
-	public static void dp(){
-		
-		for(int i = 3; i < 91; i++){
-			zeroOne[i][0] = zeroOne[i-1][0] + zeroOne[i-2][0];
-			zeroOne[i][1] = zeroOne[i-1][1] + zeroOne[i-2][1];
+		for(int i = 0; i < testCase; i++) {
+			dataArray[i] = scanner.nextInt();
 		}
+		
+		scanner.close();
+		
+		boolean result = true;
+		
+		while(result) {
+			result = false;
+			for(int i = 1; i < testCase; i++) {
+				if(dataArray[i-1] >= dataArray[i]) {
+					count += dataArray[i-1] - dataArray[i] + 1;
+					dataArray[i-1] -= dataArray[i-1] - dataArray[i] + 1;
+					result = true;
+				}
+			}
+		}
+		
+		System.out.println(count);
 	}
 }
