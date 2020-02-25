@@ -10,30 +10,53 @@ public class Main {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
 		
-		int testCase = scanner.nextInt();
+		int n = scanner.nextInt();
+		int m = scanner.nextInt();
 		
-		int[] dataArray = new int[testCase];
-		int count = 0;
-		
-		for(int i = 0; i < testCase; i++) {
-			dataArray[i] = scanner.nextInt();
-		}
-		
+		int person = scanner.nextInt();
 		scanner.close();
 		
-		boolean result = true;
-		
-		while(result) {
-			result = false;
-			for(int i = 1; i < testCase; i++) {
-				if(dataArray[i-1] >= dataArray[i]) {
-					count += dataArray[i-1] - dataArray[i] + 1;
-					dataArray[i-1] -= dataArray[i-1] - dataArray[i] + 1;
-					result = true;
+		if(person > n*m){System.out.println(0);}
+		else{
+			int[][] filed = new int[m][n];
+			
+			int[] signX = {1,0,-1,0};
+			int[] signY = {0,1,0,-1};
+			
+			int count = 1;
+			
+			int sign = 0;
+			int startI = 0;
+			int startJ = 0;
+			
+			boolean isXY = true;
+			boolean result = true;
+			
+			while(result){
+				if(isXY){
+					for(int j = 0; j < m; j++){
+						if(count != 1){
+							startI += signX[sign];
+							startJ += signY[sign];
+						}
+						filed[startI][startJ] = count++;
+						if(count == person+1){result = !result; break;}
+					}
+					m--;
+				}else{
+					n--;
+					for(int j = 0; j < n; j++){
+						startI += signX[sign];
+						startJ += signY[sign];
+						filed[startI][startJ] = count++;
+						if(count == person+1){result = !result; break;}
+					}
 				}
+				
+				isXY = !isXY;
+				sign = (sign + 1)%4;
 			}
-		}
-		
-		System.out.println(count);
+			
+		System.out.println((startJ+1) + " " + (startI+1));}
 	}
 }
