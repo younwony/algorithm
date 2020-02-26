@@ -6,57 +6,31 @@ import java.util.*;
 
 public class Main {
 	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Scanner scanner = new Scanner(System.in);
-		
-		int n = scanner.nextInt();
-		int m = scanner.nextInt();
-		
-		int person = scanner.nextInt();
-		scanner.close();
-		
-		if(person > n*m){System.out.println(0);}
-		else{
-			int[][] filed = new int[m][n];
+		public static void main(String[] args) {
+			// TODO Auto-generated method stub
+			Scanner scanner = new Scanner(System.in);
 			
-			int[] signX = {1,0,-1,0};
-			int[] signY = {0,1,0,-1};
+			int testCase = scanner.nextInt();
 			
-			int count = 1;
-			
-			int sign = 0;
-			int startI = 0;
-			int startJ = 0;
-			
-			boolean isXY = true;
-			boolean result = true;
-			
-			while(result){
-				if(isXY){
-					for(int j = 0; j < m; j++){
-						if(count != 1){
-							startI += signX[sign];
-							startJ += signY[sign];
-						}
-						filed[startI][startJ] = count++;
-						if(count == person+1){result = !result; break;}
-					}
-					m--;
-				}else{
-					n--;
-					for(int j = 0; j < n; j++){
-						startI += signX[sign];
-						startJ += signY[sign];
-						filed[startI][startJ] = count++;
-						if(count == person+1){result = !result; break;}
-					}
+			int caseCount;
+			int[] scoreArray;
+			int[] diffScoreArray;
+			for(int i = 0; i < testCase; i++) {
+				caseCount = scanner.nextInt();
+				scoreArray = new int[caseCount];
+				diffScoreArray = new int[caseCount-1];
+				for(int j = 0; j < caseCount; j++) {
+					scoreArray[j] = scanner.nextInt();
 				}
-				
-				isXY = !isXY;
-				sign = (sign + 1)%4;
+				Arrays.sort(scoreArray);
+				for(int j = 0; j < caseCount-1; j++) {
+					diffScoreArray[j] = scoreArray[j+1] - scoreArray[j];
+				}
+				Arrays.sort(diffScoreArray);
+				System.out.println("Class " + (i+1));
+				System.out.println("Max " + scoreArray[caseCount-1] + ", Min " + scoreArray[0] + ", Largest gap " + diffScoreArray[caseCount-2]);
 			}
 			
-		System.out.println((startJ+1) + " " + (startI+1));}
-	}
+			scanner.close();
+		}
 }
