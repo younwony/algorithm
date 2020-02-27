@@ -6,31 +6,44 @@ import java.util.*;
 
 public class Main {
 	
-		public static void main(String[] args) {
-			// TODO Auto-generated method stub
-			Scanner scanner = new Scanner(System.in);
-			
-			int testCase = scanner.nextInt();
-			
-			int caseCount;
-			int[] scoreArray;
-			int[] diffScoreArray;
-			for(int i = 0; i < testCase; i++) {
-				caseCount = scanner.nextInt();
-				scoreArray = new int[caseCount];
-				diffScoreArray = new int[caseCount-1];
-				for(int j = 0; j < caseCount; j++) {
-					scoreArray[j] = scanner.nextInt();
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner scanner = new Scanner(System.in);
+		
+		int melonCount = scanner.nextInt();
+		
+		int[] size = new int[6];
+		
+		int x = 0,y = 0,xx = 0 ,yy = 0;
+		
+		for(int i = 0; i < 6; i++) {
+			scanner.nextInt();
+			size[i] = scanner.nextInt();
+			if(i % 2 == 0) {
+				if(size[i] > x) {
+					x = size[i];
 				}
-				Arrays.sort(scoreArray);
-				for(int j = 0; j < caseCount-1; j++) {
-					diffScoreArray[j] = scoreArray[j+1] - scoreArray[j];
+			}else {
+				if(size[i] > y) {
+					y = size[i];
 				}
-				Arrays.sort(diffScoreArray);
-				System.out.println("Class " + (i+1));
-				System.out.println("Max " + scoreArray[caseCount-1] + ", Min " + scoreArray[0] + ", Largest gap " + diffScoreArray[caseCount-2]);
 			}
-			
-			scanner.close();
 		}
+		
+		scanner.close();
+		
+		for(int i = 0; i < 6; i++) {
+			if(i % 2 == 0) {
+				if((size[(i+5)%6] + size[(i+1)%6]) == y) {
+					xx = size[i];
+				}
+			}else {
+				if((size[(i+5)%6] + size[(i+1)%6]) == x) {
+					yy = size[i];
+				}
+			}
+		}
+		
+		System.out.println(melonCount * (x * y - xx* yy));
+	}
 }
