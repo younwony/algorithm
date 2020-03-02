@@ -10,23 +10,12 @@ public class Main {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
 		
-		int number = scanner.nextInt();
+		long number = scanner.nextLong();
 		
-		scanner.close();
+		long result = (long)Math.sqrt(number);
 		
-		int mod = 10;
+		if(result*result != number) {result++;}
 		
-		int modNum;
-		while(number/mod > 0) {
-			modNum = number%mod;
-			if(modNum >= mod/2) {
-				number += mod;
-			}
-			number -= modNum;
-			mod *= 10;
-		}
-		
-		System.out.println(number);
-		
+		System.out.println(result);
 	}
 }
