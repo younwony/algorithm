@@ -6,50 +6,37 @@ import java.util.*;
 
 public class Main {
 	
-	public static int[] set = new int[21];
-	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-		BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(System.out));
-		try {
-			
-			int testCase = Integer.valueOf(bufferedReader.readLine());
-			
-			String[] inputData;
-			
-			for(int i = 0; i < testCase; i++) {
-				inputData = bufferedReader.readLine().split(" ");
-				if(inputData.length > 1) {
-					if("check".equals(inputData[0])) {bufferedWriter.write(String.valueOf(set[Integer.valueOf(inputData[1])]) + "\n");}
-					else{Conduct(inputData[0], Integer.valueOf(inputData[1]));}
-				}else {
-					Conduct(inputData[0], 0);
-				}
-			}
-			bufferedWriter.flush();
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		} finally {
-			try {
-				if(bufferedReader != null) {bufferedReader.close();}
-				if(bufferedWriter != null) { bufferedWriter.flush(); bufferedWriter.close();}
-			} catch (Exception e2) {
-				// TODO: handle exception
-				e2.printStackTrace();
-			}
+		Scanner scanner = new Scanner(System.in);
+		
+		int n = scanner.nextInt();
+		int k = scanner.nextInt();
+		
+		scanner.close();
+		
+		Queue<Integer> queue = new LinkedList<Integer>();
+		
+		for(int i = 1 ; i <= n; i++){
+			queue.offer(i);
 		}
-	}
-	
-	public static void Conduct(String data, int x) {
-		switch (data) {
-		case "add":	set[x] = 1; break;
-		case "remove":	set[x] = 0;break;
-		case "toggle":	if(set[x] == 1) {set[x] = 0;}else{set[x] = 1;}break;
-		case "all":	for(int i = 0; i < set.length; i++) {set[i] = 1;}break;
-		case "empty":	for(int i = 0; i < set.length; i++) {set[i] = 0;}break;
+		
+		int i = 1;
+		
+		StringBuilder builder = new StringBuilder();
+		
+		builder.append("<");
+		while(!queue.isEmpty()){
+			if(i%k == 0){
+				builder.append(queue.poll()+", ");
+			}else{
+				queue.offer(queue.poll());
+			}
+			i++;
 		}
+		builder.delete(builder.lastIndexOf(","), builder.length());
+		builder.append(">");
+		
+		System.out.println(builder.toString());
 	}
 }
