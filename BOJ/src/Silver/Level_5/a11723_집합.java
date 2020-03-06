@@ -13,8 +13,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.Scanner;
 
-import com.sun.javafx.collections.MappingChange.Map;
-
 /**
  * @작성자 wony
  * @작성일 2020. 3. 3.
