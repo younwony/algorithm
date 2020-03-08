@@ -8,6 +8,36 @@ public class Main {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		System.out.println(new Scanner(System.in).nextInt()%2 == 0 ? "SK" : "CY");
+		Scanner scanner = new Scanner(System.in);
+		
+		int aBase = scanner.nextInt();
+		int bBase = scanner.nextInt();
+		
+		int testCount = scanner.nextInt();
+		
+		int aNum = 0;
+		
+		for(int i = 1; i <= testCount; i++) {
+			aNum += Math.pow(aBase, testCount-i)*scanner.nextInt();
+		}
+		
+		int bBaseNumber = 0;
+		
+		while(aNum > Math.pow(bBase, bBaseNumber)) {
+			bBaseNumber++;
+		}
+		
+		int bNumber;
+		
+		bBaseNumber--;
+		while(bBaseNumber >= 0) {
+			bNumber = (int) Math.pow(bBase, bBaseNumber);
+			System.out.print(aNum/bNumber + " ");
+			aNum %= bNumber;
+			bBaseNumber--;
+		}
+		
+		scanner.close();
+		
 	}
 }
