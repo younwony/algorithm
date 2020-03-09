@@ -10,30 +10,25 @@ public class Main {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
 		
-		String[] inputAB = scanner.nextLine().split(" ");
+		int testCount = scanner.nextInt();
+		
+		int[] nArray = new int[testCount];
+		for(int i = 0 ; i < testCount; i++){
+			nArray[i] = scanner.nextInt();
+		}
+		
+		Arrays.sort(nArray);
+		
+		int max = 0;
+		
+		for(int i = 0 ; i < testCount; i++){
+			if(nArray[i]*(testCount-i) >= max){
+				max = nArray[i]*(testCount-i);
+			}
+		}
 		
 		scanner.close();
 		
-		String A = inputAB[0];
-		String B = inputAB[1];
-		
-		int minusLength = B.length() - A.length();
-		
-		int count;
-		
-		int minCount = B.length();
-		
-		for(int i = 0; i<= minusLength; i++){
-			count = 0;
-			for(int j = 0; j < A.length(); j++){
-				if(B.charAt(i+j) != A.charAt(j)){
-					count++;
-				}
-			}
-			
-			if(minCount >= count){minCount = count;}
-		}
-		
-		System.out.println(minCount);
+		System.out.println(max);
 	}
 }
