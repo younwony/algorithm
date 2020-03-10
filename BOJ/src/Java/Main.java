@@ -10,25 +10,25 @@ public class Main {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
 		
-		int testCount = scanner.nextInt();
+		int n = scanner.nextInt();
 		
-		int[] nArray = new int[testCount];
-		for(int i = 0 ; i < testCount; i++){
-			nArray[i] = scanner.nextInt();
+		long[] inputDataAraay = new long[n];
+		
+		long nSum = 0;
+		for(int i = 0 ; i < n; i++){
+			inputDataAraay[i] = scanner.nextInt();
+			nSum += inputDataAraay[i];
 		}
 		
-		Arrays.sort(nArray);
+		Arrays.sort(inputDataAraay);
+		long Sum = 0;
 		
-		int max = 0;
-		
-		for(int i = 0 ; i < testCount; i++){
-			if(nArray[i]*(testCount-i) >= max){
-				max = nArray[i]*(testCount-i);
-			}
+		for(int i = inputDataAraay.length-1; i > 0; i--){
+			Sum += inputDataAraay[i]*(nSum-inputDataAraay[i]);
+			nSum -= inputDataAraay[i];
 		}
+		System.out.println(Sum);
 		
 		scanner.close();
-		
-		System.out.println(max);
 	}
 }
