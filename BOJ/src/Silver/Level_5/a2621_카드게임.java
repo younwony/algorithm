@@ -48,14 +48,12 @@ public class a2621_카드게임 {
 		}
 		
 		int maxType = 0;
-		int maxTypeIndex = 0;
 		int maxNumber = 0;
 		int maxNumberIndex = 0;
 		
-		for(int i = 0 ; i < 5; i++){
+		for(int i = 0 ; i < 4; i++){
 			if(colorType[i] >= maxType ){
 				maxType = colorType[i];
-				maxTypeIndex = i;
 			}
 		}
 		for(int i = 0 ; i < 10; i++){
@@ -65,23 +63,59 @@ public class a2621_카드게임 {
 			}
 		}
 		
-		boolean isStraight = false;
-		if(maxNumber == 1 || maxNumberIndex > 5){
-			for(int i = 0 ; i< 5; i++){
-				isStraight = (colorNumber[maxNumberIndex - i] - colorNumber[maxNumberIndex - i -1] == 1) ? true : false;
+		boolean isFlush = false;
+		int nextMaxNumberIndex = 0;
+		if(maxNumber == 3){
+			for(int i = 0; i < 10; i++){
+				if(colorNumber[i] == 2){
+					nextMaxNumberIndex = i;
+					isFlush = true;
+					break;
+				}
 			}
 		}
 		
-		Arrays.sort(colorNumber);
-		
+		boolean isTwoPair = false;
+		int twoPairIndex = 0;
+		if(maxNumber == 2){
+			for(int i = 0; i < 10; i ++){
+				if(colorNumber[i] == 2 && i != maxNumberIndex){
+					twoPairIndex = i;
+					isTwoPair = true;
+					break;
+				}
+			}
+		}
+
+		boolean isStraight = false;
+		if(maxNumber == 1 && maxNumberIndex > 4){
+			for(int i = 0 ; i< 4; i++){
+				isStraight = (colorNumber[maxNumberIndex - i] - colorNumber[maxNumberIndex - i -1] == 0) ? true : false;
+				if(!isStraight){break;}
+			}
+		}
 		
 		if(maxType == 5 && isStraight){
-			System.out.println(900 + maxNumber);
+			System.out.println(900 + maxNumberIndex);
 		}else if(maxNumber == 4){
 			System.out.println(800 + maxNumberIndex);
-		}else if(colorNumber[9] == 3 && colorNumber[8] == 2){
-			
+		}else if(isFlush){
+			System.out.println(700 + maxNumberIndex*10 + nextMaxNumberIndex);
+		}else if(maxType == 5){
+			System.out.println(600 + maxNumberIndex);
+		}else if(isStraight){
+			System.out.println(500 + maxNumberIndex);
+		}else if(maxNumber == 3){
+			System.out.println(400 + maxNumberIndex);
+		}else if(isTwoPair){
+			System.out.println(300 + maxNumberIndex * 10 + twoPairIndex);
+		}else if(maxNumber == 2){
+			System.out.println(200 + maxNumberIndex);
+		}else{
+			System.out.println(100 + maxNumberIndex);
 		}
+		
+		scanner.close();
 	}
 
 }
