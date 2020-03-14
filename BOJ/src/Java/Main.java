@@ -10,36 +10,15 @@ public class Main {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
 		
-		int n = scanner.nextInt();
-		int m = scanner.nextInt();
+		String[] str = scanner.nextLine().split("-");
+		StringBuilder result = new StringBuilder();
 		
-		int[] treeHightArray = new int[n];
-		
-		for(int i = 0; i < n; i++){
-			treeHightArray[i] = scanner.nextInt();
-		}
-		
-		Arrays.sort(treeHightArray);
-		
-		long sum;
-		int result = 0;
-		
-		for(int i = treeHightArray[n-1]; i >= 0; i--){
-			sum = 0;
-			for(int j = n-1; j >= 0; j--){
-				if(treeHightArray[j] <= i){	break;}
-				
-				sum += treeHightArray[j] - i;
-			}
-			
-			if(sum >= m){
-				result = i;
-				break;
-			}
+		for(String data : str) {
+			result.append(data.charAt(0));
 		}
 		
 		scanner.close();
 		
-		System.out.println(result);
+		System.out.println(result.toString());
 	}
 }
