@@ -10,15 +10,19 @@ public class Main {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
 		
-		String[] str = scanner.nextLine().split("-");
-		StringBuilder result = new StringBuilder();
+		int testCount = scanner.nextInt();
 		
-		for(String data : str) {
-			result.append(data.charAt(0));
+		int[] countArray = new int[2];
+		
+		for(int i = 0 ; i < testCount; i++) {
+			countArray[scanner.nextInt()]++;
 		}
 		
-		scanner.close();
-		
-		System.out.println(result.toString());
+		if(countArray[0] > countArray[1]) {
+			System.out.println("Junhee is not cute!");
+		}else {
+			System.out.println("Junhee is cute!");
+			
+		}
 	}
 }
