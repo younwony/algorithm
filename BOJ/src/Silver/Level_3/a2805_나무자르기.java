@@ -34,32 +34,37 @@ public class a2805_나무자르기 {
 		
 		int[] treeHightArray = new int[n];
 		
+		int maxHeight = 0;
+		
 		for(int i = 0; i < n; i++){
 			treeHightArray[i] = scanner.nextInt();
+			maxHeight = Math.max(maxHeight, treeHightArray[i]);
 		}
-		
-		Arrays.sort(treeHightArray);
-		
+
 		long sum;
-		int result = 0;
+		int left = 0;
+		int right = maxHeight;
+		int middle = (left+right)/2;
 		
-		for(int i = treeHightArray[n-1]; i >= 0; i--){
+		while(right >= left){
 			sum = 0;
-			for(int j = n-1; j >= 0; j--){
-				if(treeHightArray[j] <= i){	break;}
-				
-				sum += treeHightArray[j] - i;
+			for(int i = 0 ; i < n; i++){
+				sum = treeHightArray[i] - middle > 0 ? sum + treeHightArray[i] - middle : sum + 0;
 			}
-			
 			if(sum >= m){
-				result = i;
-				break;
+				maxHeight = middle;
+				left = middle + 1;
+			}else{
+				right = middle - 1;
 			}
+			middle = (left+right)/2;
+			
 		}
+		
 		
 		scanner.close();
 		
-		System.out.println(result);
+		System.out.println(maxHeight);
 	}
 
 }

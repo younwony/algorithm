@@ -10,19 +10,41 @@ public class Main {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
 		
-		int testCount = scanner.nextInt();
+		int n = scanner.nextInt();
+		int m = scanner.nextInt();
 		
-		int[] countArray = new int[2];
+		int[] treeHightArray = new int[n];
 		
-		for(int i = 0 ; i < testCount; i++) {
-			countArray[scanner.nextInt()]++;
+		int maxHeight = 0;
+		
+		for(int i = 0; i < n; i++){
+			treeHightArray[i] = scanner.nextInt();
+			maxHeight = Math.max(maxHeight, treeHightArray[i]);
 		}
+
+		long sum;
+		int left = 0;
+		int right = maxHeight;
+		int middle = (left+right)/2;
 		
-		if(countArray[0] > countArray[1]) {
-			System.out.println("Junhee is not cute!");
-		}else {
-			System.out.println("Junhee is cute!");
+		while(right >= left){
+			sum = 0;
+			for(int i = 0 ; i < n; i++){
+				sum = treeHightArray[i] - middle > 0 ? sum + treeHightArray[i] - middle : sum + 0;
+			}
+			if(sum >= m){
+				maxHeight = middle;
+				left = middle + 1;
+			}else{
+				right = middle - 1;
+			}
+			middle = (left+right)/2;
 			
 		}
+		
+		
+		scanner.close();
+		
+		System.out.println(maxHeight);
 	}
 }
