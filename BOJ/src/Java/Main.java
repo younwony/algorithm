@@ -12,6 +12,7 @@ public static int[][] bingo = new int[5][5];
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
 		
+<<<<<<< HEAD
 		for(int i = 0; i < 5; i++){
 			for(int j = 0; j < 5; j++){
 				bingo[i][j] = scanner.nextInt();
@@ -104,5 +105,11 @@ public static int[][] bingo = new int[5][5];
 		isBingo = bingoCount >= 3 ? true : false;
 		
 		return isBingo;
+=======
+		String a = scanner.nextLine();
+		String b = scanner.nextLine();
+		
+		System.out.println(a.length() < b.length() ? "no" : "go");
+>>>>>>> cfcea0a0c45cedff34cf128cdb053510969dae9d
 	}
 }
