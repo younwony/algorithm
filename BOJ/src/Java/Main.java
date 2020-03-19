@@ -6,45 +6,103 @@ import java.util.*;
 
 public class Main {
 	
+public static int[][] bingo = new int[5][5];
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
 		
-		int n = scanner.nextInt();
-		int m = scanner.nextInt();
-		
-		int[] treeHightArray = new int[n];
-		
-		int maxHeight = 0;
-		
-		for(int i = 0; i < n; i++){
-			treeHightArray[i] = scanner.nextInt();
-			maxHeight = Math.max(maxHeight, treeHightArray[i]);
+		for(int i = 0; i < 5; i++){
+			for(int j = 0; j < 5; j++){
+				bingo[i][j] = scanner.nextInt();
+			}
 		}
-
-		long sum;
-		int left = 0;
-		int right = maxHeight;
-		int middle = (left+right)/2;
 		
-		while(right >= left){
-			sum = 0;
-			for(int i = 0 ; i < n; i++){
-				sum = treeHightArray[i] - middle > 0 ? sum + treeHightArray[i] - middle : sum + 0;
+		int count = 0;
+		
+		while(!isBingo()){
+			bingoCheck(scanner.nextInt());
+			count++;
+		}
+		
+		System.out.println(count);
+	}
+	
+	public static void bingoCheck(int number){
+		
+		loop:
+		for(int i = 0; i < 5; i++){
+			for(int j = 0; j < 5; j++){
+ 				if(bingo[i][j] == number){
+					bingo[i][j] = 0;
+					break loop;
+				}
 			}
-			if(sum >= m){
-				maxHeight = middle;
-				left = middle + 1;
-			}else{
-				right = middle - 1;
+		}
+	}
+	
+	public static boolean isBingo(){
+		
+		int bingoCount = 0;
+		boolean isBingo = false;
+		
+		for(int i = 0; i < 5; i++){
+			isBingo = false;
+			for(int j = 0; j < 5; j++){
+				if(bingo[i][j] == 0){
+					isBingo = true;
+				}else{
+					isBingo = false;
+					break;
+				}
 			}
-			middle = (left+right)/2;
 			
+			if(isBingo){
+				bingoCount++;
+			}
 		}
 		
+		for(int i = 0; i < 5; i++){
+			isBingo = false;
+			for(int j = 0; j < 5; j++){
+				if(bingo[j][i] == 0){
+					isBingo = true;
+				}else{
+					isBingo = false;
+					break;
+				}
+			}
+			
+			if(isBingo){
+				bingoCount++;
+			}
+		}
 		
-		scanner.close();
+		isBingo = false;
+		for(int i = 0; i< 5; i++){
+			if(bingo[i][i] == 0){
+				isBingo = true;
+			}else{
+				isBingo = false;
+				break;
+			}
+		}
 		
-		System.out.println(maxHeight);
+		if(isBingo){bingoCount++;}
+		
+		isBingo = false;
+		for(int i = 0; i< 5; i++){
+			if(bingo[i][4-i] == 0){
+				isBingo = true;
+			}else{
+				isBingo = false;
+				break;
+			}
+		}
+		if(isBingo){bingoCount++;}
+		
+		isBingo = bingoCount >= 3 ? true : false;
+		
+		return isBingo;
 	}
 }
