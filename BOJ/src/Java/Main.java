@@ -6,110 +6,56 @@ import java.util.*;
 
 public class Main {
 	
-public static int[][] bingo = new int[5][5];
-	
+	public static boolean[][] filed; 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Scanner scanner = new Scanner(System.in);
+		int n = new Scanner(System.in).nextInt();
 		
-<<<<<<< HEAD
-		for(int i = 0; i < 5; i++){
-			for(int j = 0; j < 5; j++){
-				bingo[i][j] = scanner.nextInt();
+		int oneSideStarCount = 4*n - 3;
+		
+		filed = new boolean[2*oneSideStarCount - 1][oneSideStarCount];
+		
+		int startNum = 0;
+		
+		for(int i = n; i > 0; i--){
+			oneSideStarCount = 4*i -3;
+			drawFiled(startNum, oneSideStarCount);
+			startNum += 2;
+		}
+		
+		StringBuilder builder = new StringBuilder();
+		
+		for(int i = 0; i < filed.length; i++){
+			if(i % 2 == 0){
+				for(int j = 0; j< filed[0].length; j++){
+					if(filed[i][j]){
+						builder.append("*");
+					}else{
+						builder.append(" ");
+					}
+				}
+			}else{
+				builder.append("\n");
 			}
 		}
 		
-		int count = 0;
 		
-		while(!isBingo()){
-			bingoCheck(scanner.nextInt());
-			count++;
-		}
+		System.out.println(builder.toString());
 		
-		System.out.println(count);
 	}
 	
-	public static void bingoCheck(int number){
+	public static void drawFiled(int startNum, int oneSideStarCount){
 		
-		loop:
-		for(int i = 0; i < 5; i++){
-			for(int j = 0; j < 5; j++){
- 				if(bingo[i][j] == number){
-					bingo[i][j] = 0;
-					break loop;
-				}
-			}
-		}
-	}
-	
-	public static boolean isBingo(){
-		
-		int bingoCount = 0;
-		boolean isBingo = false;
-		
-		for(int i = 0; i < 5; i++){
-			isBingo = false;
-			for(int j = 0; j < 5; j++){
-				if(bingo[i][j] == 0){
-					isBingo = true;
-				}else{
-					isBingo = false;
-					break;
-				}
-			}
-			
-			if(isBingo){
-				bingoCount++;
-			}
+//		가로
+		for(int i = startNum; i < startNum + oneSideStarCount; i++){
+			filed[2*startNum][i] = true;
+			filed[2*startNum + 2*(oneSideStarCount-1)][i] = true;
 		}
 		
-		for(int i = 0; i < 5; i++){
-			isBingo = false;
-			for(int j = 0; j < 5; j++){
-				if(bingo[j][i] == 0){
-					isBingo = true;
-				}else{
-					isBingo = false;
-					break;
-				}
-			}
-			
-			if(isBingo){
-				bingoCount++;
-			}
+//		세로
+		for(int i = startNum; i < startNum + oneSideStarCount; i++){
+			filed[2*i][startNum] = true;
+			filed[2*i][startNum + oneSideStarCount - 1] = true; 
 		}
-		
-		isBingo = false;
-		for(int i = 0; i< 5; i++){
-			if(bingo[i][i] == 0){
-				isBingo = true;
-			}else{
-				isBingo = false;
-				break;
-			}
-		}
-		
-		if(isBingo){bingoCount++;}
-		
-		isBingo = false;
-		for(int i = 0; i< 5; i++){
-			if(bingo[i][4-i] == 0){
-				isBingo = true;
-			}else{
-				isBingo = false;
-				break;
-			}
-		}
-		if(isBingo){bingoCount++;}
-		
-		isBingo = bingoCount >= 3 ? true : false;
-		
-		return isBingo;
-=======
-		String a = scanner.nextLine();
-		String b = scanner.nextLine();
-		
-		System.out.println(a.length() < b.length() ? "no" : "go");
->>>>>>> cfcea0a0c45cedff34cf128cdb053510969dae9d
 	}
 }
