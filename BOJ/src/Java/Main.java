@@ -6,56 +6,46 @@ import java.util.*;
 
 public class Main {
 	
-	public static boolean[][] filed; 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int n = new Scanner(System.in).nextInt();
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(System.out));
 		
-		int oneSideStarCount = 4*n - 3;
-		
-		filed = new boolean[2*oneSideStarCount - 1][oneSideStarCount];
-		
-		int startNum = 0;
-		
-		for(int i = n; i > 0; i--){
-			oneSideStarCount = 4*i -3;
-			drawFiled(startNum, oneSideStarCount);
-			startNum += 2;
-		}
-		
-		StringBuilder builder = new StringBuilder();
-		
-		for(int i = 0; i < filed.length; i++){
-			if(i % 2 == 0){
-				for(int j = 0; j< filed[0].length; j++){
-					if(filed[i][j]){
-						builder.append("*");
-					}else{
-						builder.append(" ");
+		try {
+			
+			int testCase = Integer.valueOf(bufferedReader.readLine());
+			
+			String[] inputData = new String[2];
+			int max,testCount;
+			String maxIndex = "";
+			
+			StringBuilder result = new StringBuilder();
+			for(int i = 0 ; i < testCase; i++){
+				max = 0;
+				testCount = Integer.valueOf(bufferedReader.readLine());
+				for(int j = 0; j < testCount; j++){
+					inputData = bufferedReader.readLine().split(" ");
+					
+					if(Integer.valueOf(inputData[1]) > max){
+						max = Integer.valueOf(inputData[1]);
+						maxIndex = inputData[0];
 					}
 				}
-			}else{
-				builder.append("\n");
+				result.append(maxIndex + "\n");
 			}
-		}
-		
-		
-		System.out.println(builder.toString());
-		
-	}
-	
-	public static void drawFiled(int startNum, int oneSideStarCount){
-		
-//		가로
-		for(int i = startNum; i < startNum + oneSideStarCount; i++){
-			filed[2*startNum][i] = true;
-			filed[2*startNum + 2*(oneSideStarCount-1)][i] = true;
-		}
-		
-//		세로
-		for(int i = startNum; i < startNum + oneSideStarCount; i++){
-			filed[2*i][startNum] = true;
-			filed[2*i][startNum + oneSideStarCount - 1] = true; 
+			bufferedWriter.write(result.toString());
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally{
+			try {
+				if(bufferedReader != null){bufferedReader.close();}
+				if(bufferedWriter != null){bufferedWriter.flush(); bufferedWriter.close();}
+			} catch (Exception e2) {
+				// TODO: handle exception
+				e2.printStackTrace();
+			}
 		}
 	}
 }
