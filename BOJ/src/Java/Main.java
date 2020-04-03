@@ -12,37 +12,23 @@ public class Main {
 		
 		int n = scanner.nextInt();
 		
-		ArrayList<String> coinList = new ArrayList<>();
-		coinList.add("TTT");
-		coinList.add("TTH");
-		coinList.add("THT");
-		coinList.add("THH");
-		coinList.add("HTT");
-		coinList.add("HTH");
-		coinList.add("HHT");
-		coinList.add("HHH");
+		int k = scanner.nextInt();
 		
-		scanner.nextLine();
+		int[][] pascalTriangle = new int[30][30];
+		for (int i = 0 ; i < 30; i++){
+			pascalTriangle[i][0] = 1;
+			pascalTriangle[i][i] = 1;
+		}
 		
-		String inputData;
-		
-		String isCoin;
-		
-		int[] resultArray;
-		for(int i = 0 ;i < n; i++) {
-			inputData = scanner.nextLine();
-			resultArray = new int[8];
-			for(int j = 0 ; j<= 37; j++){
-				isCoin = inputData.substring(j, j+3);
-				resultArray[coinList.indexOf(isCoin)]++;
+		for (int i = 2 ; i < 30; i++){
+			for(int j = 1; j < i; j++){
+				pascalTriangle[i][j] = pascalTriangle[i-1][j-1] + pascalTriangle[i-1][j]; 
 			}
-			
-			for(int k : resultArray){
-				System.out.print(k + " ");
-			}
-			System.out.println();
 		}
 		
 		scanner.close();
+		
+		System.out.println(pascalTriangle[n-1][k-1]);
+		
 	}
 }
