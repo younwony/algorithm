@@ -10,25 +10,38 @@ public class Main {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
 		
-		int n = scanner.nextInt();
+		String str;
 		
-		int k = scanner.nextInt();
-		
-		int[][] pascalTriangle = new int[30][30];
-		for (int i = 0 ; i < 30; i++){
-			pascalTriangle[i][0] = 1;
-			pascalTriangle[i][i] = 1;
-		}
-		
-		for (int i = 2 ; i < 30; i++){
-			for(int j = 1; j < i; j++){
-				pascalTriangle[i][j] = pascalTriangle[i-1][j-1] + pascalTriangle[i-1][j]; 
+		boolean isgun = true;
+		Stack<String> stack = new Stack<>();
+		while(!".".equals(str = scanner.nextLine())){
+			isgun = true;
+			stack.clear();
+			
+			for(int i = 0; i < str.length(); i++){
+				if(str.charAt(i) == '('){
+					stack.push("(");
+				}
+				if(str.charAt(i) == ')'){
+					if(stack.isEmpty() || !"(".equals(stack.peek())){isgun = false; break;}
+					stack.pop();
+				}
+				if(str.charAt(i) == '['){
+					stack.push("[");
+				}
+				if(str.charAt(i) == ']'){
+					if(stack.isEmpty() || !"[".equals(stack.peek())){isgun = false; break;}
+					stack.pop();
+				}
+			}
+			
+			if(stack.isEmpty() && isgun){
+				System.out.println("yes");
+			}else{
+				System.out.println("no");
 			}
 		}
 		
 		scanner.close();
-		
-		System.out.println(pascalTriangle[n-1][k-1]);
-		
 	}
 }
