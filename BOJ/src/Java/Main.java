@@ -10,38 +10,17 @@ public class Main {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
 		
-		String str;
+		float x = scanner.nextLong();
+		float y = scanner.nextLong();
+		float z = (float)(Math.floor(y/x * 100));
 		
-		boolean isgun = true;
-		Stack<String> stack = new Stack<>();
-		while(!".".equals(str = scanner.nextLine())){
-			isgun = true;
-			stack.clear();
-			
-			for(int i = 0; i < str.length(); i++){
-				if(str.charAt(i) == '('){
-					stack.push("(");
-				}
-				if(str.charAt(i) == ')'){
-					if(stack.isEmpty() || !"(".equals(stack.peek())){isgun = false; break;}
-					stack.pop();
-				}
-				if(str.charAt(i) == '['){
-					stack.push("[");
-				}
-				if(str.charAt(i) == ']'){
-					if(stack.isEmpty() || !"[".equals(stack.peek())){isgun = false; break;}
-					stack.pop();
-				}
-			}
-			
-			if(stack.isEmpty() && isgun){
-				System.out.println("yes");
-			}else{
-				System.out.println("no");
+		int count = 0;
+		while(true){
+			count++;
+			if(z != (float)(Math.floor((y+count)/(x+count) * 100)) || count > 1000000000){
+				break;
 			}
 		}
-		
-		scanner.close();
+		System.out.println(count > 1000000000 ? -1 : count);
 	}
 }
