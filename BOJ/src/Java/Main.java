@@ -10,17 +10,16 @@ public class Main {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
 		
-		float x = scanner.nextLong();
-		float y = scanner.nextLong();
-		float z = (float)(Math.floor(y/x * 100));
+		boolean[] isCheck = new boolean[31];
 		
-		int count = 0;
-		while(true){
-			count++;
-			if(z != (float)(Math.floor((y+count)/(x+count) * 100)) || count > 1000000000){
-				break;
-			}
+		isCheck[0] = true;
+		
+		for(int i = 0 ; i < 28; i++) {
+			isCheck[scanner.nextInt()] = true;
 		}
-		System.out.println(count > 1000000000 ? -1 : count);
+		
+		for(int i = 0; i < isCheck.length; i++) {
+			if(!isCheck[i]){System.out.println(i);}
+		}
 	}
 }
