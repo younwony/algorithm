@@ -8,18 +8,34 @@ public class Main {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Scanner scanner = new Scanner(System.in);
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(System.out));
 		
-		boolean[] isCheck = new boolean[31];
-		
-		isCheck[0] = true;
-		
-		for(int i = 0 ; i < 28; i++) {
-			isCheck[scanner.nextInt()] = true;
-		}
-		
-		for(int i = 0; i < isCheck.length; i++) {
-			if(!isCheck[i]){System.out.println(i);}
+		try {
+			StringBuilder str = new StringBuilder();
+			
+			String inputStr;
+			while(!"END".equals(inputStr = bufferedReader.readLine())) {
+				
+				for(int i = 0; i < inputStr.length(); i++) {
+					str.append(inputStr.charAt(inputStr.length() - i - 1));
+				}
+				str.append("\n");
+			}
+			
+			bufferedWriter.write(str.toString());
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			try {
+				if(bufferedReader != null) {bufferedReader.close();}
+				if(bufferedWriter != null) {bufferedWriter.flush(); bufferedReader.close();}
+			} catch (Exception e2) {
+				// TODO: handle exception
+				e2.printStackTrace();
+			}
 		}
 	}
 }
