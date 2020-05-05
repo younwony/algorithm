@@ -8,34 +8,24 @@ public class Main {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-		BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(System.out));
+		Scanner scanner = new Scanner(System.in);
 		
-		try {
-			StringBuilder str = new StringBuilder();
-			
-			String inputStr;
-			while(!"END".equals(inputStr = bufferedReader.readLine())) {
-				
-				for(int i = 0; i < inputStr.length(); i++) {
-					str.append(inputStr.charAt(inputStr.length() - i - 1));
-				}
-				str.append("\n");
-			}
-			
-			bufferedWriter.write(str.toString());
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}finally {
-			try {
-				if(bufferedReader != null) {bufferedReader.close();}
-				if(bufferedWriter != null) {bufferedWriter.flush(); bufferedReader.close();}
-			} catch (Exception e2) {
-				// TODO: handle exception
-				e2.printStackTrace();
+		int testCase = scanner.nextInt();
+		
+		boolean[] isEmpty = new boolean[101];
+		
+		int number;
+		
+		int count = 0;
+		
+		for(int i = 0; i< testCase; i++) {
+			number = scanner.nextInt();
+			if(!isEmpty[number -1]) {
+				isEmpty[number -1] = true;
+			}else {
+				count++;
 			}
 		}
+		System.out.println(count);
 	}
 }
