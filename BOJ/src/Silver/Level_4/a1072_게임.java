@@ -12,17 +12,29 @@ public class a1072_게임 {
 		float y = scanner.nextLong();
 		float z = (float)(Math.floor(y/x * 100));
 		
-		int count = 0;
-		while(true){
-			count++;
-			if(z != (float)(Math.floor((y+count)/(x+count) * 100)) || count > 1000000000){
-				break;
-			}else if(z == 99){
-				count = -1;
+		int targetZ = 0;
+		int left = 0;
+		int right = 1000000001;
+		int result = -1;
+		int middle;
+		while(left <= right){
+			middle  = (left + right)/2;
+			
+			if(z == 99){
+				middle = -1;
 				break;
 			}
+			
+			targetZ = (int)(Math.floor((y+middle)/(x+middle)*100));
+			
+			if (z >= targetZ){
+				  result = middle + 1;
+				  left = middle + 1;
+		    }
+	        else{right = middle - 1;}
 		}
-		System.out.println(count > 1000000000 ? -1 : count);
+		
+		System.out.println(result);
 	}
 
 }
