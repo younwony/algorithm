@@ -10,33 +10,21 @@ public class Main {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
 		
-		int n = scanner.nextInt();
+		String[] ab = scanner.nextLine().split(" ");
+		String[] a = ab[0].split("");
+		String[] b = ab[1].split("");
 		
-		while(n>=4) {
-			
-			if(mod(n)) {
-				break;
-			}
-			n--;
+		scanner.close();
+		
+		long aSum = 0;
+		long bSum = 0;
+		for(int i = 0 ; i< a.length; i++) {
+			aSum += Integer.parseInt(a[i]);
+		}
+		for(int i = 0 ; i< b.length; i++) {
+			bSum += Integer.parseInt(b[i]);
 		}
 		
-		System.out.println(n);
-	}
-	
-	public static boolean mod(int n) {
-		boolean result = false;
-		
-		while(n > 0) {
-			int mod = n%10;
-			if(mod == 4 || mod == 7) {
-				result = true;
-			}else {
-				result = false;
-				break;
-			}
-			n /= 10;
-		}
-		
-		return result;
+		System.out.println(aSum*bSum);
 	}
 }
