@@ -10,21 +10,31 @@ public class Main {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
 		
-		String[] ab = scanner.nextLine().split(" ");
-		String[] a = ab[0].split("");
-		String[] b = ab[1].split("");
+		int n = scanner.nextInt();
+		int count = 0;
+		int modn;
 		
-		scanner.close();
-		
-		long aSum = 0;
-		long bSum = 0;
-		for(int i = 0 ; i< a.length; i++) {
-			aSum += Integer.parseInt(a[i]);
+		int sum = 0;
+		while(true){
+			count++;
+			modn = sigma(n, count);
+			
+			if(modn == 0){
+				sum+=count;
+				break;
+			}else if(modn < 0){
+				sum+=count-1;
+				n = sigma(n, count-1);
+				count = 0;
+			}
 		}
-		for(int i = 0 ; i< b.length; i++) {
-			bSum += Integer.parseInt(b[i]);
-		}
 		
-		System.out.println(aSum*bSum);
+		System.out.println(sum);
+	}
+	
+	public static int sigma(int n , int count){
+		
+		int sum = (count*(count+1))/2;
+		return n - sum; 
 	}
 }
