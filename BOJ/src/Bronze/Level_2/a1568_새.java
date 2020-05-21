@@ -1,4 +1,4 @@
-package Bronze;
+package Bronze.Level_2;
 
 import java.util.Scanner;
 
