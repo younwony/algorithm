@@ -1,7 +1,0 @@
-INDEX VERSION 1.4+C:\Users\wony9\Desktop\wony_dev\dev\workspace\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-1225613421.index
-1769439232.index
-3286111569.index
-3710273959.index
-1158571994.index
-1750309624.index
