@@ -4,7 +4,7 @@
  * @사용처
  *
  */
-package Bronze.Level_5;
+package BOJ.src.Bronze.Level_5;
 
 import java.util.Scanner;
 
