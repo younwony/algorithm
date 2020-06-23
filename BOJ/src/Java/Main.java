@@ -1,10 +1,7 @@
 package Java;
 
 import java.math.BigInteger;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
@@ -12,34 +9,30 @@ public class Main {
 		Scanner scanner = new Scanner(System.in);
 
 		int n = scanner.nextInt();
+		int m = scanner.nextInt();
+		String[][] field = new String[n][m];
+		scanner.nextLine();
 
-		StringBuilder str = new StringBuilder();
-
-		for(int i = 0; i < 2*n; i++){
-			if(i % 2 == 0){
-				for(int j = 0; j < n; j++){
-					if(j % 2 == 0){
-						str.append("*");
-					}else{
-						str.append(" ");
-					}
-				}
-			}else{
-				for(int j = 0; j < n; j++){
-					if(j % 2 == 0){
-						str.append(" ");
-					}else{
-						str.append("*");
-					}
-				}
-			}
-
-			str.append("\n");
+		for(int i = 0; i < n; i++){
+			field[i] = scanner.nextLine().split("");
 		}
 
-		scanner.close();
+		Set<Integer> xSet = new HashSet<>();
+		Set<Integer> ySet = new HashSet<>();
 
-		System.out.println(str.toString());
+		for(int i = 0; i < n; i++){
+			for(int j = 0; j < m; j++){
+				if("X".equals(field[i][j])){
+					xSet.add(i);
+					ySet.add(j);
+				}
+			}
+		}
+
+		int xCount = n - xSet.size();
+		int yCount = m - ySet.size();
+
+		System.out.println(xCount > yCount ? xCount : yCount);
 	}
 }
 
