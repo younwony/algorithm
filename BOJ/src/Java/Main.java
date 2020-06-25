@@ -6,33 +6,31 @@ import java.util.*;
 public class Main {
 
 	public static void main(String[] args) {
+		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
-
+		
 		int n = scanner.nextInt();
-		int m = scanner.nextInt();
-		String[][] field = new String[n][m];
-		scanner.nextLine();
-
-		for(int i = 0; i < n; i++){
-			field[i] = scanner.nextLine().split("");
-		}
-
-		Set<Integer> xSet = new HashSet<>();
-		Set<Integer> ySet = new HashSet<>();
-
-		for(int i = 0; i < n; i++){
-			for(int j = 0; j < m; j++){
-				if("X".equals(field[i][j])){
-					xSet.add(i);
-					ySet.add(j);
-				}
+		int score = scanner.nextInt();
+		int p = scanner.nextInt();
+		
+		int[] nArray = new int[n];
+		
+		int count = 1;
+		
+		for(int i = 0 ; i < n; i++){
+			nArray[i] = scanner.nextInt();
+			if(nArray[i] > score){
+				count++;
 			}
 		}
-
-		int xCount = n - xSet.size();
-		int yCount = m - ySet.size();
-
-		System.out.println(xCount > yCount ? xCount : yCount);
+		
+		if(nArray[n-1] >= score && n == p){
+			System.out.println(-1);
+		}else{
+			System.out.println(count);
+		}
+		
+		scanner.close();
 	}
 }
 
