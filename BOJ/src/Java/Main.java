@@ -10,33 +10,33 @@ public class Main {
 		Scanner scanner = new Scanner(System.in);
 		
 		int n = scanner.nextInt();
-		int score = scanner.nextInt();
-		int p = scanner.nextInt();
+		int m = scanner.nextInt();
+		int max = n < m ? n : m;
 		
-		if(n > 0){
-			int[] nArray = new int[n];
-			
-			int count = 1;
-			
-			for(int i = 0 ; i < n; i++){
-				nArray[i] = scanner.nextInt();
-				if(nArray[i] > score){
-					count++;
-				}
-			}
-			
-			
-			
-			if(nArray[n-1] >= score && n == p){
-				System.out.println(-1);
-			}else{
-				System.out.println(count);
-			}
-		}else{
-			System.out.println(1);
+		scanner.nextLine();
+		
+		String[][] field = new String[n][m];
+		
+		String[] test;
+		
+		for(int i = 0 ; i < n; i++){
+			field[i] = scanner.nextLine().split("");
 		}
 		
-		scanner.close();
+		int result = 1;
+		
+		for(int i = 1; i < max; i++){
+			for(int j = 0; j < n - i; j++){
+				for(int k = 0; k < m - i; k++){
+					if(field[j][k].equals(field[j][k + i]) && field[j][k].equals(field[j + i][k]) && field[j][k].equals(field[j + i][k + i])){
+						result = i + 1 > result ? i + 1 : result;
+					}
+				}
+			}
+		}
+		
+		System.out.println(result*result);
 	}
+		
 }
 
