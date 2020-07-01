@@ -4,30 +4,23 @@ import java.math.BigInteger;
 import java.util.*;
 
 public class Main {
-	/**
-	 * DP 사용
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
+		public static void main(String[] args) {
+			Scanner scanner = new Scanner(System.in);
 
-		int n = scanner.nextInt();
+			int n = scanner.nextInt();
+			scanner.nextLine();
 
-		int[] field = new int[21];
-		int a,b;
+			String[] result = new String[2];
 
-		for(int i = 0 ; i < n; i++){
-			a = scanner.nextInt();
-			b = scanner.nextInt();
-			if(field[i] + b > field[i+a]){
-				field[i + a] = field[i] + b;
+			StringBuilder str = new StringBuilder();
+
+			for(int i = 0 ; i < n; i++){
+				result = scanner.nextLine().split(",");
+				str.append(Integer.parseInt(result[0]) + Integer.parseInt(result[1]));
+				str.append("\n");
 			}
 
-			if(field[i] > field[i+1]){
-				field[i+1] = field[i];
-			}
+			System.out.println(str.toString());
 		}
-		System.out.println(field[n]);
-	}
 }
 
