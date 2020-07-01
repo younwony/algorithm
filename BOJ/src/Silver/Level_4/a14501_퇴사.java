@@ -18,10 +18,14 @@ public class a14501_퇴사 {
         for(int i = 0 ; i < n; i++){
             a = scanner.nextInt();
             b = scanner.nextInt();
-            if(field[i] + b > field[i+a]){
+
+            // field[i+a] 의 값이 현재 값 + b 의 값보다 작으면 입력된 값으로 교체
+            if(field[i+a] < field[i] + b){
                 field[i + a] = field[i] + b;
             }
 
+            // a는 최소 1이기에 23라인의 연산이 끝난 후 field[i] 값과 field[i+1]의 값의 비교가 가능하다.
+            // field[i+1] 의 값이 현재 값보다 작으면 field[i+1]의 값에 field[i]를 넣어준다.
             if(field[i] > field[i+1]){
                 field[i+1] = field[i];
             }
