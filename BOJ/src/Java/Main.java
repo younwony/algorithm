@@ -4,23 +4,26 @@ import java.math.BigInteger;
 import java.util.*;
 
 public class Main {
-		public static void main(String[] args) {
-			Scanner scanner = new Scanner(System.in);
+	public static void main(String[] args) {
+		Scanner scanner = new Scanner(System.in);
 
-			int n = scanner.nextInt();
-			scanner.nextLine();
+		int n = scanner.nextInt();
 
-			String[] result = new String[2];
+		int[] x = new int[n];
 
-			StringBuilder str = new StringBuilder();
+		long result = 0;
 
-			for(int i = 0 ; i < n; i++){
-				result = scanner.nextLine().split(",");
-				str.append(Integer.parseInt(result[0]) + Integer.parseInt(result[1]));
-				str.append("\n");
-			}
-
-			System.out.println(str.toString());
+		for(int i = 0 ; i< n; i++){
+			x[i] = scanner.nextInt();
 		}
+
+		for(int i = 0; i < n; i++){
+			for(int j = 0; j<n; j++){
+				result += Math.abs(x[i] - x[j]);
+			}
+		}
+
+		System.out.println(result);
+	}
 }
 
