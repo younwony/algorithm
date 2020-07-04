@@ -9,58 +9,33 @@ import java.util.*;
 
 public class Main {
 	public static void main(String[] args) {
-		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-		BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(System.out));
+		Scanner scanner = new Scanner(System.in);
 
-		try {
-			int n = Integer.parseInt(bufferedReader.readLine());
+		int[] abc = new int[3];
 
-			Map<Integer, Integer> xMap = new HashMap<>();
-			Map<Integer, Integer> yMap = new HashMap<>();
+		for(int i = 0; i < 3; i++){
+			abc[i] = scanner.nextInt();
+		}
 
-			String[] tempArray = new String[2];
-			int result = 0;
+		Arrays.sort(abc);
 
-			int x,y;
+		scanner.nextLine();
 
-			for(int i = 0 ; i < n; i++){
-				tempArray = bufferedReader.readLine().split(" ");
-				x = Integer.parseInt(tempArray[0]);
-				y = Integer.parseInt(tempArray[1]);
+		String inputStr = scanner.nextLine();
 
-				if(xMap.keySet().contains(x)){
-					if(xMap.get(x) == 1){
-						result++;
-						xMap.remove(x);
-						xMap.put(x,2);
-					}
-				}else{
-					xMap.put(x, 1);
-				}
+		StringBuilder result = new StringBuilder();
 
-				if(yMap.keySet().contains(y)){
-					if(yMap.get(y) == 1){
-						yMap.remove(y);
-						yMap.put(y,2);
-						result++;
-					}
-				}else{
-					yMap.put(y, 1);
-				}
-			}
-
-			bufferedWriter.write(Integer.toString(result));
-
-		}catch(Exception e){
-			e.printStackTrace();
-		}finally {
-			try{
-				if(bufferedReader != null){bufferedReader.close();}
-				if(bufferedWriter != null){bufferedWriter.flush(); bufferedWriter.close();}
-			}catch (Exception e){
-				e.printStackTrace();
+		for(int i = 0; i < inputStr.length(); i++){
+			if(inputStr.charAt(i) == 'A'){
+				result.append(abc[0] + " ");
+			}else if(inputStr.charAt(i) == 'B'){
+				result.append(abc[1] + " ");
+			}else{
+				result.append(abc[2] + " ");
 			}
 		}
+
+		System.out.println(result.toString());
 	}
 }
 
