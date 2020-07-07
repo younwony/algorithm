@@ -77,6 +77,9 @@ public class Sort{
 	 * @사용처 버블정렬
 	 * @Todo
 	 * 
+	 * 1. 맨 뒤에서부터 정렬 값을 채워나가는 형식
+	 * 
+	 * 시간 복잡도 = O(n^2)
 	 */
 	public void BubbleSort(){
 		for(int j = Array.length-1; j > 0; j--){
@@ -122,7 +125,7 @@ public class Sort{
 		
 		// 2분할 지점
 		int middle = (left+right)/2;
-		// Array가 데이털르 하나가질때까지 쪼갠다.
+		// Array가 데이터를 하나가질때까지 쪼갠다.
 		if(left < right){
 			RecursionMerge(array, left, middle); // 좌측
 			RecursionMerge(array, middle + 1, right); // 우측
