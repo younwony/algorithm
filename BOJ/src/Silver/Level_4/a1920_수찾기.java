@@ -64,7 +64,18 @@ public class a1920_수찾기 {
 			nInput = bufferedReader.readLine().split(" ");
 			m = Integer.parseInt(bufferedReader.readLine());
 			mOutput = bufferedReader.readLine().split(" ");
-			
+
+
+			/**
+			 * 비교 기반 정렬에선 정수의 경우 두 수를 연산 한번으로 비교할 수 있지만,
+			 *
+			 * 문자열의 경우 최악에 모든 문자에 대해 비교를 하게 됩니다.
+			 *
+			 * 정수의 정렬 시간복잡도를 O(NlgN) 이라 한다면
+			 *
+			 * 문자열은 문자열의 길이가 더해져 O(NlgNM) 이라 할 수 있습니다.
+			 * 출처 - https://www.acmicpc.net/board/view/34668
+			 */
 			Array = new int[n];
 			for(int i = 0; i < n; i++){
 				Array[i] = Integer.parseInt(nInput[i]);
