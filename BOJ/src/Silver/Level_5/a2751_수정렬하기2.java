@@ -71,6 +71,38 @@ public class a2751_수정렬하기2 {
 				e2.printStackTrace();
 			}
 		}
+
+
+		/* 정렬을 사용하지않고 카운팅으로 On의 시간복잡도를 구한다.
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+
+		boolean[] numberArray = new boolean[2000001];
+
+		try {
+			int n = Integer.valueOf(bufferedReader.readLine());
+			int inputData;
+			for (int i = 0; i < n; i++) {
+				numberArray[Integer.valueOf(bufferedReader.readLine()) + 1000000] = true;
+			}
+
+			StringBuilder result = new StringBuilder();
+			for (int i = 0; i < numberArray.length; i++) {
+				if (numberArray[i]) {
+					result.append((i - 1000000) + "\n");
+				}
+			}
+			System.out.println(result.toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (bufferedReader != null) {
+					bufferedReader.close();
+				}
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}*/
 	}
 	
 	public static void mergeSort(int[] saveArray, int[] array, int left ,int right){
@@ -116,5 +148,7 @@ public class a2751_수정렬하기2 {
 			saveArray[left] = array[left];
 		}
 	}
+
+
 
 }
