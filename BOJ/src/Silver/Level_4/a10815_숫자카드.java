@@ -8,6 +8,7 @@ package Silver.Level_4;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.StringTokenizer;
@@ -67,6 +68,42 @@ public class a10815_숫자카드 {
 				e2.printStackTrace();
 			}
 		}
+		
+		
+		
+		
+		/*
+		 * 계수 정렬을 응용한 최소시간 알고리즘 풀이
+		 * 
+		 * BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+		
+		try {
+			int n = Integer.valueOf(bufferedReader.readLine());
+			StringTokenizer nTokenizer = new StringTokenizer(bufferedReader.readLine(), " ");
+			int m = Integer.valueOf(bufferedReader.readLine());
+			StringTokenizer mTokenizer = new StringTokenizer(bufferedReader.readLine(), " ");
+			
+			boolean[] checkNumber = new boolean[20000001];
+			while(nTokenizer.hasMoreTokens()){
+				checkNumber[Integer.valueOf(nTokenizer.nextToken()) + 10000000] = true;
+			}
+			
+			StringBuilder result = new StringBuilder();
+			while(mTokenizer.hasMoreTokens()){
+				if(checkNumber[Integer.valueOf(mTokenizer.nextToken()) + 10000000]){
+					result.append("1 ");
+				}else{
+					result.append("0 ");
+				}
+			}
+			
+			System.out.println(result.toString());
+			
+		} catch (NumberFormatException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		*/
 	}
 	
 	public static void mergeSort(int[] saveArray, int[] array, int left ,int right){
