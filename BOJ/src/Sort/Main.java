@@ -6,6 +6,7 @@
  */
 package Sort;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -40,6 +41,7 @@ public class Main {
 		sort.HeapSort();
 		
 		sort.Print();
+		
 	}
 
 }
