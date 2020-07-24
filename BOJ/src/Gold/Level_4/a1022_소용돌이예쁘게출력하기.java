@@ -1,48 +1,90 @@
 package Gold.Level_4;
 
+import java.util.Scanner;
+
 public class a1022_소용돌이예쁘게출력하기 {
-	
-	static long[][] field = new long[15000][15000];
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		createField();
-		System.out.println("test");
-	}
-	
-	public static void createField(){
-		field[5000][5000] = 1;
-		long count = 2;
-		int x = 5000;
-		int y = 5000;
 		
-		int move = 1;
+		Scanner scanner = new Scanner(System.in);
 		
-		boolean isPlus = true;
-	
-		while(move < 10000){
-			if(isPlus){
-				for(int i = 1; i <= move; i++){
-					field[x + i][y] = count++;
+		int x1 = scanner.nextInt();
+		int y1 = scanner.nextInt();
+		int x2 = scanner.nextInt();
+		int y2 = scanner.nextInt();
+		
+		scanner.close();
+		
+		int arrayXSize = x2 - x1 + 1;
+		int arrayYSize = y2 - y1 + 1;
+		
+		int[][] resultArray = new int[arrayXSize][arrayYSize];
+		
+		StringBuilder result = new StringBuilder();
+		
+		int indexX = 0;
+		int maxNum = 0;
+		for(int i = x1; i <= x2; i++){
+			int indexY = 0;
+			for(int j = y1; j <= y2; j++){
+				resultArray[indexX][indexY] = setFiledNumber(i, j);
+				if(resultArray[indexX][indexY] > maxNum){
+					maxNum = resultArray[indexX][indexY];
 				}
-				x += move;
-				for(int i = 1; i <= move; i++){
-					field[x][y + i] = count++;
-				}
-				y += move;
-			}else{
-				for(int i = 1; i <= move; i++){
-					field[x - i][y] = count++;
-				}
-				x -= move;
-				for(int i = 1; i <= move; i++){
-					field[x][y - i] = count++;
-				}
-				y -= move;
+				indexY++;
 			}
-			move++;
+			indexX++;
 		}
 		
+		
+		int maxNumberLength = String.valueOf(maxNum).length() + 1;
+		
+		
+		for(int i = 0; i < arrayXSize; i++){
+			for(int j = 0; j < arrayYSize; j++){
+				result.append(String.format("%"+maxNumberLength + "s", resultArray[i][j]));
+			}
+			result.append("\n");
+		}
+		
+		System.out.println(result.toString());
+	}
+	
+	public static int setFiledNumber(int x, int y){
+		
+		int result = 0;
+		
+		int tempX = Math.abs(x);
+		int tempY = Math.abs(y);
+		
+		if(x >= 0 && y >= 0){
+			if(x >= y){
+				result = (int)Math.pow((2*x + 1), 2) - (x - y);
+			}else{
+				result = (int)Math.pow((2*(y-1) + 1), 2) + (y - x);
+			}
+		}else if(x >= 0 && y < 0){
+			if(x >= tempY){
+				result = (int)Math.pow((2*x + 1), 2) - x - tempY;
+			}else{
+				result = (int)Math.pow((2*tempY + 1), 2) - 3*tempY + x;
+			}
+		}else if(x < 0 && y >= 0){
+			if(tempX >= y){
+				result = (int)Math.pow((2*(tempX - 1) + 1), 2) + 3*tempX - y; 
+			}else{
+				result = (int)Math.pow((2*(y - 1) + 1), 2) + y + tempX;
+			}
+		}else if(x < 0 && y < 0){
+			if(tempX >= tempY){
+				result = (int)Math.pow((2*tempX + 1), 2) - 5*tempX + tempY;
+			}else{
+				result = (int)Math.pow((2*tempY + 1), 2) - 3*tempY - tempX;
+			}
+		}
+		
+		return result;
 	}
 
 }
