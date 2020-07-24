@@ -11,85 +11,48 @@ import java.util.*;
 public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 		
-		Scanner scanner = new Scanner(System.in);
-		
-		int x1 = scanner.nextInt();
-		int y1 = scanner.nextInt();
-		int x2 = scanner.nextInt();
-		int y2 = scanner.nextInt();
-		
-		scanner.close();
-		
-		int arrayXSize = x2 - x1 + 1;
-		int arrayYSize = y2 - y1 + 1;
-		
-		int[][] resultArray = new int[arrayXSize][arrayYSize];
-		
-		StringBuilder result = new StringBuilder();
-		
-		int indexX = 0;
-		int maxNum = 0;
-		for(int i = x1; i <= x2; i++){
-			int indexY = 0;
-			for(int j = y1; j <= y2; j++){
-				resultArray[indexX][indexY] = setFiledNumber(i, j);
-				if(resultArray[indexX][indexY] > maxNum){
-					maxNum = resultArray[indexX][indexY];
+		try {
+			
+			int testCase = Integer.valueOf(bufferedReader.readLine());
+			StringBuilder result = new StringBuilder();
+			for(int i = 0; i < testCase; i++){
+				int perSonCount = Integer.valueOf(bufferedReader.readLine());
+				int[] perSonArray = new int[perSonCount + 1];
+				
+				for(int j = 0 ; j < perSonCount; j++){
+					String[] personRank = bufferedReader.readLine().split(" ");
+					perSonArray[Integer.valueOf(personRank[0])] = Integer.valueOf(personRank[1]);
 				}
-				indexY++;
+				
+				int nowTopRank = perSonArray[1];
+				
+				int count = 1;
+				
+				for(int j = 2; j < perSonArray.length; j++){
+					if(perSonArray[j] < nowTopRank){
+						count++;
+						nowTopRank = perSonArray[j];
+					}
+				}
+				
+				result.append(count + "\n");
+				
 			}
-			indexX++;
-		}
-		
-		
-		int maxNumberLength = String.valueOf(maxNum).length();
-		
-		
-		for(int i = 0; i < arrayXSize; i++){
-			for(int j = 0; j < arrayYSize; j++){
-				result.append(String.format("%"+maxNumberLength + "s", resultArray[i][j]) + " ");
-			}
-			result.append("\n");
-		}
-		
-		System.out.println(result.toString());
-	}
-	
-	public static int setFiledNumber(int x, int y){
-		
-		int result = 0;
-		
-		int tempX = Math.abs(x);
-		int tempY = Math.abs(y);
-		
-		if(x >= 0 && y >= 0){
-			if(x >= y){
-				result = (int)Math.pow((2*x + 1), 2) - (x - y);
-			}else{
-				result = (int)Math.pow((2*(y-1) + 1), 2) + (y - x);
-			}
-		}else if(x >= 0 && y < 0){
-			if(x >= tempY){
-				result = (int)Math.pow((2*x + 1), 2) - x - tempY;
-			}else{
-				result = (int)Math.pow((2*tempY + 1), 2) - 3*tempY + x;
-			}
-		}else if(x < 0 && y >= 0){
-			if(tempX >= y){
-				result = (int)Math.pow((2*(tempX - 1) + 1), 2) + 3*tempX - y; 
-			}else{
-				result = (int)Math.pow((2*(y - 1) + 1), 2) + y + tempX;
-			}
-		}else if(x < 0 && y < 0){
-			if(tempX >= tempY){
-				result = (int)Math.pow((2*tempX + 1), 2) - 5*tempX + tempY;
-			}else{
-				result = (int)Math.pow((2*tempY + 1), 2) - 3*tempY - tempX;
+			
+			System.out.println(result.toString());
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			try {
+				if(bufferedReader != null){bufferedReader.close();}
+			} catch (Exception e2) {
+				// TODO: handle exception
+				e2.printStackTrace();
 			}
 		}
-		
-		return result;
 	}
 }
 
