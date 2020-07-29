@@ -4,10 +4,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class a2140_지뢰찾기 {
 
 	static char[][] inputArray;
+	static int[] iArray = {-1,-1,-1,0,0,1,1,1};
+	static int[] jArray = {-1,0,1,-1,1,-1,0,1};
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -21,34 +24,24 @@ public class a2140_지뢰찾기 {
 				inputArray[i] = bufferedReader.readLine().toCharArray();
 			}
 			
-			int i = 0;
-			int j = 0;
-			int way = 0;
-			while(true){
-				isCheck(i , j);
-				if(way == 0){
-					j++;
-					if(j == n){
-						way++;
-					}
-				}else if(way == 1){
-					i++;
-					if(i == n){
-						way++;
-					}
-				}else if(way == 2){
-					j--;
-					if(j == -1){
-						way++;
-					}
-				}else{
-					i--;
-					if(i == -1){
-						break;
+			int resultCount = 0;
+			
+			if(n < 2){
+				System.out.println(0);
+			}else{
+				for(int i = 1; i < n - 1; i++){
+					for (int j = 1; j < n - 1; j++){
+						if(isZero(i, j)){
+							continue;
+						}else{
+							fieldMinus(i, j);
+							resultCount++;
+						}
 					}
 				}
-				
+				System.out.println(resultCount);
 			}
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -62,19 +55,22 @@ public class a2140_지뢰찾기 {
 		}
 	}
 	
-	public static void isCheck(int i, int j){
-		int boomCount = inputArray[i][j];
-		if(i == 0 && j == 0 && boomCount > 0){
-			inputArray[i + 1][j + 1] = '*';
+	public static boolean isZero(int i, int j){
+		
+		for(int k = 0 ; k < 8; k++){
+			if('0' == inputArray[i + iArray[k]][j + jArray[k]]){
+				return true;
+			}
 		}
-		if(isField(i + 1 , j)){}
-			
+		
+		return false;
 	}
 	
-	public static boolean isField(int i, int j){
-		
-		return i >= 0 && i < inputArray.length && j >= 0 && j < inputArray.length;
-		
+	public static void fieldMinus(int i, int j){
+		for(int k = 0 ; k < 8; k++){
+			if(inputArray[i + iArray[k]][j + jArray[k]] > 0){
+				inputArray[i + iArray[k]][j + jArray[k]]--;
+			}
+		}
 	}
-
 }

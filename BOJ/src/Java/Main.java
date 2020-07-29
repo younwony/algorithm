@@ -9,39 +9,41 @@ import java.math.BigInteger;
 import java.util.*;
 
 public class Main {
+	
+	static char[][] inputArray;
+	static int[] iArray = {-1,-1,-1,0,0,1,1,1};
+	static int[] jArray = {-1,0,1,-1,1,-1,0,1};
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 		
 		try {
+			int n = Integer.valueOf(bufferedReader.readLine());
+			inputArray = new char[n][n];
 			
-			int testCase = Integer.valueOf(bufferedReader.readLine());
-			StringBuilder result = new StringBuilder();
-			for(int i = 0; i < testCase; i++){
-				int perSonCount = Integer.valueOf(bufferedReader.readLine());
-				int[] perSonArray = new int[perSonCount + 1];
-				
-				for(int j = 0 ; j < perSonCount; j++){
-					String[] personRank = bufferedReader.readLine().split(" ");
-					perSonArray[Integer.valueOf(personRank[0])] = Integer.valueOf(personRank[1]);
-				}
-				
-				int nowTopRank = perSonArray[1];
-				
-				int count = 1;
-				
-				for(int j = 2; j < perSonArray.length; j++){
-					if(perSonArray[j] < nowTopRank){
-						count++;
-						nowTopRank = perSonArray[j];
-					}
-				}
-				
-				result.append(count + "\n");
-				
+			for(int i = 0; i < n; i++){
+				inputArray[i] = bufferedReader.readLine().toCharArray();
 			}
 			
-			System.out.println(result.toString());
+			int resultCount = 0;
+			
+			if(n < 2){
+				System.out.println(0);
+			}else{
+				for(int i = 1; i < n - 1; i++){
+					for (int j = 1; j < n - 1; j++){
+						if(isZero(i, j)){
+							continue;
+						}else{
+							fieldMinus(i, j);
+							resultCount++;
+						}
+					}
+				}
+				System.out.println(resultCount);
+			}
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -51,6 +53,25 @@ public class Main {
 			} catch (Exception e2) {
 				// TODO: handle exception
 				e2.printStackTrace();
+			}
+		}
+	}
+	
+	public static boolean isZero(int i, int j){
+		
+		for(int k = 0 ; k < 8; k++){
+			if('0' == inputArray[i + iArray[k]][j + jArray[k]]){
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	public static void fieldMinus(int i, int j){
+		for(int k = 0 ; k < 8; k++){
+			if(inputArray[i + iArray[k]][j + jArray[k]] > 0){
+				inputArray[i + iArray[k]][j + jArray[k]]--;
 			}
 		}
 	}
