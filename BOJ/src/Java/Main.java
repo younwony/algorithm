@@ -10,38 +10,89 @@ import java.util.*;
 
 public class Main {
 	
-	static char[][] inputArray;
-	static int[] iArray = {-1,-1,-1,0,0,1,1,1};
-	static int[] jArray = {-1,0,1,-1,1,-1,0,1};
-	
+	static char[][] field;
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 		
 		try {
-			int n = Integer.valueOf(bufferedReader.readLine());
-			inputArray = new char[n][n];
 			
-			for(int i = 0; i < n; i++){
-				inputArray[i] = bufferedReader.readLine().toCharArray();
+			String[] inputNumberData = bufferedReader.readLine().split(" ");
+			StringBuilder resultOne = new StringBuilder();
+			StringBuilder resultTwo = new StringBuilder();
+			StringBuilder resultThree = new StringBuilder();
+			StringBuilder resultFour = new StringBuilder();
+			
+			int r = Integer.valueOf(inputNumberData[0]);
+			int c = Integer.valueOf(inputNumberData[1]);
+			long n = Long.valueOf(inputNumberData[2]);
+			
+			field = new char[r][c];
+			
+			for(int i = 0; i < r; i++){
+				field[i] = bufferedReader.readLine().toCharArray();
 			}
 			
-			int resultCount = 0;
+			ArrayList<int[]> boomPoint = new ArrayList<>();
+			
+			for(int i = 0; i < r; i++){
+				for(int j = 0; j < c; j++){
+					resultTwo.append('O');
+					resultOne.append(field[i][j]);
+					if(field[i][j] == 'O'){
+						boomPoint.add(new int[]{i,j});
+						boomPoint.add(new int[]{i-1,j});
+						boomPoint.add(new int[]{i+1,j});
+						boomPoint.add(new int[]{i,j-1});
+						boomPoint.add(new int[]{i,j+1});
+					}
+					field[i][j] = 'O';
+				}
+				resultTwo.append("\n");
+				resultOne.append("\n");
+			}
+			
+			fieldBoom(boomPoint);
+			
+			for(int i = 0; i < r; i++){
+				for(int j = 0; j < c; j++){
+					resultThree.append(field[i][j]);
+				}
+				resultThree.append("\n");
+			}
+			
+			boomPoint.clear();
+			
+			for(int i = 0; i < r; i++){
+				for(int j = 0; j < c; j++){
+					if(field[i][j] == 'O'){
+						boomPoint.add(new int[]{i,j});
+						boomPoint.add(new int[]{i-1,j});
+						boomPoint.add(new int[]{i+1,j});
+						boomPoint.add(new int[]{i,j-1});
+						boomPoint.add(new int[]{i,j+1});
+					}
+					field[i][j] = 'O';
+				}
+			}
+			
+			fieldBoom(boomPoint);
+			
+			for(int i = 0; i < r; i++){
+				for(int j = 0; j < c; j++){
+					resultFour.append(field[i][j]);
+				}
+				resultFour.append("\n");
+			}
 			
 			if(n < 2){
-				System.out.println(0);
+				System.out.println(resultOne.toString());
+			}else if(n % 2 == 0){
+				System.out.println(resultTwo.toString());
+			}else if(n % 4 == 1){
+				System.out.println(resultFour.toString());
 			}else{
-				for(int i = 1; i < n - 1; i++){
-					for (int j = 1; j < n - 1; j++){
-						if(isZero(i, j)){
-							continue;
-						}else{
-							fieldMinus(i, j);
-							resultCount++;
-						}
-					}
-				}
-				System.out.println(resultCount);
+				System.out.println(resultThree.toString());
 			}
 			
 		} catch (Exception e) {
@@ -49,7 +100,7 @@ public class Main {
 			e.printStackTrace();
 		} finally {
 			try {
-				if(bufferedReader != null){bufferedReader.close();}
+				if(bufferedReader != null){ bufferedReader.close();}
 			} catch (Exception e2) {
 				// TODO: handle exception
 				e2.printStackTrace();
@@ -57,23 +108,19 @@ public class Main {
 		}
 	}
 	
-	public static boolean isZero(int i, int j){
-		
-		for(int k = 0 ; k < 8; k++){
-			if('0' == inputArray[i + iArray[k]][j + jArray[k]]){
-				return true;
-			}
+	public static void fieldBoom(ArrayList<int[]> boomPoint){
+		int x;
+		int y;
+		for(int i = 0; i< boomPoint.size(); i++){
+			x = boomPoint.get(i)[0];
+			y = boomPoint.get(i)[1];
+			if(isField(x, y)){field[x][y] = '.';}
 		}
-		
-		return false;
 	}
 	
-	public static void fieldMinus(int i, int j){
-		for(int k = 0 ; k < 8; k++){
-			if(inputArray[i + iArray[k]][j + jArray[k]] > 0){
-				inputArray[i + iArray[k]][j + jArray[k]]--;
-			}
-		}
+	public static boolean isField(int x, int y){
+		
+		return x >= 0 && y >= 00 && x < field.length && y < field[0].length;
 	}
 }
 

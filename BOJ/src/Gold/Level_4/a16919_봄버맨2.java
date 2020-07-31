@@ -17,6 +17,7 @@ public class a16919_봄버맨2 {
 			StringBuilder resultOne = new StringBuilder();
 			StringBuilder resultTwo = new StringBuilder();
 			StringBuilder resultThree = new StringBuilder();
+			StringBuilder resultFour = new StringBuilder();
 			
 			int r = Integer.valueOf(inputNumberData[0]);
 			int c = Integer.valueOf(inputNumberData[1]);
@@ -56,10 +57,36 @@ public class a16919_봄버맨2 {
 				resultThree.append("\n");
 			}
 			
-			if(n % 2 == 0){
-				System.out.println(resultTwo.toString());
-			}else if(n % 3 == 1){
+			boomPoint.clear();
+			
+			for(int i = 0; i < r; i++){
+				for(int j = 0; j < c; j++){
+					if(field[i][j] == 'O'){
+						boomPoint.add(new int[]{i,j});
+						boomPoint.add(new int[]{i-1,j});
+						boomPoint.add(new int[]{i+1,j});
+						boomPoint.add(new int[]{i,j-1});
+						boomPoint.add(new int[]{i,j+1});
+					}
+					field[i][j] = 'O';
+				}
+			}
+			
+			fieldBoom(boomPoint);
+			
+			for(int i = 0; i < r; i++){
+				for(int j = 0; j < c; j++){
+					resultFour.append(field[i][j]);
+				}
+				resultFour.append("\n");
+			}
+			
+			if(n < 2){
 				System.out.println(resultOne.toString());
+			}else if(n % 2 == 0){
+				System.out.println(resultTwo.toString());
+			}else if(n % 4 == 1){
+				System.out.println(resultFour.toString());
 			}else{
 				System.out.println(resultThree.toString());
 			}
