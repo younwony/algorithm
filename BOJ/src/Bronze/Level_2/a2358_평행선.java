@@ -1,4 +1,4 @@
-package BOJ.src.Bronze.Level_2;
+package Bronze.Level_2;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

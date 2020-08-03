@@ -10,117 +10,112 @@ import java.util.*;
 
 public class Main {
 	
-	static char[][] field;
-	public static void main(String[] args) {
+	static boolean[][] isNode;
+	static Map<Integer, Boolean> isVisited = new HashMap<>();
+	static Stack<Integer> stack = new Stack<>();
+	static Queue<Integer> queue = new LinkedList<>();
+	static StringBuilder dfsResult = new StringBuilder();
+	static StringBuilder bfsResult = new StringBuilder();
+	public static void main(String[] args) throws Exception{
 		// TODO Auto-generated method stub
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+		String[] inputSplitData = bufferedReader.readLine().split(" ");
 		
-		try {
+		int n = Integer.valueOf(inputSplitData[0]);
+		int m = Integer.valueOf(inputSplitData[1]);
+		int v = Integer.valueOf(inputSplitData[2]);
+
+		// 인접행렬로 그래프 구현
+		isNode = new boolean[n+1][n+1];
+		
+		String[] nodeXY;
+		int x,y;
+		for(int i = 0 ; i < m; i++){
+			nodeXY = bufferedReader.readLine().split(" ");
+			x = Integer.valueOf(nodeXY[0]);
+			y = Integer.valueOf(nodeXY[1]);
 			
-			String[] inputNumberData = bufferedReader.readLine().split(" ");
-			StringBuilder resultOne = new StringBuilder();
-			StringBuilder resultTwo = new StringBuilder();
-			StringBuilder resultThree = new StringBuilder();
-			StringBuilder resultFour = new StringBuilder();
+			isNode[x][y] = true;
+			isNode[y][x] = true;
 			
-			int r = Integer.valueOf(inputNumberData[0]);
-			int c = Integer.valueOf(inputNumberData[1]);
-			long n = Long.valueOf(inputNumberData[2]);
-			
-			field = new char[r][c];
-			
-			for(int i = 0; i < r; i++){
-				field[i] = bufferedReader.readLine().toCharArray();
+			isVisited.put(x, false);
+			isVisited.put(y, false);
+		}
+		
+		// 방문 체크 변수
+		
+		// 시작점 v 체크
+		isVisited.put(v, true);
+		
+		stack.push(v);
+		
+		dfs(v);
+		
+		for(int i : isVisited.keySet()){
+			isVisited.put(i, false);
+		}
+		
+		queue.offer(v);
+		isVisited.put(v, true);
+		bfs(v);
+		
+		System.out.println(dfsResult.toString());
+		System.out.println(bfsResult.toString());
+	}
+	
+	public static void dfs(int start){
+		
+		if(isVisited()){
+			while(!stack.isEmpty()){
+				dfsResult.append(stack.pop() + " ");
 			}
-			
-			ArrayList<int[]> boomPoint = new ArrayList<>();
-			
-			for(int i = 0; i < r; i++){
-				for(int j = 0; j < c; j++){
-					resultTwo.append('O');
-					resultOne.append(field[i][j]);
-					if(field[i][j] == 'O'){
-						boomPoint.add(new int[]{i,j});
-						boomPoint.add(new int[]{i-1,j});
-						boomPoint.add(new int[]{i+1,j});
-						boomPoint.add(new int[]{i,j-1});
-						boomPoint.add(new int[]{i,j+1});
-					}
-					field[i][j] = 'O';
-				}
-				resultTwo.append("\n");
-				resultOne.append("\n");
+			return ;
+		}
+		
+		dfsResult.append(stack.pop() + " ");
+		
+		for(int j = 1; j < isNode.length; j++){
+			if(isNode[start][j] && !isVisited.get(j)){
+				isVisited.put(j,true);
+				stack.push(j);
+				dfs(j);
 			}
+		}
 			
-			fieldBoom(boomPoint);
+	}
+	
+	public static void bfs(int start){
 			
-			for(int i = 0; i < r; i++){
-				for(int j = 0; j < c; j++){
-					resultThree.append(field[i][j]);
-				}
-				resultThree.append("\n");
+		if(isVisited()){
+			while(!queue.isEmpty()){
+				bfsResult.append(queue.poll() + " ");
 			}
-			
-			boomPoint.clear();
-			
-			for(int i = 0; i < r; i++){
-				for(int j = 0; j < c; j++){
-					if(field[i][j] == 'O'){
-						boomPoint.add(new int[]{i,j});
-						boomPoint.add(new int[]{i-1,j});
-						boomPoint.add(new int[]{i+1,j});
-						boomPoint.add(new int[]{i,j-1});
-						boomPoint.add(new int[]{i,j+1});
-					}
-					field[i][j] = 'O';
-				}
+			return ;
+		}
+		
+		bfsResult.append(queue.poll() + " ");
+		
+		for(int j = 1; j < isNode.length; j++){
+			if(isNode[start][j] && !isVisited.get(j)){
+				isVisited.put(j,true);
+				queue.offer(j);
 			}
-			
-			fieldBoom(boomPoint);
-			
-			for(int i = 0; i < r; i++){
-				for(int j = 0; j < c; j++){
-					resultFour.append(field[i][j]);
-				}
-				resultFour.append("\n");
-			}
-			
-			if(n < 2){
-				System.out.println(resultOne.toString());
-			}else if(n % 2 == 0){
-				System.out.println(resultTwo.toString());
-			}else if(n % 4 == 1){
-				System.out.println(resultFour.toString());
-			}else{
-				System.out.println(resultThree.toString());
-			}
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		} finally {
-			try {
-				if(bufferedReader != null){ bufferedReader.close();}
-			} catch (Exception e2) {
-				// TODO: handle exception
-				e2.printStackTrace();
-			}
+		}
+		if(!queue.isEmpty()){
+			bfs(queue.peek());
 		}
 	}
 	
-	public static void fieldBoom(ArrayList<int[]> boomPoint){
-		int x;
-		int y;
-		for(int i = 0; i< boomPoint.size(); i++){
-			x = boomPoint.get(i)[0];
-			y = boomPoint.get(i)[1];
-			if(isField(x, y)){field[x][y] = '.';}
-		}
-	}
-	
-	public static boolean isField(int x, int y){
+	public static boolean isVisited(){
+		boolean result = true;
 		
-		return x >= 0 && y >= 00 && x < field.length && y < field[0].length;
+		for(int i : isVisited.keySet()){
+			if(!isVisited.get(i)){
+				result = false;
+			}
+		}
+		
+		return result;
 	}
 }
 
