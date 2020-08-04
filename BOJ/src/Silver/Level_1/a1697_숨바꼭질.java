@@ -44,7 +44,5 @@ public class a1697_숨바꼭질 {
 		bfs(queue.peek()[0], queue.peek()[1]);
 		
 	}
-	
-	
 
 }
