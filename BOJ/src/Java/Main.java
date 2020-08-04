@@ -10,112 +10,72 @@ import java.util.*;
 
 public class Main {
 	
-	static boolean[][] isNode;
-	static Map<Integer, Boolean> isVisited = new HashMap<>();
-	static Stack<Integer> stack = new Stack<>();
-	static Queue<Integer> queue = new LinkedList<>();
-	static StringBuilder dfsResult = new StringBuilder();
-	static StringBuilder bfsResult = new StringBuilder();
+	static char[][] field;
+	static int dangi = 1;
+	static Map<Integer, Integer> resultMap = new HashMap<>();
+	
 	public static void main(String[] args) throws Exception{
 		// TODO Auto-generated method stub
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-		String[] inputSplitData = bufferedReader.readLine().split(" ");
 		
-		int n = Integer.valueOf(inputSplitData[0]);
-		int m = Integer.valueOf(inputSplitData[1]);
-		int v = Integer.valueOf(inputSplitData[2]);
-
-		// 인접행렬로 그래프 구현
-		isNode = new boolean[n+1][n+1];
+		int n = Integer.valueOf(bufferedReader.readLine());
 		
-		String[] nodeXY;
-		int x,y;
-		for(int i = 0 ; i < m; i++){
-			nodeXY = bufferedReader.readLine().split(" ");
-			x = Integer.valueOf(nodeXY[0]);
-			y = Integer.valueOf(nodeXY[1]);
-			
-			isNode[x][y] = true;
-			isNode[y][x] = true;
-			
-			isVisited.put(x, false);
-			isVisited.put(y, false);
+		field = new char[n][n];
+		
+		for(int i =0 ; i< n; i++){
+			field[i] = bufferedReader.readLine().toCharArray();
 		}
 		
-		// 방문 체크 변수
-		
-		// 시작점 v 체크
-		isVisited.put(v, true);
-		
-		stack.push(v);
-		
-		dfs(v);
-		
-		for(int i : isVisited.keySet()){
-			isVisited.put(i, false);
+		for(int i =0 ; i < n; i++){
+			for(int j = 0; j < n; j++){
+				if(field[i][j]  == '1'){
+					bfs(i,j);
+					dangi++;
+				}
+			}
 		}
 		
-		queue.offer(v);
-		isVisited.put(v, true);
-		bfs(v);
+		System.out.println(--dangi);
+		ArrayList<Integer> keyList = new ArrayList<>(resultMap.values());
+		Collections.sort(keyList);
 		
-		System.out.println(dfsResult.toString());
-		System.out.println(bfsResult.toString());
+		for(int key : keyList){
+			System.out.println(key);
+		}
+		
+		
 	}
 	
-	public static void dfs(int start){
+	public static void bfs(int x, int y){
+		field[x][y] = '0';
 		
-		if(isVisited()){
-			while(!stack.isEmpty()){
-				dfsResult.append(stack.pop() + " ");
-			}
-			return ;
-		}
-		
-		dfsResult.append(stack.pop() + " ");
-		
-		for(int j = 1; j < isNode.length; j++){
-			if(isNode[start][j] && !isVisited.get(j)){
-				isVisited.put(j,true);
-				stack.push(j);
-				dfs(j);
-			}
-		}
+		if(resultMap.containsKey(dangi)){
+			resultMap.put(dangi,resultMap.get(dangi)+1);
+		}else{
+			resultMap.put(dangi,1);
 			
-	}
-	
-	public static void bfs(int start){
-			
-		if(isVisited()){
-			while(!queue.isEmpty()){
-				bfsResult.append(queue.poll() + " ");
-			}
-			return ;
 		}
 		
-		bfsResult.append(queue.poll() + " ");
-		
-		for(int j = 1; j < isNode.length; j++){
-			if(isNode[start][j] && !isVisited.get(j)){
-				isVisited.put(j,true);
-				queue.offer(j);
+		if(x - 1 >= 0){
+			if(field[x-1][y] == '1'){
+				bfs(x-1, y);
 			}
 		}
-		if(!queue.isEmpty()){
-			bfs(queue.peek());
-		}
-	}
-	
-	public static boolean isVisited(){
-		boolean result = true;
-		
-		for(int i : isVisited.keySet()){
-			if(!isVisited.get(i)){
-				result = false;
+		if(y - 1 >= 0){
+			if(field[x][y-1] == '1'){
+				bfs(x, y-1);
 			}
 		}
-		
-		return result;
+		if(x + 1 < field.length){
+			if(field[x+1][y] == '1'){
+				bfs(x+1, y);
+			}
+		}
+		if(y + 1 < field.length){
+			if(field[x][y+1] == '1'){
+				bfs(x, y+1);
+			}
+		}
 	}
 }
 
