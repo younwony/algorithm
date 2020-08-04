@@ -11,7 +11,6 @@ import java.util.Map;
 public class a2667_단지번호붙이기 {
 
 	static char[][] field;
-	
 	static int dangi = 1;
 	static Map<Integer, Integer> resultMap = new HashMap<>();
 	

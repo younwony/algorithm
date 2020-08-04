@@ -10,72 +10,43 @@ import java.util.*;
 
 public class Main {
 	
-	static char[][] field;
-	static int dangi = 1;
-	static Map<Integer, Integer> resultMap = new HashMap<>();
+	static int n,k;
+	static int result = Integer.MAX_VALUE;
+	static boolean[] visited = new boolean[1000001];
+	static Queue<Integer[]> queue = new LinkedList<>();
 	
-	public static void main(String[] args) throws Exception{
+	public static void main(String[] args){
 		// TODO Auto-generated method stub
-		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+
+		Scanner scanner = new Scanner(System.in);
 		
-		int n = Integer.valueOf(bufferedReader.readLine());
+		n = scanner.nextInt();
+		k = scanner.nextInt();
 		
-		field = new char[n][n];
-		
-		for(int i =0 ; i< n; i++){
-			field[i] = bufferedReader.readLine().toCharArray();
-		}
-		
-		for(int i =0 ; i < n; i++){
-			for(int j = 0; j < n; j++){
-				if(field[i][j]  == '1'){
-					bfs(i,j);
-					dangi++;
-				}
-			}
-		}
-		
-		System.out.println(--dangi);
-		ArrayList<Integer> keyList = new ArrayList<>(resultMap.values());
-		Collections.sort(keyList);
-		
-		for(int key : keyList){
-			System.out.println(key);
-		}
+		visited[n] = true;
+		bfs(n, 0);
 		
 		
+		System.out.println(n == k ? 0 : result);
 	}
 	
-	public static void bfs(int x, int y){
-		field[x][y] = '0';
+	public static void bfs(int index, int cnt){
 		
-		if(resultMap.containsKey(dangi)){
-			resultMap.put(dangi,resultMap.get(dangi)+1);
-		}else{
-			resultMap.put(dangi,1);
-			
+		if(index == k){
+			if(cnt < result){
+				result = cnt;
+			}
+			return ;
 		}
 		
-		if(x - 1 >= 0){
-			if(field[x-1][y] == '1'){
-				bfs(x-1, y);
-			}
-		}
-		if(y - 1 >= 0){
-			if(field[x][y-1] == '1'){
-				bfs(x, y-1);
-			}
-		}
-		if(x + 1 < field.length){
-			if(field[x+1][y] == '1'){
-				bfs(x+1, y);
-			}
-		}
-		if(y + 1 < field.length){
-			if(field[x][y+1] == '1'){
-				bfs(x, y+1);
-			}
-		}
+		if(!queue.isEmpty())queue.poll();
+		
+		if(index-1 >= 0 && index+1 <= 100000)if(!visited[index*2]){queue.offer(new Integer[]{index*2, cnt+1});visited[index*2] = true;}
+		if(index-1 >= 0)if(!visited[index-1]){queue.offer(new Integer[]{index - 1, cnt+1}); visited[index-1] = true;}
+		if(index+1 <= 100000)if(!visited[index+1]){queue.offer(new Integer[]{index + 1, cnt+1});visited[index+1] = true;}
+		
+		bfs(queue.peek()[0], queue.peek()[1]);
+		
 	}
 }
 
