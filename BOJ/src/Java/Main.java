@@ -10,43 +10,112 @@ import java.util.*;
 
 public class Main {
 	
-	static int n,k;
-	static int result = Integer.MAX_VALUE;
-	static boolean[] visited = new boolean[1000001];
-	static Queue<Integer[]> queue = new LinkedList<>();
+	static char[][] field;
+	static int cntMin = Integer.MAX_VALUE;
+	static boolean[][] visited;
 	
-	public static void main(String[] args){
+	public static void main(String[] args) throws Exception{
 		// TODO Auto-generated method stub
-
-		Scanner scanner = new Scanner(System.in);
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+		String[] inputXY = bufferedReader.readLine().split(" ");
+		int x = Integer.valueOf(inputXY[0]);
+		int y = Integer.valueOf(inputXY[1]);
 		
-		n = scanner.nextInt();
-		k = scanner.nextInt();
+		field = new char[x][y];
+		visited = new boolean[x][y];
+		for(int i = 0; i < x; i++){
+			field[i] = bufferedReader.readLine().toCharArray();
+		}
 		
-		visited[n] = true;
-		bfs(n, 0);
-		
-		
-		System.out.println(n == k ? 0 : result);
+//		dfs(0,0,1);
+		Queue<point> queue = new LinkedList<>();
+		visited[0][0] =true;
+		queue.offer(new point(0, 0, 1));
+		System.out.println(bfs(queue));
+//		System.out.println(cntMin);
 	}
 	
-	public static void bfs(int index, int cnt){
+	public static void dfs(int x, int y, int cnt){
 		
-		if(index == k){
-			if(cnt < result){
-				result = cnt;
+		if(visited[visited.length - 1][visited[0].length - 1]){
+			if(cnt < cntMin){
+				cntMin = cnt;
 			}
 			return ;
 		}
 		
-		if(!queue.isEmpty())queue.poll();
+		if(isField(x+1, y)){
+			if(!visited[x+1][y] && field[x+1][y] == '1'){
+				visited[x+1][y] = true;
+				dfs(x+1, y, cnt+1);
+				visited[x+1][y] = false;
+			}
+		}
+		if(isField(x, y+1)){
+			if(!visited[x][y+1] && field[x][y+1] == '1'){
+				visited[x][y+1] = true;
+				dfs(x, y+1, cnt+1);
+				visited[x][y+1] = false;
+			}
+		}
+		if(isField(x-1, y)){
+			if(!visited[x-1][y] && field[x-1][y] == '1'){
+				visited[x-1][y] = true;
+				dfs(x-1, y, cnt+1);
+				visited[x-1][y] = false;
+			}
+		}
+		if(isField(x, y-1)){
+			if(!visited[x][y-1] && field[x][y-1] == '1'){
+				visited[x][y-1] = true;
+				dfs(x, y-1, cnt+1);
+				visited[x][y-1] = false;
+			}
+		}
+	}
+	
+	public static int bfs(Queue<point> queue){
 		
-		if(index-1 >= 0 && index+1 <= 100000)if(!visited[index*2]){queue.offer(new Integer[]{index*2, cnt+1});visited[index*2] = true;}
-		if(index-1 >= 0)if(!visited[index-1]){queue.offer(new Integer[]{index - 1, cnt+1}); visited[index-1] = true;}
-		if(index+1 <= 100000)if(!visited[index+1]){queue.offer(new Integer[]{index + 1, cnt+1});visited[index+1] = true;}
-		
-		bfs(queue.peek()[0], queue.peek()[1]);
-		
+		int[] xArray = {1, 0, -1, 0};
+		int[] yArray = {0, 1, 0, -1};
+		int result = 0;
+		while(!queue.isEmpty()){
+			point point = queue.poll();
+			for(int i =0 ; i< 4; i++){
+				int x= point.x + xArray[i];
+				int y= point.y + yArray[i];
+				if(isField(x, y)){
+					if(field[x][y] == '1' && !visited[x][y]){
+						if(x == field.length - 1 && y == field[0].length - 1){
+							result = point.cnt+1;
+							break;
+						}
+						queue.offer(new point(x, y, point.cnt + 1));
+						visited[x][y] = true;
+					}
+				}
+			}
+			if(result > 0){
+				break;
+			}
+		}
+		return result;
+	}
+	
+	public static boolean isField(int x, int y){
+		return (x >= 0 && x  < field.length) && (y >= 0 && y  < field[0].length); 
+	}
+}
+
+class point{
+	int x;
+	int y;
+	int cnt;
+	public point(int x, int y, int cnt) {
+		super();
+		this.x = x;
+		this.y = y;
+		this.cnt = cnt;
 	}
 }
 
