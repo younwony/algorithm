@@ -9,65 +9,75 @@ import java.math.BigInteger;
 import java.util.*;
 
 public class Main {
-	
-	static int[] xArray = {-1,-1,-1,0,0,1,1,1};
-	static int[] yArray = {-1,0,1,-1,1,-1,0,1};
-	static int[][] field;
-	public static void main(String[] args) throws Exception{
-		// TODO Auto-generated method stub
-		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-		StringBuilder builder = new StringBuilder();
-		
-		while(true){
-			String[] inputXY = bufferedReader.readLine().split(" ");
-			int x = Integer.valueOf(inputXY[1]);
-			int y = Integer.valueOf(inputXY[0]);
-			int cnt = 0;
-			
-			if(x == 0 && y == 0){break;}
-			
-			field = new int[x][y];
-			
-			for(int i = 0; i < x; i++){
-				String[] yField = bufferedReader.readLine().split(" ");
-				for(int j = 0; j < y; j++){
-					field[i][j] = Integer.valueOf(yField[j]);
-				}
+
+	public static ArrayList<Integer> imsi_A_arr;
+	public static ArrayList<Integer> imsi_B_arr;
+	public static ArrayList<Integer> imsi_B_order_arr;
+
+	public static void main(String[] args) {
+
+		// 변수 초기화
+		BufferedReader br = null;
+		int N = 0;
+		int S = 0;
+
+		ArrayList<Integer> A = new ArrayList<Integer>();
+		ArrayList<Integer> B = new ArrayList<Integer>();
+
+		// 임시로 사용할 배열 초기화
+		imsi_A_arr = new ArrayList<Integer>();
+		imsi_B_arr = new ArrayList<Integer>();
+		imsi_B_order_arr = new ArrayList<>();	// imsi_B_arr와 B 배열 비교해서 B배열 순서 담기
+
+		StringTokenizer imsi = null;
+
+		try {
+
+			br = new BufferedReader(new InputStreamReader(System.in));
+
+			N = Integer.parseInt(br.readLine());
+
+
+			imsi = new StringTokenizer(br.readLine(), " ");
+			for(int i = 0 ; i < N ; i++) {
+				imsi_A_arr.add(i, Integer.parseInt(imsi.nextToken()));
+				A.add(i, imsi_A_arr.get(i));
 			}
-			
-			for(int i = 0; i < x; i++){
-				for(int j = 0; j <y; j++){
-					if(field[i][j] == 1){
-						cnt++;
-						bfs(i, j);
-					}
-				}
+
+			imsi = new StringTokenizer(br.readLine(), " ");
+			for(int i = 0 ; i < N ; i++) {
+				B.add(i, Integer.parseInt(imsi.nextToken()));
+				imsi_B_arr.add(i, B.get(i));
 			}
-			
-			builder.append(cnt + "\n");
+
+			imsi_B_arr.sort(Comparator.reverseOrder());
+
+			for(int i = 0 ; i < B.size() ; i++) {
+
+				imsi_B_order_arr.add(i, B.indexOf(imsi_B_arr.get(i)));
+			}
+			if(result > 0){
+				break;
+			}
 		}
-		
-		System.out.println(builder.toString());
-	}
-	
-	public static void bfs(int x, int y){
-		field[x][y] = 0;
-		for(int i =0 ; i < 8; i++){
-			int xTemp = x + xArray[i];
-			int yTemp = y + yArray[i];
-			if(isField(xTemp, yTemp)){
-				if(field[xTemp][yTemp] == 1){
-					bfs(xTemp, yTemp);
-				}
-			}
-		}
+		return result;
 	}
 	
 	public static boolean isField(int x, int y){
-		return (x >= 0 && x < field.length) && (y >= 0 && y < field[0].length);
+		return (x >= 0 && x  < field.length) && (y >= 0 && y  < field[0].length); 
 	}
-	
 }
 
+class point{
+	int x;
+	int y;
+	int cnt;
+	public point(int x, int y, int cnt) {
+		super();
+		this.x = x;
+		this.y = y;
+		this.cnt = cnt;
+	}
+}
 
 
