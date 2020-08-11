@@ -1,82 +1,81 @@
 package Java;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.math.BigInteger;
+import java.io.*;
+import java.math.*;
 import java.util.*;
 
 public class Main {
 
-	public static ArrayList<Integer> imsi_A_arr;
-	public static ArrayList<Integer> imsi_B_arr;
-	public static ArrayList<Integer> imsi_B_order_arr;
-
-	public static void main(String[] args) {
-
-		// 변수 초기화
-		BufferedReader br = null;
-		int N = 0;
-		int S = 0;
-
-		ArrayList<Integer> A = new ArrayList<Integer>();
-		ArrayList<Integer> B = new ArrayList<Integer>();
-
-		// 임시로 사용할 배열 초기화
-		imsi_A_arr = new ArrayList<Integer>();
-		imsi_B_arr = new ArrayList<Integer>();
-		imsi_B_order_arr = new ArrayList<>();	// imsi_B_arr와 B 배열 비교해서 B배열 순서 담기
-
-		StringTokenizer imsi = null;
-
-		try {
-
-			br = new BufferedReader(new InputStreamReader(System.in));
-
-			N = Integer.parseInt(br.readLine());
-
-
-			imsi = new StringTokenizer(br.readLine(), " ");
-			for(int i = 0 ; i < N ; i++) {
-				imsi_A_arr.add(i, Integer.parseInt(imsi.nextToken()));
-				A.add(i, imsi_A_arr.get(i));
-			}
-
-			imsi = new StringTokenizer(br.readLine(), " ");
-			for(int i = 0 ; i < N ; i++) {
-				B.add(i, Integer.parseInt(imsi.nextToken()));
-				imsi_B_arr.add(i, B.get(i));
-			}
-
-			imsi_B_arr.sort(Comparator.reverseOrder());
-
-			for(int i = 0 ; i < B.size() ; i++) {
-
-				imsi_B_order_arr.add(i, B.indexOf(imsi_B_arr.get(i)));
-			}
-			if(result > 0){
+	public static void main(String[] args) throws Exception{
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+		
+		String[] xy = bufferedReader.readLine().split(" ");
+		int x = Integer.valueOf(xy[0]);
+		int y = Integer.valueOf(xy[1]);
+		
+		char[][] field = new char[x][y];
+		
+		for(int i = 0; i < x; i++){
+			field[i] = bufferedReader.readLine().toCharArray();
+		}
+		
+		Queue<point> queue = new LinkedList<point>();
+		
+		queue.offer(new point(0, 0, 1));
+		field[0][0] = '0'; 
+		
+		int result = 1;
+		
+		int pointX, pointY, pointCount;
+		
+		while(!queue.isEmpty()){
+			point point = queue.poll();
+			pointX = point.x;
+			pointY = point.y;
+			pointCount = point.count;
+			
+			if(pointX == x-1 && pointY == y-1){
+				result = pointCount;
 				break;
 			}
+			
+			if(pointX - 1 >= 0)
+				if(field[pointX - 1][pointY] == '1'){
+					queue.offer(new point(pointX - 1, pointY, pointCount + 1));
+					field[pointX - 1][pointY] = '0';
+				}
+			if(pointY - 1 >= 0)
+				if(field[pointX][pointY - 1] == '1'){
+					queue.offer(new point(pointX, pointY - 1, pointCount + 1));
+					field[pointX][pointY - 1] = '0';
+				}
+			if(pointX + 1 < x)
+				if(field[pointX + 1][pointY] == '1'){
+					queue.offer(new point(pointX + 1, pointY, pointCount + 1));
+					field[pointX + 1][pointY] = '0';
+				}
+			if(pointY + 1 < y)
+				if(field[pointX][pointY + 1] == '1'){
+					queue.offer(new point(pointX, pointY + 1, pointCount + 1));
+					field[pointX][pointY + 1] = '0';
+				}
+			
 		}
-		return result;
+		
+		System.out.println(result);
 	}
 	
-	public static boolean isField(int x, int y){
-		return (x >= 0 && x  < field.length) && (y >= 0 && y  < field[0].length); 
-	}
-}
-
-class point{
-	int x;
-	int y;
-	int cnt;
-	public point(int x, int y, int cnt) {
-		super();
-		this.x = x;
-		this.y = y;
-		this.cnt = cnt;
+	static class point{
+		int x;
+		int y;
+		int count;
+		
+		public point(int x, int y, int count) {
+			super();
+			this.x = x;
+			this.y = y;
+			this.count = count;
+		}
 	}
 }
 
