@@ -6,75 +6,52 @@ import java.util.*;
 
 public class Main {
 
-	public static void main(String[] args) throws Exception{
+	static boolean[] visited;
+	static ArrayList<Integer> inputList = new ArrayList<>();
+	static ArrayList<String> result = new ArrayList<>();
+	
+	public static void main(String[] args) throws Exception {
+		// TODO Auto-generated method stub
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 		
-		String[] xy = bufferedReader.readLine().split(" ");
-		int x = Integer.valueOf(xy[0]);
-		int y = Integer.valueOf(xy[1]);
+		int n = Integer.valueOf(bufferedReader.readLine());
 		
-		char[][] field = new char[x][y];
+		String inputData = bufferedReader.readLine();
 		
-		for(int i = 0; i < x; i++){
-			field[i] = bufferedReader.readLine().toCharArray();
+		visited = new boolean[n];
+		
+		for(int i = 0; i < n; i++){
+			visited[i] = true;
+			inputList.add(i+1);
+			dfs(i);
+			inputList.clear();
+			visited[i] = false;
 		}
 		
-		Queue<point> queue = new LinkedList<point>();
+		int index = result.indexOf(inputData);
 		
-		queue.offer(new point(0, 0, 1));
-		field[0][0] = '0'; 
+		System.out.println(index+1 == result.size() ? -1 : result.get(index+1));
 		
-		int result = 1;
-		
-		int pointX, pointY, pointCount;
-		
-		while(!queue.isEmpty()){
-			point point = queue.poll();
-			pointX = point.x;
-			pointY = point.y;
-			pointCount = point.count;
-			
-			if(pointX == x-1 && pointY == y-1){
-				result = pointCount;
-				break;
-			}
-			
-			if(pointX - 1 >= 0)
-				if(field[pointX - 1][pointY] == '1'){
-					queue.offer(new point(pointX - 1, pointY, pointCount + 1));
-					field[pointX - 1][pointY] = '0';
-				}
-			if(pointY - 1 >= 0)
-				if(field[pointX][pointY - 1] == '1'){
-					queue.offer(new point(pointX, pointY - 1, pointCount + 1));
-					field[pointX][pointY - 1] = '0';
-				}
-			if(pointX + 1 < x)
-				if(field[pointX + 1][pointY] == '1'){
-					queue.offer(new point(pointX + 1, pointY, pointCount + 1));
-					field[pointX + 1][pointY] = '0';
-				}
-			if(pointY + 1 < y)
-				if(field[pointX][pointY + 1] == '1'){
-					queue.offer(new point(pointX, pointY + 1, pointCount + 1));
-					field[pointX][pointY + 1] = '0';
-				}
-			
-		}
-		
-		System.out.println(result);
 	}
 	
-	static class point{
-		int x;
-		int y;
-		int count;
+	public static void dfs(int index) {
 		
-		public point(int x, int y, int count) {
-			super();
-			this.x = x;
-			this.y = y;
-			this.count = count;
+		if(inputList.size() == visited.length){
+			StringBuilder str = new StringBuilder();
+			for(int i : inputList){
+				str.append(i).append(" ");
+			}
+			result.add(str.substring(0, str.length()-1).toString());
+		}
+		
+		for(int i = 0; i < visited.length; i++){
+			if(!visited[i]){
+				visited[i] = true;
+				inputList.add(i+1);
+				dfs(index);
+				visited[i] = false;
+				inputList.remove(inputList.indexOf(i+1));
+			}
 		}
 	}
 }
