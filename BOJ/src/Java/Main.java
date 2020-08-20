@@ -6,53 +6,38 @@ import java.util.*;
 
 public class Main {
 
-	static boolean[] visited;
-	static ArrayList<Integer> inputList = new ArrayList<>();
-	static ArrayList<String> result = new ArrayList<>();
-	
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+		Scanner scanner = new Scanner(System.in);
 		
-		int n = Integer.valueOf(bufferedReader.readLine());
+		int n = scanner.nextInt();
 		
-		String inputData = bufferedReader.readLine();
+		int mod = 1000000000;
+		long[][] dp = new long[101][10];
 		
-		visited = new boolean[n];
-		
-		for(int i = 0; i < n; i++){
-			visited[i] = true;
-			inputList.add(i+1);
-			dfs(i);
-			inputList.clear();
-			visited[i] = false;
+		for(int i = 0; i < 9; i++){
+			dp[0][i+1] = 1; 
 		}
 		
-		int index = result.indexOf(inputData);
-		
-		System.out.println(index+1 == result.size() ? -1 : result.get(index+1));
-		
-	}
-	
-	public static void dfs(int index) {
-		
-		if(inputList.size() == visited.length){
-			StringBuilder str = new StringBuilder();
-			for(int i : inputList){
-				str.append(i).append(" ");
-			}
-			result.add(str.substring(0, str.length()-1).toString());
-		}
-		
-		for(int i = 0; i < visited.length; i++){
-			if(!visited[i]){
-				visited[i] = true;
-				inputList.add(i+1);
-				dfs(index);
-				visited[i] = false;
-				inputList.remove(inputList.indexOf(i+1));
+		for(int i = 1; i <= n; i++){
+			for(int j = 0 ; j < 10; j++){
+				if(j == 0){
+					dp[i][j] = dp[i-1][j+1]%mod; 
+				}else if(j == 9){
+					dp[i][j] = dp[i-1][j-1]%mod;
+				}else{
+					dp[i][j] = (dp[i-1][j+1] + dp[i-1][j-1])%mod;
+				}
 			}
 		}
+		
+		long sum = 0;
+		
+		for(int i = 0 ; i  < 10; i++){
+			sum += dp[n-1][i]%mod;
+		}
+		
+		System.out.println(sum);
 	}
 }
 
