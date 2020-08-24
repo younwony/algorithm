@@ -1,5 +1,3 @@
-package Gold.Level_4;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.LinkedList;
@@ -38,7 +36,8 @@ public class a2206_벽부수고이동하기 {
 		Queue<node> queue = new LinkedList<>();
 		
 		queue.offer(new node(0, 0, 1, false));
-		visited[0][0] = '2';
+		visited[0][0][0] = true;
+		visited[0][0][1] = true;
 		int x,y,cnt;
 		boolean isBreak;
 		while(!queue.isEmpty()){
@@ -48,8 +47,6 @@ public class a2206_벽부수고이동하기 {
 			cnt = node.cnt;
 			isBreak = node.isBreak;
 			
-			System.out.println(node.toString());
-			
 			if(x == field.length-1 && y == field[0].length - 1){
 				if(cnt < result){
 					result = cnt;
@@ -57,13 +54,26 @@ public class a2206_벽부수고이동하기 {
 			}
 			
 			for(int i = 0 ; i < 4; i++){
-				if(isFiled(x + xArray[i], y + yArray[i], isBreak)){
-					if(field[x + xArray[i]][y + yArray[i]] == '1'){
-						queue.offer(new node(x + xArray[i], y + yArray[i], cnt + 1, true));
-						field[x + xArray[i]][y + yArray[i]] = '2';
-					}else if(field[x + xArray[i]][y + yArray[i]] == '0'){
-						queue.offer(new node(x + xArray[i], y + yArray[i], cnt + 1, isBreak));
-						field[x + xArray[i]][y + yArray[i]] = '2';
+				int xn = x + xArray[i];
+				int yn = y + yArray[i];
+				if(isFiled(xn, yn, isBreak)){
+					if(field[xn][yn] == '1'){
+						if(!isBreak && !visited[xn][yn][1]){
+							queue.offer(new node(xn, yn, cnt + 1, true));
+							visited[xn][yn][1] = true;
+						}
+					}else{
+						if(isBreak){
+							if(!visited[xn][yn][1]){
+								queue.offer(new node(xn, yn, cnt + 1, isBreak));
+								visited[xn][yn][1] = true;
+							}
+						}else{
+							if(!visited[xn][yn][0]){
+								queue.offer(new node(xn, yn, cnt + 1, isBreak));
+								visited[xn][yn][0] = true;
+							}
+						}
 					}
 				}
 			}
@@ -100,23 +110,5 @@ public class a2206_벽부수고이동하기 {
 			this.cnt = cnt;
 			this.isBreak = isBreak;
 		}
-
-		@Override
-		public String toString() {
-			StringBuilder builder = new StringBuilder();
-			builder.append("node [x=");
-			builder.append(x);
-			builder.append(", y=");
-			builder.append(y);
-			builder.append(", cnt=");
-			builder.append(cnt);
-			builder.append(", isBreak=");
-			builder.append(isBreak);
-			builder.append("]");
-			return builder.toString();
-		}
-		
-		
-		
 	}
 }
