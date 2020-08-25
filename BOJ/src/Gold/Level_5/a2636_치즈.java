@@ -30,22 +30,27 @@ public class a2636_치즈 {
 			}
 		}
 		
-		int bfsCnt = -1;
+		int bfsCnt = 0;
+		int temp = -1;
 		
 		int result = 0;
-		while(bfsCnt != 0){
+		while(temp != 0){
 			visited = new boolean[x][y];
+
+			go:
 			for(int i =0 ; i < x; i++){
 				for(int j = 0; j < y; j++){
-					if(field[i][j] == 0){
-						bfsCnt = bfs(i, j);
+					if(field[i][j] == 0 && !visited[i][j]){
+						temp = bfs(i, j);
+						if(temp != 0) bfsCnt = temp;
+						break go;
 					}
 				}
 			}
 			result++;
 		}
-		System.out.println(result);
-		System.out.println(resultCnt);
+		System.out.println(result-1);
+		System.out.println(bfsCnt);
 	}
 	
 	public static int bfs(int x, int y){
@@ -57,6 +62,7 @@ public class a2636_치즈 {
 		queue.offer(new point(x, y));
 		field[x][y]--;
 		visited[x][y] = true;
+
 		while(!queue.isEmpty()){
 			point point = queue.poll();
 			
@@ -65,13 +71,14 @@ public class a2636_치즈 {
 				int yn = point.y + yArray[i];
 				if(xn < 0 || xn >= field.length || yn < 0 || yn >= field[0].length) continue;
 				if(visited[xn][yn]) continue;
-				if(field[xn][yn] == 0 || field[xn][yn] == 1) {
-					if(field[xn][yn] == 1){
-						bfsCnt++;
-					}
+				if(field[xn][yn] <= 0){
 					queue.offer(new point(xn, yn));
 					visited[xn][yn] = true;
 					field[xn][yn]--;
+				}else if(field[xn][yn] == 1) {
+					bfsCnt++;
+					field[xn][yn]--;
+					visited[xn][yn] = true;
 				}
 			}
 		}
