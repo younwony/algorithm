@@ -5,8 +5,6 @@ import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import Java.Main.point;
-
 public class a2178_미로탐색 {
 
 	static char[][] field;
