@@ -5,40 +5,107 @@ import java.math.*;
 import java.util.*;
 
 public class Main {
-
+	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Scanner scanner = new Scanner(System.in);
 		
-		int n = scanner.nextInt();
+		int[][] key, lock;
 		
-		int mod = 1000000000;
-		long[][] dp = new long[101][10];
+		key = new int[][]{{0, 0, 0}, {1, 0, 0}, {0, 1, 1}};
+		lock = new int[][]{{1, 1, 1}, {1, 1, 0}, {1, 0, 1}};
 		
-		for(int i = 0; i < 9; i++){
-			dp[0][i+1] = 1; 
-		}
+        System.out.println(solution(key, lock));
+
+    }
+
+	public static boolean solution(int[][] key, int[][] lock) {
+        boolean answer = false;
+        
+        int[][][] lockField = SquarePoint(lock);
+        for(int i = 0 ; i< 4; i++){
+        	if(isUnlock(lockField[i], key)){
+        		answer = true;
+        		break;
+        	}
+        }
+        return answer;
+    }
+	
+	public static int[][][] SquarePoint(int[][] lock){
+		int[] xy = new int[4];
 		
-		for(int i = 1; i <= n; i++){
-			for(int j = 0 ; j < 10; j++){
-				if(j == 0){
-					dp[i][j] = dp[i-1][j+1]%mod; 
-				}else if(j == 9){
-					dp[i][j] = dp[i-1][j-1]%mod;
-				}else{
-					dp[i][j] = (dp[i-1][j+1] + dp[i-1][j-1])%mod;
+		int maxX = Integer.MIN_VALUE;
+		int maxY = Integer.MIN_VALUE;
+		int minX = Integer.MAX_VALUE;
+		int minY = Integer.MAX_VALUE;
+		
+		for(int i = 0 ; i < lock.length; i++){
+			for(int j = 0 ; j < lock[0].length; j++){
+				if(lock[i][j] == 0){
+					maxX = Math.max(i,maxX);
+					maxY = Math.max(i,maxY);
+					minX = Math.min(i, minX);
+					minY = Math.min(i, minY);
 				}
 			}
 		}
 		
-		long sum = 0;
+		xy[0] = minX;
+		xy[1] = minY;
+		xy[2] = maxX;
+		xy[3] = maxY;
 		
-		for(int i = 0 ; i  < 10; i++){
-			sum += dp[n-1][i]%mod;
+		int lockFieldXSize = maxX - minX + 1; 
+		int lockFieldYSize = maxY - minY + 1; 
+		
+		//4 는 4개의 회전 필드
+		int[][][] lockField = new int[4][lockFieldXSize][lockFieldYSize];
+		
+		
+		// 회전 로직 추가
+		for(int i = 0 ; i < lock.length; i++){
+			for(int j = 0 ; j < lock[0].length; j++){
+				if(lock[i][j] == 0){
+					lockField[0][i - minX][j - minY] = 1;
+				}
+			}
 		}
 		
-		System.out.println(sum);
+		return lockField;
 	}
+	
+	/**
+	 *	@author : wony
+	 *	@date : 2020-09-01
+	 *  @Desc : lockFiled가 key 에 존재 하는지 확인
+	 */
+	public static boolean isUnlock(int[][] lockField, int[][] key){
+		boolean result = false;
+		boolean unlock = true;
+		
+		key:
+		for(int i = 0 ; i < key.length; i++){
+			for(int j = 0; j < key[0].length; j++){
+				unlock = true;
+				lock:
+				for(int locki = 0; locki < lockField.length; locki++){
+					for(int lockj = 0; lockj < lockField[0].length; lockj++){
+						if(key[i][j] != lockField[locki][lockj]){
+							unlock = false;
+							break lock;
+						}
+					}
+				}
+				if(unlock){
+					result = true;
+					break key;
+				}
+				
+			}
+		}
+		
+		return result;
+	}
+    
 }
 
 
