@@ -1,111 +1,74 @@
 package Java;
 
-import java.io.*;
-import java.math.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
+
+import com.sun.xml.internal.ws.util.StringUtils;
 
 public class Main {
 	
+	
+	static char[][] signArray = {{'+','-','*'},{'+','*','-'},{'-','+','*'},{'-','*','+'},{'*','-','+'},{'*','+','-'}};
+	
 	public static void main(String[] args) {
 		
-		int[][] key, lock;
-		
-		key = new int[][]{{0, 0, 0}, {1, 0, 0}, {0, 1, 1}};
-		lock = new int[][]{{1, 1, 1}, {1, 1, 0}, {1, 0, 1}};
-		
-        System.out.println(solution(key, lock));
+        System.out.println(solution("100-200*300-500+20")); 
 
     }
 
-	public static boolean solution(int[][] key, int[][] lock) {
-        boolean answer = false;
+	public static long solution(String expression) {
+        long answer = Integer.MIN_VALUE;
         
-        int[][][] lockField = SquarePoint(lock);
-        for(int i = 0 ; i< 4; i++){
-        	if(isUnlock(lockField[i], key)){
-        		answer = true;
-        		break;
+        Queue<Integer> numberList = new LinkedList<Integer>();
+        Queue<Character> signList = new LinkedList<Character>();
+        
+        String number = "";
+        
+        for(int i = 0; i < expression.length(); i++){
+        	char exChar = expression.charAt(i);
+        	if(Character.isDigit(exChar)){
+        		number += exChar;
+        	}else{
+        		numberList.offer(Integer.valueOf(number));
+        		signList.offer(exChar);
+        		number = "";
         	}
         }
+        numberList.add(Integer.valueOf(number));
+        
+        long sum = 0;
+        Queue<Integer> numberListTemp = new LinkedList<>();
+        Queue<Character> signListTemp = new LinkedList<Character>();
+        for(char[] signArrayOne : signArray){
+        	sum = 0;
+        	numberListTemp.addAll(numberList);
+        	signListTemp.addAll(signList);
+        	for(char sign : signArrayOne){
+        		while(!numberListTemp.isEmpty() || !signListTemp.isEmpty()){
+        			if(signListTemp.peek() == sign){
+        				int aNumber = numberListTemp.poll();
+        				int bNumber = numberListTemp.poll();
+        				sum += calculation(aNumber, bNumber, signListTemp.poll());
+        			}
+        		}
+        	}
+        	
+        	answer = Math.max(Math.abs(sum),answer);
+        }
+        
         return answer;
     }
 	
-	public static int[][][] SquarePoint(int[][] lock){
-		int[] xy = new int[4];
-		
-		int maxX = Integer.MIN_VALUE;
-		int maxY = Integer.MIN_VALUE;
-		int minX = Integer.MAX_VALUE;
-		int minY = Integer.MAX_VALUE;
-		
-		for(int i = 0 ; i < lock.length; i++){
-			for(int j = 0 ; j < lock[0].length; j++){
-				if(lock[i][j] == 0){
-					maxX = Math.max(i,maxX);
-					maxY = Math.max(i,maxY);
-					minX = Math.min(i, minX);
-					minY = Math.min(i, minY);
-				}
-			}
-		}
-		
-		xy[0] = minX;
-		xy[1] = minY;
-		xy[2] = maxX;
-		xy[3] = maxY;
-		
-		int lockFieldXSize = maxX - minX + 1; 
-		int lockFieldYSize = maxY - minY + 1; 
-		
-		//4 는 4개의 회전 필드
-		int[][][] lockField = new int[4][lockFieldXSize][lockFieldYSize];
-		
-		
-		// 회전 로직 추가
-		for(int i = 0 ; i < lock.length; i++){
-			for(int j = 0 ; j < lock[0].length; j++){
-				if(lock[i][j] == 0){
-					lockField[0][i - minX][j - minY] = 1;
-				}
-			}
-		}
-		
-		return lockField;
+	public static int calculation(int a, int b, char sign){
+		if(sign == '+') return a+b;
+		if(sign == '-') return a-b;
+		return a*b;
 	}
-	
-	/**
-	 *	@author : wony
-	 *	@date : 2020-09-01
-	 *  @Desc : lockFiled가 key 에 존재 하는지 확인
-	 */
-	public static boolean isUnlock(int[][] lockField, int[][] key){
-		boolean result = false;
-		boolean unlock = true;
-		
-		key:
-		for(int i = 0 ; i < key.length; i++){
-			for(int j = 0; j < key[0].length; j++){
-				unlock = true;
-				lock:
-				for(int locki = 0; locki < lockField.length; locki++){
-					for(int lockj = 0; lockj < lockField[0].length; lockj++){
-						if(key[i][j] != lockField[locki][lockj]){
-							unlock = false;
-							break lock;
-						}
-					}
-				}
-				if(unlock){
-					result = true;
-					break key;
-				}
-				
-			}
-		}
-		
-		return result;
-	}
-    
 }
 
 
