@@ -15,10 +15,23 @@ public class a11053_가장긴증가하는부분수열 {
 			nArray[i] = scanner.nextInt();
 		}
 		
-		int max = nArray[0];
+		scanner.close();
+		
+		int max = 0;
 		for(int i = 0 ; i < n; i++){
+			dp[i] = 0;
+			for(int j = 0; j < i; j++){
+				if(nArray[j] < nArray[i] && dp[j] >= dp[i]){
+					dp[i] = dp[j];
+				}
+			}
+			dp[i]++;
 			
+			if(dp[i] > max) max = dp[i];
 		}
+		
+		System.out.println(max);
+		
 	}
 
 }
