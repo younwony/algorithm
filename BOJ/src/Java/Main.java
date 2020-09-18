@@ -14,31 +14,22 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
+		
 		int n = scanner.nextInt();
 		
-		int[] nArray = new int[n];
-		int[] dp = new int[n];
-		for(int i = 0 ; i < n; i++){
-			nArray[i] = scanner.nextInt();
-		}
+		StringBuilder result = new StringBuilder();
 		
-		scanner.close();
-		
-		int max = 0;
-		for(int i = 0 ; i < n; i++){
-			dp[i] = 0;
-			for(int j = 0; j < i; j++){
-				if(nArray[j] < nArray[i] && dp[j] >= dp[i]){
-					dp[i] = dp[j];
-				}
+		for(int i = 2 ; i * i <= n; i++){
+			if(n % i == 0){
+				result.append(i).append("\n");
+				n /= i;
+				i--;
 			}
-			dp[i]++;
-			
-			if(dp[i] > max) max = dp[i];
 		}
 		
-		System.out.println(max);
+		if(n > 1) result.append(n);
 		
+		System.out.println(result.toString());
 	}
 }
 
