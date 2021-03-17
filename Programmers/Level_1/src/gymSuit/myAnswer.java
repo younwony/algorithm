@@ -4,7 +4,7 @@
  * @사용처
  * TODO
  */
-package gymSuit;
+package Programmers.Level_1.src.gymSuit;
 
 import java.util.Arrays;
 
