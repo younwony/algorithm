@@ -5,7 +5,7 @@
  * @사용처
  * @TODO
  */
-package Programmers.Level_1.src.mockTest;
+package Programmers.Level_1.mockTest;
 
 /**
  * @작성자 wony

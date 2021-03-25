@@ -4,9 +4,7 @@
  * @사용처
  * TODO
  */
-package Programmers.Level_1.src.gymSuit;
-
-import java.util.Arrays;
+package Programmers.Level_1.gymSuit;
 
 /**
  * @작성자 wony
