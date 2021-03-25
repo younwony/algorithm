@@ -15,13 +15,12 @@ class SolutionTest {
         //String new_id = "=.=";
         //String new_id =	"123_.def";
         //String new_id = "abcdefghijklmn.p";
-        //String new_id = "abcdefghijklmn.";
-        String new_id = "3";
-
-        boolean matches = new_id.matches("^\\.[\\da-z\\.\\-\\_]\\.");
-        System.out.println(matches);
+        String new_id = "abcdefghijklmn.";
 
         String answer = getString(new_id);
+        while(answer != getString(answer)){
+            answer = getString(answer);
+        }
         System.out.println(answer);
     }
 
@@ -62,5 +61,4 @@ class SolutionTest {
         String answer = s6;
         return answer;
     }
-
 }
