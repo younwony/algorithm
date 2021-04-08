@@ -2,7 +2,7 @@ package me.wony.level_1;
 
 import java.util.ArrayList;
 
-public class 모의고사 {
+public class _모의고사 {
 
     public static void main(String[] args) {
         int[] solution1 = solution(new int[]{1,2,5,5,2});
