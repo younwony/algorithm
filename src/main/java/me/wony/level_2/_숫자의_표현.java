@@ -21,7 +21,6 @@ public class _숫자의_표현 {
                 if(sum > n) break;
             }
         }
-
         return answer;
     }
 }
