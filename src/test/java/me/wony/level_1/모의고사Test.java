@@ -7,7 +7,20 @@ import static org.junit.jupiter.api.Assertions.*;
 class 모의고사Test {
     @Test
     void solution(){
-        System.out.println("0123".contains("02"));
+        String test = "C#DEFGAB";
+        String[] split = test.split("(?=[A-Z])");
+        for (String s : split) {
+            System.out.println(s);
+        }
+    }
+
+    @Test
+    void solution2(){
+        String test = "CCB#CCB";
+        String[] split = test.split("CCB#");
+        for (String s : split) {
+            System.out.println(s);
+        }
     }
 
 }
