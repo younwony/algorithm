@@ -5,9 +5,11 @@ import java.util.*;
 public class _후보키 {
 
     public static void main(String[] args) {
-        System.out.println(solution(new String[][]{{"100","ryan","music","2"},{"200","apeach","math","2"},{"300","tube","computer","3"},{"400","con","computer","4"},{"500","muzi","music","3"},{"600","apeach","music","2"}}));
+//        System.out.println(solution(new String[][]{{"100","ryan","music","2"},{"200","apeach","math","2"},{"300","tube","computer","3"},{"400","con","computer","4"},{"500","muzi","music","3"},{"600","apeach","music","2"}}));
 //        System.out.println(solution(new String[][]{{"a","aa"},{"aa","a"},{"a,a"}}));
 //        System.out.println(solution(new String[][]{{"ab","ac"},{"ab","ad"},{"an","ae"}}));
+//        System.out.println(solution(new String[][]{{"a","b","c"},{"1","b","c"},{"a","b","4"},{"a","5","c"}}));
+        System.out.println(solution(new String[][]{{"a","1","4"},{"2","1","5"},{"a","2","4"}}));
     }
 
     private static int solution(String[][] relation) {
@@ -19,12 +21,6 @@ public class _후보키 {
             dfs(keyList, i + "", i + 1, relation[0].length);
         }
 
-        Collections.sort(keyList, new Comparator<String>() {
-            @Override
-            public int compare(String o1, String o2) {
-                return o1.length() - o2.length();
-            }
-        });
 
         HashSet<String> keySet = new HashSet<>();
         for (String s : keyList) {
@@ -33,6 +29,12 @@ public class _후보키 {
         }
 
         ArrayList<String> uniqueKeyList = new ArrayList<>(keySet);
+        Collections.sort(uniqueKeyList, new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return o1.length() - o2.length();
+            }
+        });
         setAnswerKey(uniqueKeyList);
 
         for (String key : uniqueKeyList) {
@@ -48,19 +50,16 @@ public class _후보키 {
             if("".equals(key)) continue;
             String[] keySplit = key.split("");
             for(int j = i + 1; j  < keySet.size(); j++){
-                if("".equals(key)) continue;
-                String[] targetKey = keySet.get(j).split("");
-                if(isMinKey(keySplit, targetKey)) break;
-                keySet.set(j, "");
+                String target = keySet.get(j);
+                if("".equals(target)) continue;
+                if(isMinKey(keySplit, target)) keySet.set(j, "");
             }
         }
     }
 
-    private static boolean isMinKey(String[] keySplit, String[] targetKey) {
+    private static boolean isMinKey(String[] keySplit, String target) {
         for (String key : keySplit) {
-            for (String target : targetKey) {
-                if(key.equals(target)) return false;
-            }
+            if(target.indexOf(key) == -1) return false;
         }
         return true;
     }
@@ -83,7 +82,7 @@ public class _후보키 {
         if(!keyList.contains(s)) keyList.add(s);
 
         for (int i = index; i < length; i++) {
-            dfs(keyList, s + index, i + 1, length);
+            dfs(keyList, s + i, i + 1, length);
         }
     }
 }
