@@ -1,4 +1,0 @@
-
-setx HOME "°æ·Î"
-
-ex) setx HOME "C:\Projects"
