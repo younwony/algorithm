@@ -1,4 +1,4 @@
-package Silver.Level_1;
+package BOJ.src._1_Silver.Level_1;
 
 import java.util.LinkedList;
 import java.util.Queue;
