@@ -4,7 +4,7 @@
  * @사용처
  *
  */
-package Easy;
+package easy;
 
 /**
  * @작성자 wony

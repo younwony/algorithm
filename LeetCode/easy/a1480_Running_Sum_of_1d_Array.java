@@ -1,4 +1,4 @@
-package Easy;
+package easy;
 
 public class a1480_Running_Sum_of_1d_Array {
     public static void main(String[] args) {
