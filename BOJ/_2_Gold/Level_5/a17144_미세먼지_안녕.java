@@ -65,6 +65,8 @@ public class a17144_미세먼지_안녕 {
                 field[x][y] = pre;
                 pre = temp;
             }else{
+                x -= xArray[index] * sign;
+                y -= yArray[index];
                 index++;
                 if(index == 4) index = 0;
             }
