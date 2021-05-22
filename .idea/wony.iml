@@ -26,6 +26,7 @@
       <sourceFolder url="file://$MODULE_DIR$/BOJ" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Kakao" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/LeetCode" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Exam" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
