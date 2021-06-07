@@ -7,8 +7,12 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class a10472_십자뒤집기 {
-    static int[] xArray = {-1,0,0,1};
-    static int[] yArray = {0,-1,1,0};
+    static int[][][] clickArray = {
+            {{0,0},{0,1},{1,0}}, {{0,0},{0,1},{0,2},{1,1}}, {{0,1},{0,2},{1,2}},
+            {{0,0},{1,0},{2,0},{1,1}}, {{0,1}, {1,0},{1,1},{1,2},{2,1}}, {{0,2},{1,1},{1,2},{2,2}},
+            {{1,0},{2,0},{2,1}}, {{1,1},{2,0},{2,1},{2,2}}, {{1,2},{2,1},{2,2}}};
+    static boolean[] visited;
+
     public static void main(String[] args) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         int P = Integer.parseInt(bufferedReader.readLine());
@@ -16,83 +20,74 @@ public class a10472_십자뒤집기 {
 
         for(int i = 0; i < P; i++){
             // . = false , * true
-            boolean[][] white = new boolean[3][3];
-            boolean[][] field = new boolean[3][3];
+            int[][] field = new int[3][3];
+            visited = new boolean[(int) Math.pow(2,9)];
             for (int j = 0; j < 3; j++) {
                 String[] input = bufferedReader.readLine().split("");
                 for (int k = 0; k < input.length; k++) {
-                    field[j][k] = "*".equals(input[k]);
+                    field[j][k] = "*".equals(input[k]) ? 1 : 0;
                 }
             }
 
             //then
             Queue<Field> queue = new LinkedList<>();
             queue.add(new Field(0,field));
+            int index = getIndex(field);
+            if(index == 0){
+                System.out.println(0);
+                continue;
+            }
             loop:
             while(!queue.isEmpty()){
                 Field nextField = queue.poll();
-
-                for (int j = 0; j < 3; j++) {
-                    for (int k = 0; k < 3; k++) {
-                        boolean[][] click = click(nextField, j, k);
-                        if(isResult(click,white)){
+                for(int j = 0; j < clickArray.length; j++){
+                    click(nextField.field, j);
+                    index = getIndex(nextField.field);
+                    if(!visited[index]){
+                        visited[index] = true;
+                        if(index == 0){
                             System.out.println(nextField.cnt + 1);
-                            break loop;
+                            break;
                         }
-
-                        queue.add(new Field(nextField.cnt+1,click));
+                        queue.add(new Field(nextField.cnt + 1, nextField.field));
                     }
+                    click(nextField.field, j);
                 }
             }
 
         }
     }
 
-    private static boolean[][] click(Field nextField, int x, int y) {
-        boolean[][] result = new boolean[3][3];
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                result[i][j] = nextField.field[i][j];
+    private static int getIndex(int[][] field) {
+        String str = "";
+        for (int i = 0; i < field.length; i++) {
+            for (int j = 0; j < field[0].length; j++) {
+                str += field[i][j];
             }
         }
 
-        result[x][y] = !nextField.field[x][y];
-        for(int i = 0 ; i < 4; i++){
-            int nextX = x + xArray[i];
-            int nextY = y + yArray[i];
-            if(isField(nextX,nextY)){
-                result[nextX][nextY] = !nextField.field[nextX][nextY];
-            }
-        }
-
-        return result;
+        return Integer.parseInt(str,2);
     }
 
-    private static boolean isResult(boolean[][] whiteField, boolean[][] field) {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if(!(field[i][j] == whiteField[i][j])){
-                    return false;
-                }
-            }
+    private static void click(int[][] field, int index) {
+        int[][] points = clickArray[index];
+        for (int[] point : points) {
+            int x = point[0];
+            int y = point[1];
+            field[x][y] = field[x][y] == 0 ? 1 : 0;
         }
-        return true;
-    }
-
-    private static boolean isField(int x, int y) {
-        return x >= 0 && y >= 0 && x < 3 && y < 3;
     }
 
     static class Field {
         int cnt;
-        boolean[][] field = new boolean[3][3];
+        int[][] field = new int[3][3];
 
-        public Field(int cnt, boolean[][] field) {
+        public Field(int cnt, int[][] field) {
             this.cnt = cnt;
             setField(this.field,field);
         }
 
-        private void setField(boolean[][] setField, boolean[][] field) {
+        private void setField(int[][] setField, int[][] field) {
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
                     setField[i][j] = field[i][j];
