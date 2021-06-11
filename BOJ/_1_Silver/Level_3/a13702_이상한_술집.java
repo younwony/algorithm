@@ -12,30 +12,27 @@ public class a13702_이상한_술집 {
         int N = Integer.parseInt(stringTokenizer.nextToken());
         int K = Integer.parseInt(stringTokenizer.nextToken());
         int[] person = new int[N];
-        int min = Integer.MAX_VALUE;
+        int max = 0;
         for (int i = 0; i < person.length; i++) {
             person[i] = Integer.parseInt(bufferedReader.readLine());
-            min = Math.min(person[i],min);
+            max = Math.max(person[i],max);
         }
-        int start = 0;
-        int end = min;
-        int mid = (start+end)/2;
+        long start = 0;
+        long end = max;
         while(end >= start){
-            mid = (start+end)/2;
+            long mid = (start+end)/2;
+            if(mid == 0) break;
             int cnt = getCnt(mid, person);
-            if(cnt < K){
-                end = mid - 1;
-            }
             if(cnt >= K){
                 start = mid + 1;
+            }else{
+                end = mid - 1;
             }
         }
-        System.out.println(mid);
-
-
+        System.out.println(end);
     }
 
-    private static int getCnt(int mid, int[] person) {
+    private static int getCnt(long mid, int[] person) {
         int sum = 0;
         for (int p : person) {
             sum += p/mid;
