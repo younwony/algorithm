@@ -10,9 +10,6 @@ public class a10164_격자상의_경로 {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer stringTokenizer = new StringTokenizer(bufferedReader.readLine());
 
-        int[] xArray = {0,1};
-        int[] yArray = {1,0};
-
         int N = Integer.parseInt(stringTokenizer.nextToken());
         int M = Integer.parseInt(stringTokenizer.nextToken());
         int K = Integer.parseInt(stringTokenizer.nextToken());
