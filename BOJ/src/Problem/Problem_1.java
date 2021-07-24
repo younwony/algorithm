@@ -37,22 +37,28 @@ public class Problem_1 {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("명품콘서트홀 예약 시스템 입니다.");
 
-        while(true){
+        boolean isContinue = true;
+        while(isContinue){
             int start = start(bufferedReader);
 
-            if(start == 1){
-                reservation(bufferedReader);
+            switch (start){
+                case 1:
+                    reservation(bufferedReader);
+                    break;
+                case 2:
+                    concert.inquiry();
+                    break;
+                case 3:
+                    if(concert.isSeat()){
+                        System.out.println("예약된 좌석이 없습니다. 다시 선택해 주세요");
+                        continue;
+                    }
+                    cancel(bufferedReader);
+                    break;
+                case 4:
+                    isContinue = false;
+                    break;
             }
-
-            if(start == 2){
-                concert.inquiry();
-            }
-
-            if(start == 3){
-                cancel(bufferedReader);
-            }
-
-            if (start == 4) break;
         }
     }
 
@@ -139,7 +145,6 @@ public class Problem_1 {
                 }
                 number--;
                 if(concert.isSeat(type, number)){
-                    System.out.println("이미 예약된 좌석입니다. 다른 번호를 선택해 주세요");
                     continue;
                 }
 
