@@ -6,42 +6,20 @@
  */
 package Sort;
 
-import java.util.Arrays;
-import java.util.Scanner;
+class A{
+	int a;
+}
 
-/**
- * @작성자 wony
- * @작성일 2019. 11. 4.
- * @사용처 Sort Main
- * 
- */
+class B extends A{
+	int b;
+}
 public class Main {
 
-	/**
-	 * @작성자 wony
-	 * @작성일 2019. 11. 4.
-	 * @사용처
-	 * @Todo
-	 * @param args
-	 * 
-	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
-		Scanner scanner = new Scanner(System.in);
-		
-		String[] inputData = scanner.nextLine().split(" ");
-		int[] Array = new int[inputData.length];
-		for(int i = 0; i < Array.length; i++)
-			Array[i] = Integer.parseInt(inputData[i]);
-		
-		Sort sort = new Sort(Array);
-		
-//		sort.QuickSort();
-		sort.HeapSort();
-		
-		sort.Print();
-		
+
+		A a = new A();
+		B b = new B();
+
 	}
 
 }
