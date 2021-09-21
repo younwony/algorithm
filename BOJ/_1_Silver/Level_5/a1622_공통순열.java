@@ -16,7 +16,7 @@ public class a1622_공통순열 {
 
         StringBuilder result = new StringBuilder();
 
-        while((a = bufferedReader.readLine()) != null && (b = bufferedReader.readLine()) != null){
+        while((a = bufferedReader.readLine()) != null && !"".equals(a) && (b = bufferedReader.readLine()) != null && !"".equals(b)){
             result
                     .append(solved(a.toCharArray(),b.toCharArray()))
                     .append("\n");
