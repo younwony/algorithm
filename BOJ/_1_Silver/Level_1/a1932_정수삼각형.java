@@ -2,6 +2,7 @@ package Silver.Level_1;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class a1932_정수삼각형 {
 
@@ -10,42 +11,38 @@ public class a1932_정수삼각형 {
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 		
 		int n = Integer.valueOf(bufferedReader.readLine());
-		
-		int[][] dp = new int[n][n];
-		int[][] cost = new int[n][n];
-		
-		String[] costIArray;
-		
+		int[][] triangle = new int[n][n];
+
+		StringTokenizer stringTokenizer;
 		for(int i = 0; i < n; i++){
-			costIArray = bufferedReader.readLine().split(" ");
-			for(int j = 0; j < costIArray.length; j++){
-				cost[i][j] = Integer.valueOf(costIArray[j]);
-			}
-		}
-		
-		int max = Integer.MIN_VALUE;
-		
-		dp[0][0] = cost[0][0];
-		
-		for(int i = 1 ; i < n; i++){
+			stringTokenizer = new StringTokenizer(bufferedReader.readLine());
+
 			for(int j = 0; j <= i; j++){
-				if(j > 0 && j < i){
-					dp[i][j] = Math.max(dp[i-1][j-1], dp[i-1][j]) + cost[i][j]; 
-				}else if(j == 0){
-					dp[i][j] = dp[i-1][j] + cost[i][j];
-				}else if(i == j){
-					dp[i][j] = dp[i-1][j-1] + cost[i][j];
-					
-				}
-				
-				if(dp[i][j] > max){
-					max = dp[i][j];
+				triangle[i][j] = Integer.parseInt(stringTokenizer.nextToken());
+			}
+		}
+
+
+		for(int i = 1; i < n; i++){
+			for(int j = 0; j <= i; j++){
+				if(j == 0){
+					triangle[i][j] += triangle[i-1][j];
+				}else if(j == i){
+					triangle[i][j] += triangle[i-1][j-1];
+				}else{
+					triangle[i][j] += Math.max(triangle[i-1][j-1], triangle[i-1][j]);
 				}
 			}
 		}
-		
+
+		int max = 0;
+
+		for(int i = 0; i < n; i++){
+			max = Math.max(max, triangle[n-1][i]);
+		}
+
 		System.out.println(max);
-		
+
 	}
 
 }
