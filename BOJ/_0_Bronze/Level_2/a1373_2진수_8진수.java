@@ -12,19 +12,18 @@ public class a1373_2진수_8진수 {
         StringBuilder result = new StringBuilder();
 
         int len = input.length();
-        int mod = 3 - len % 3;
-        for(int i = 0; i < mod; i++){
+
+        if(len % 3 == 2){
             input = "0" + input;
+        }else if(len % 3 == 1){
+            input = "00" + input;
         }
 
-        for(int i = 0; i < input.length(); i += 3){
-            int digit = 0;
-            for(int j = 0; j < 3; j++){
-                int num = input.charAt(i + j) - '0';
-                num *= Math.pow(2, 2 - j);
+        for(int i = 0 ; i < input.length(); i += 3){
+            int digit = (input.charAt(i) - '0') * 4
+                    + (input.charAt(i + 1) - '0') * 2
+                    + (input.charAt(i + 2) - '0') * 1;
 
-                digit += num;
-            }
             result.append(digit);
         }
 
