@@ -6,49 +6,79 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class a1244_스위치_켜고_끄기 {
+
+    public static boolean[] switches;
+
     public static void main(String[] args) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
         int switchCnt = Integer.parseInt(bufferedReader.readLine());
-        boolean[] switches = new boolean[switchCnt + 1];
+        switches = new boolean[switchCnt + 1];
         StringTokenizer stringTokenizer = new StringTokenizer(bufferedReader.readLine());
-        for (int i = 1; i < switches.length; i++) {
+        for (int i = 1; i <= switchCnt; i++) {
             switches[i] = "1".equals(stringTokenizer.nextToken());
         }
 
-        int studentCnt = Integer.parseInt(bufferedReader.readLine());
-        while(studentCnt-- > 0){
-            stringTokenizer = new StringTokenizer(bufferedReader.readLine());
-            int sex = Integer.parseInt(stringTokenizer.nextToken());
-            int switchIndex = Integer.parseInt(stringTokenizer.nextToken());
+        int personCnt = Integer.parseInt(bufferedReader.readLine());
+        Person[] people = new Person[personCnt];
+        for (int i = 0; i < personCnt; i++) {
+             stringTokenizer = new StringTokenizer(bufferedReader.readLine());
+             people[i] = new Person(
+                     Integer.parseInt(stringTokenizer.nextToken()),
+                     Integer.parseInt(stringTokenizer.nextToken()));
+        }
 
-            if(sex == 1){
-                for(int i = 1; i * switchIndex < switches.length; i++){
-                    switches[i * switchIndex] = !switches[i * switchIndex];
-                }
-            }else{
-                for(int i = 0; i <= switchCnt/2; i++){
-                    try {
-                        if(switches[switchIndex - i] == switches[switchIndex + i]){
-                            switches[switchIndex - i] = !switches[switchIndex - i];
-                            switches[switchIndex + i] = !switches[switchIndex + i];
-                        }else{
-                            break;
-                        }
-                    }catch (ArrayIndexOutOfBoundsException e){
-                        break;
-                    }
-                }
+        for (Person person : people) {
+            person.execSwitch();
+        }
+
+        StringBuilder result = new StringBuilder();
+        for (int i = 1; i < switches.length; i++) {
+            result.append(switches[i] ? "1 " : "0 ");
+            if(i % 20 == 0){
+                result.append("\n");
             }
         }
 
-        StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 1; i < switches.length; i++) {
-            stringBuilder
-                    .append(switches[i] ? 1 : 0)
-                    .append(" ");
+        System.out.println(result.toString());
+
+
+    }
+
+    private static class Person{
+        int sex;
+        int switchIndex;
+
+        public Person(int sex, int switchIndex) {
+            this.sex = sex;
+            this.switchIndex = switchIndex;
         }
 
-        System.out.println(stringBuilder.toString());
+        public void execSwitch(){
+            if(sex == 1){
+                execMale();
+            }else{
+                execFemale();
+            }
+        }
+
+        private void execMale() {
+            for(int index = this.switchIndex; index < switches.length; index += this.switchIndex){
+                switches[index] = !switches[index];
+            }
+        }
+
+        private void execFemale() {
+            switches[this.switchIndex] = !switches[this.switchIndex];
+            for(int index = 1; this.switchIndex - index > 0 && this.switchIndex + index < switches.length; index++){
+                if(switches[this.switchIndex - index] == switches[this.switchIndex + index]){
+                    switches[this.switchIndex - index] = !switches[this.switchIndex - index];
+                    switches[this.switchIndex + index] = !switches[this.switchIndex + index];
+                }else{
+                    break;
+                }
+            }
+        }
     }
 }
+
