@@ -16,9 +16,6 @@ import java.util.Queue;
 import java.util.Stack;
 import java.util.Vector;
 
-import com.sun.corba.se.impl.orbutil.graph.Node;
-import com.sun.java_cup.internal.runtime.virtual_parse_stack;
-
 public class a1260_DFS와BFS {
 
 	static boolean[][] isNode; // 인접행렬

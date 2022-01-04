@@ -9,8 +9,6 @@ package Bronze.Level_2;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
-import sun.util.locale.StringTokenIterator;
-
 /**
  * @작성자 wony
  * @작성일 2019. 12. 12.

@@ -9,7 +9,6 @@ package Silver.Level_5;
 
 import java.util.Scanner;
 
-import sun.misc.GC;
 
 /**
  * @작성자 wony
