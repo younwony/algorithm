@@ -26,6 +26,7 @@ public class _로또의_최고순위와_최저순위 {
         }
 
         int result = 7;
+
         int zero = 0;
 
         for (int number : lottos) {
