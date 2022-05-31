@@ -1,4 +1,4 @@
-package BOJ.src.DataStructure;
+package DataStructure;
 
 public class DF_KMP {
     public static void main(String[] args) {

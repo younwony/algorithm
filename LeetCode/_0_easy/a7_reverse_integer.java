@@ -1,4 +1,4 @@
-package easy;
+package _0_easy;
 
 public class a7_reverse_integer {
 

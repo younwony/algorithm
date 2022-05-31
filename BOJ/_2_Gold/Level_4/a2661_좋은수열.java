@@ -4,7 +4,7 @@
  * @사용처
  *
  */
-package Gold.Level_4;
+package _2_Gold.Level_4;
 
 import java.util.Scanner;
 

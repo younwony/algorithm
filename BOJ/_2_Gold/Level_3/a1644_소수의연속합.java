@@ -5,7 +5,7 @@
  * @Todo
  */
 
-package Gold.Level_3;
+package _2_Gold.Level_3;
 
 import java.util.Scanner;
 

@@ -1,4 +1,4 @@
-package Bronze.Level_5;
+package _0_Bronze.Level_5;
 
 public class a7287_등록 {
 

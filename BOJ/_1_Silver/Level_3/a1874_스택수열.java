@@ -5,7 +5,7 @@
  * @Todo
  */
 
-package Silver.Level_3;
+package _1_Silver.Level_3;
 
 import java.util.Arrays;
 import java.util.Comparator;

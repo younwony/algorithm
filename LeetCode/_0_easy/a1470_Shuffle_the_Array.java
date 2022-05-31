@@ -1,4 +1,4 @@
-package easy;
+package _0_easy;
 
 public class a1470_Shuffle_the_Array {
     public static void main(String[] args) {

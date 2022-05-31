@@ -4,7 +4,7 @@
  * @사용처
  *
  */
-package Bronze.Level_2;
+package _0_Bronze.Level_2;
 
 import java.util.Scanner;
 

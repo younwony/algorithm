@@ -5,7 +5,7 @@
  * @Todo
  */
 
-package Silver.Level_5;
+package _1_Silver.Level_5;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

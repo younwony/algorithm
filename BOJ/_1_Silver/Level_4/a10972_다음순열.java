@@ -5,7 +5,7 @@
  * @Todo
  */
 
-package Silver.Level_4;
+package _1_Silver.Level_4;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

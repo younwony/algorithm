@@ -5,7 +5,7 @@
  * @Todo
  */
 
-package Bronze.Level_4;
+package _0_Bronze.Level_4;
 
 import java.util.Arrays;
 import java.util.Scanner;

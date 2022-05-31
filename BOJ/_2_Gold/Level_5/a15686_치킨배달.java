@@ -4,7 +4,7 @@
  * @사용처
  *
  */
-package Gold.Level_5;
+package _2_Gold.Level_5;
 
 import java.util.ArrayList;
 import java.util.Scanner;

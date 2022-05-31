@@ -5,7 +5,7 @@
  * @Todo
  */
 
-package Bronze.Level_2;
+package _0_Bronze.Level_2;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

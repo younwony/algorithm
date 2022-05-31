@@ -4,7 +4,7 @@
  * @사용처
  * TODO
  */
-package Bronze.Level_3;
+package _0_Bronze.Level_3;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

@@ -5,7 +5,7 @@
  * @Todo
  */
 
-package Bronze.Level_2;
+package _0_Bronze.Level_2;
 
 /**
  * @작성자 wony

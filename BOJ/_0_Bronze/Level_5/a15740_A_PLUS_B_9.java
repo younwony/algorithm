@@ -4,7 +4,7 @@
  * @사용처
  *
  */
-package Bronze.Level_5;
+package _0_Bronze.Level_5;
 
 import java.math.BigInteger;
 import java.util.Scanner;

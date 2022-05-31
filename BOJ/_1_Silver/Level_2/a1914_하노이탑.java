@@ -5,7 +5,7 @@
  * @Todo
  */
 
-package Silver.Level_2;
+package _1_Silver.Level_2;
 
 import java.math.BigInteger;
 import java.util.Scanner;

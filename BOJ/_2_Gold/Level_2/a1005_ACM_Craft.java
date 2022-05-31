@@ -4,7 +4,7 @@
  * @사용처
  * TODO
  */
-package Gold.Level_2;
+package _2_Gold.Level_2;
 
 import java.util.ArrayList;
 import java.util.Scanner;

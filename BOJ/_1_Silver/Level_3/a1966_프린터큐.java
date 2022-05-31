@@ -4,7 +4,7 @@
  * @사용처
  *
  */
-package Silver.Level_3;
+package _1_Silver.Level_3;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;

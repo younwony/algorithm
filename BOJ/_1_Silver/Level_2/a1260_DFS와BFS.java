@@ -4,7 +4,7 @@
  * @사용처
  *
  */
-package Silver.Level_2;
+package _1_Silver.Level_2;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

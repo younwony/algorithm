@@ -1,4 +1,4 @@
-package easy;
+package _0_easy;
 
 public class a1672_Richest_Customer_Wealth {
 
