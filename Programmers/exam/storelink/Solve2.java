@@ -1,4 +1,4 @@
-package me.wony.storelink;
+package exam.storelink;
 
 public class Solve2 {
     public static void main(String[] args) {

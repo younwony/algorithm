@@ -1,4 +1,4 @@
-package me.wony.tranbe;
+package exam.tranbe;
 
 public class Solve1 {
     public static void main(String[] args) {

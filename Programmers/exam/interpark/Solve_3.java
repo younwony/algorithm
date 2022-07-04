@@ -1,4 +1,4 @@
-package me.wony.interpark;
+package exam.interpark;
 
 import java.util.Arrays;
 

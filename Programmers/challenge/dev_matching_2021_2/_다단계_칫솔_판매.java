@@ -1,4 +1,4 @@
-package dev_matching_2021_2;
+package challenge.dev_matching_2021_2;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package me.wony.tranbe;
+package exam.tranbe;
 
 import java.util.Arrays;
 
