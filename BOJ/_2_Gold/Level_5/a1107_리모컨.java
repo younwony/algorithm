@@ -1,4 +1,4 @@
-package BOJ.src._2_Gold.Level_5;
+package _2_Gold.Level_5;
 
 import java.io.BufferedReader;
 import java.io.IOException;
