@@ -145,11 +145,11 @@
         <nulls-first value="true" />
         <max-sorting-columns value="4" />
       </sorting>
-      <audit-columns>
-        <column-names value="" />
+      <tracking-columns>
+        <columnNames value="" />
         <visible value="true" />
         <editable value="false" />
-      </audit-columns>
+      </tracking-columns>
     </dataset-grid-settings>
     <dataset-editor-settings>
       <text-editor-popup>
