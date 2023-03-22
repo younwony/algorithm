@@ -2,6 +2,7 @@ package Lesson_1;
 
 public class BinaryGap {
     public static void main(String[] args) {
+        System.out.println(solution(1041));
         System.out.println(solution(32));
     }
 
@@ -9,26 +10,23 @@ public class BinaryGap {
         int result = 0;
 
         String binaryString = Integer.toBinaryString(N);
+        char[] chars = binaryString.toCharArray();
 
-        for(int i = 0; i < binaryString.length(); i++){
-            char charAt = binaryString.charAt(i);
-            if(charAt == '1'){
-                int len = 0;
-                for(int j = i+1; j < binaryString.length(); j++){
-                    char at = binaryString.charAt(j);
-                    if(at == '0'){
-                        len++;
-                        if(j == binaryString.length() - 1){
-                            len = 0;
-                        }
+        for (int i = 0; i < chars.length; i++) {
+            if(chars[i] == '1'){
+                i++;
+                int cnt = 0;
+                for (; i < chars.length; i++) {
+                    if(chars[i] == '0'){
+                        cnt++;
                     }
 
-                    if(at == '1'){
-                        i = j - 1;
+                    if(chars[i] == '1'){
+                        result = Math.max(result, cnt);
+                        i--;
                         break;
                     }
                 }
-                result = Math.max(result, len);
             }
         }
 
