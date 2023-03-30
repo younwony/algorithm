@@ -1,4 +1,4 @@
-package Lesson_1;
+package easy;
 
 public class BinaryGap {
     public static void main(String[] args) {

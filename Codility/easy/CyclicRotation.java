@@ -1,4 +1,4 @@
-package Lesson_2;
+package easy;
 
 public class CyclicRotation {
     public static void main(String[] args) {
