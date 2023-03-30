@@ -5,33 +5,21 @@ import java.util.Set;
 
 public class OddOccurrencesInArray {
     public static void main(String[] args) {
-        System.out.println(solution(new String[]{"aya", "yee", "u", "maa", "wyeoo"}));
+        int[] array = new int[]{9, 3, 9, 3, 9, 7, 9};
+        System.out.println(solution(array));
     }
 
-    private static String[] words = {"aya", "ye", "woo", "ma"};
-    private static Set<String> wordItem = new HashSet<>();
-    public static int solution(String[] babbling) {
-        int answer = 0;
-        setWordSet("", 0);
-
-        for (String babble : babbling) {
-            if(wordItem.contains(babble)){
-                answer++;
+    public static int solution(int[] A) {
+        // Implement your solution here
+        Set<Integer> set = new HashSet<>();
+        for (int i : A) {
+            if (set.contains(i)) {
+                set.remove(i);
+            } else {
+                set.add(i);
             }
         }
 
-        return answer;
-    }
-
-    private static void setWordSet(String wordSet, int index) {
-        if(index == words.length){
-            return;
-        }
-
-        for (String word : words) {
-            String nextWordSet = wordSet + word;
-            wordItem.add(nextWordSet);
-            setWordSet(nextWordSet, index + 1);
-        }
+        return set.iterator().next();
     }
 }
