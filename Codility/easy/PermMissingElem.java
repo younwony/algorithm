@@ -8,12 +8,17 @@ public class PermMissingElem {
     }
 
     public static int solution(int[] A) {
-        int sum = 0;
-        for(int i = 0; i < A.length; i++) {
-            sum += A[i];
+        boolean[] check = new boolean[A.length + 1];
+        for (int i = 0; i < A.length; i++) {
+            check[A[i] - 1] = true;
         }
-        int n = A.length + 1;
-        int total = (n * (n + 1)) / 2;
-        return total - sum;
+
+        for (int i = 0; i < check.length; i++) {
+            if (!check[i]) {
+                return i + 1;
+            }
+        }
+
+        return 0;
     }
 }
